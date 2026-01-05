@@ -17,10 +17,10 @@ const Index = () => {
       <AboutSection />
       <DetailsSection />
       <TracksSection />
-      <ScheduleSection />
+      {/* <ScheduleSection /> */}
       <CountdownTimer />
-      <SponsorsSection />
-      <FAQSection />
+      {/* <SponsorsSection /> */}
+      {/* <FAQSection /> */}
       <Footer />
     </main>
   );
