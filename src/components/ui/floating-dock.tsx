@@ -96,10 +96,22 @@ const FloatingDockDesktop = ({
     className?: string;
 }) => {
     let mouseX = useMotionValue(Infinity);
+
+    // Disable hover effects on mobile/touch devices
+    const handleMouseMove = (e: React.MouseEvent) => {
+        if (window.matchMedia("(pointer: fine)").matches) {
+            mouseX.set(e.pageX);
+        }
+    };
+
+    const handleMouseLeave = () => {
+        mouseX.set(Infinity);
+    };
+
     return (
         <motion.div
-            onMouseMove={(e) => mouseX.set(e.pageX)}
-            onMouseLeave={() => mouseX.set(Infinity)}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
             className={cn(
                 "mx-auto flex h-16 items-end gap-4 rounded-2xl bg-white/10 backdrop-blur-md border border-gray-700 px-4 pb-3",
                 className,
@@ -164,14 +176,20 @@ function IconContainer({
     });
 
     const [hovered, setHovered] = useState(false);
+    const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+    // Check if device supports touch
+    useRef(() => {
+        setIsTouchDevice(!window.matchMedia("(pointer: fine)").matches);
+    });
 
     return (
         <a href={href}>
             <motion.div
                 ref={ref}
                 style={{ width, height }}
-                onMouseEnter={() => setHovered(true)}
-                onMouseLeave={() => setHovered(false)}
+                onMouseEnter={() => !isTouchDevice && setHovered(true)}
+                onMouseLeave={() => !isTouchDevice && setHovered(false)}
                 className="relative flex aspect-square items-center justify-center rounded-full bg-transparent"
             >
                 <AnimatePresence>
