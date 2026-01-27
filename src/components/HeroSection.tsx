@@ -85,17 +85,22 @@ const HeroSection = () => {
         </p>
 
         {/* Date and Location */}
-        <div className="grid grid-cols-2 gap-6 max-w-3xl mx-auto mb-12 animate-fade-in" style={{ animationDelay: "0.8s" }}>
+        <div 
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-12 animate-fade-in" 
+          style={{ animationDelay: "0.8s" }}
+        >
           {/* Date */}
-          <div className="flex items-center justify-center gap-2 font-mono text-lg text-primary flex-wrap">
+          <div className="flex items-center justify-center md:justify-end gap-2 font-mono text-lg text-primary flex-wrap">
             <Calendar size={20} className="flex-shrink-0" />
             <p>MARCH 6-8, 2026</p>
           </div>
 
           {/* Location */}
-          <div className="flex items-center justify-start gap-4 font-mono text-lg text-primary">
+          <div className="flex items-center justify-center md:justify-start gap-4 font-mono text-lg text-primary">
             <MapPin size={20} className="flex-shrink-0" />
-            <p className="text-left">Rajagiri School of Engineering & Techonology, Kochi</p>
+            <p className="text-center md:text-left">
+              Rajagiri School of Engineering & Techonology, Kochi
+            </p>
           </div>
         </div>
 
