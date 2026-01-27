@@ -12,7 +12,7 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <div style={{ position: "fixed", top: 0, left: 0, width: "100%", height: "100%", zIndex: -1, pointerEvents: "none", overflow: "hidden", opacity: 0.2 }}>
+      <div style={{ position: "fixed", top: 0, left: 0, width: "100%", height: "100%", zIndex: -1, pointerEvents: "none", overflow: "hidden", opacity: 0.05 }}>
         <Dithering
           width={typeof window !== 'undefined' ? window.innerWidth : 1280}
           height={typeof window !== 'undefined' ? window.innerHeight : 720}
