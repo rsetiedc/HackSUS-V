@@ -6,6 +6,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Dithering } from "@paper-design/shaders-react";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import AstraX from "./pages/AstraX";
+import CarbonX from "./pages/CarbonX";
+import SyncConX from "./pages/SyncConX";
+import HeliX from "./pages/HeliX";
+import ScreenX from "./pages/ScreenX";
+import UnmuteX from "./pages/UnmuteX";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +39,12 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/astraX" element={<AstraX />} />
+            <Route path="/carbonx" element={<CarbonX />} />
+            <Route path="/syncconx" element={<SyncConX />} />
+            <Route path="/helix" element={<HeliX />} />
+            <Route path="/screenx" element={<ScreenX />} />
+            <Route path="/unmutex" element={<UnmuteX />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
