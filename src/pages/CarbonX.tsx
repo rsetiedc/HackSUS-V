@@ -30,7 +30,6 @@ const carbonX = {
   tagline: "INNOVATION BEYOND BOUNDARIES",
   prizeAmount: "₹1,00,000",
   prizeCaption: "PRIZE POOL",
-  prizeHelper: "Prizes worth Rs. 1 Lakh per Track",
   description:
     "A 42 hour national hackathon where developers, innovators, and students from across India team up to build practical, high-impact solutions. The event brings together industry experts, mentors, and tech enthusiasts in a round-the-clock marathon of problem-solving, prototyping, and pure chaos-powered innovation.",
   date: "6–8 MARCH, 2026",
@@ -227,7 +226,7 @@ function SectionHeading({
 }: {
   eyebrow: string;
   title: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
 }) {
   return (
     <motion.div
@@ -235,19 +234,23 @@ function SectionHeading({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px 0px -20% 0px" }}
       transition={{ duration: 0.55, ease: "easeOut" }}
-      className="text-center mb-10 md:mb-12"
+      className="mb-10 md:mb-14"
     >
-      <span className="font-mono text-sm text-primary tracking-[0.3em]">
-        // {eyebrow}
-      </span>
-      <h2 className="font-display text-5xl md:text-6xl text-foreground mt-4">
-        {title}
-      </h2>
-      {description ? (
-        <p className="mt-3 text-muted-foreground max-w-2xl mx-auto">
-          {description}
-        </p>
-      ) : null}
+      <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <div className="max-w-3xl">
+          <span className="font-mono text-xs text-primary tracking-[0.34em] uppercase">
+            // {eyebrow}
+          </span>
+          <h2 className="mt-4 font-display text-4xl md:text-5xl text-foreground tracking-wide">
+            {title}
+          </h2>
+        </div>
+        {description ? (
+          <p className="text-sm md:text-base text-muted-foreground leading-relaxed md:max-w-md">
+            {description}
+          </p>
+        ) : null}
+      </div>
     </motion.div>
   );
 }
@@ -262,7 +265,7 @@ function GlassCard({
   return (
     <Card
       className={cn(
-        "relative overflow-hidden rounded-none card-beveled border-border bg-card shadow-[0_18px_60px_rgba(0,0,0,0.45)]",
+        "relative overflow-hidden rounded-none card-beveled border-border/70 bg-card/80 backdrop-blur-sm shadow-[0_14px_50px_rgba(0,0,0,0.38)]",
         className,
       )}
     >
@@ -323,71 +326,67 @@ function CarbonXNavbar({
   }, [syncIndicator]);
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 w-full">
-      <div className="bg-background/80 backdrop-blur-xl border-b border-border">
-        <div className="container max-w-6xl px-6">
-          <div className="h-16 flex items-center justify-between gap-6">
+    <header className="landing-header w-full">
+      <div className="landing-header-inner">
+        <a
+          href="#top"
+          onClick={(e) => {
+            e.preventDefault();
+            onNavigate("top");
+          }}
+          className="font-mokoto tracking-[0.32em] text-sm text-foreground/90 hover:text-foreground transition-colors"
+          aria-label="Go to top"
+        >
+          CARBONX
+        </a>
+
+        <div
+          ref={linksWrapRef}
+          className="relative hidden md:flex items-center gap-6"
+        >
+          <motion.div
+            aria-hidden="true"
+            className="absolute -bottom-2 h-0.5 bg-primary shadow-[0_0_18px_hsl(var(--primary)/0.35)] will-change-[left,width]"
+            animate={{
+              left: indicator.left,
+              width: indicator.width,
+              opacity: indicator.opacity,
+            }}
+            transition={{ type: "spring", stiffness: 520, damping: 42, mass: 0.25 }}
+          />
+          {items.map((it) => (
             <a
-              href="#top"
+              key={it.id}
+              href={`#${it.id}`}
+              ref={(el) => {
+                linkRefs.current[it.id] = el;
+              }}
               onClick={(e) => {
                 e.preventDefault();
-                onNavigate("top");
+                onNavigate(it.id);
               }}
-              className="font-mono tracking-[0.32em] text-sm text-foreground/90 hover:text-foreground transition-colors"
-              aria-label="Go to top"
+              className={cn(
+                "relative text-xs tracking-[0.28em] uppercase transition-colors",
+                activeId === it.id
+                  ? "text-foreground"
+                  : "text-muted-foreground hover:text-foreground",
+              )}
             >
-              CARBONX
+              {it.label}
             </a>
+          ))}
+        </div>
 
-            <div
-              ref={linksWrapRef}
-              className="relative hidden md:flex items-center gap-6"
-            >
-              <motion.div
-                aria-hidden="true"
-                className="absolute -bottom-2 h-0.5 bg-primary shadow-[0_0_18px_hsl(var(--primary)/0.35)] will-change-[left,width]"
-                animate={{
-                  left: indicator.left,
-                  width: indicator.width,
-                  opacity: indicator.opacity,
-                }}
-                transition={{ type: "spring", stiffness: 520, damping: 42, mass: 0.25 }}
-              />
-              {items.map((it) => (
-                <a
-                  key={it.id}
-                  href={`#${it.id}`}
-                  ref={(el) => {
-                    linkRefs.current[it.id] = el;
-                  }}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    onNavigate(it.id);
-                  }}
-                  className={cn(
-                    "relative text-xs tracking-[0.28em] uppercase transition-colors",
-                    activeId === it.id
-                      ? "text-foreground"
-                      : "text-muted-foreground hover:text-foreground",
-                  )}
-                >
-                  {it.label}
-                </a>
-              ))}
-            </div>
-
-            <div className="flex items-center gap-3">
-              <Button
-                onClick={() => onNavigate("register")}
-                className="rounded-xl px-6 h-9 font-display tracking-wider text-sm shadow-[0_10px_30px_hsl(var(--primary)/0.18)]"
-              >
-                REGISTER NOW <ArrowRight className="ml-1" />
-              </Button>
-            </div>
-          </div>
+        <div className="flex items-center gap-3">
+          <Button
+            onClick={() => onNavigate("register")}
+            className="rounded-xl px-6 h-9 font-display tracking-wider text-sm shadow-[0_10px_30px_hsl(var(--primary)/0.18)]"
+          >
+            REGISTER NOW <ArrowRight className="ml-1" />
+          </Button>
         </div>
       </div>
-    </div>
+    </header>
   );
 }
 
@@ -429,7 +428,7 @@ const CarbonX = () => {
   }, [location.hash, scrollToSection]);
 
   return (
-    <main id="top" className="relative text-foreground overflow-x-hidden">
+    <main id="top" className="landing-surface relative text-foreground overflow-x-hidden">
       {/* Background: grid + stars/particles */}
       <div className="landing-bg pointer-events-none z-0 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/10 to-black/55" />
@@ -470,7 +469,7 @@ const CarbonX = () => {
         />
       </div>
 
-      <div className="relative z-10">
+      <div className="landing-content">
         <CarbonXNavbar
           activeId={activeId}
           items={[
@@ -484,25 +483,25 @@ const CarbonX = () => {
         />
 
         {/* Hero */}
-        <section className="relative pt-24 md:pt-28 pb-12 md:pb-16">
-          <div className="container max-w-6xl px-6">
+        <section className="relative pt-20 md:pt-24 pb-10 md:pb-14">
+          <div className="container max-w-[1100px] px-6">
             <motion.div
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, ease: "easeOut" }}
-              className="text-center py-10 md:py-14"
+              className="landing-hero"
             >
-              <p className="font-mono text-[11px] tracking-[0.46em] text-muted-foreground">
+              <p className="landing-kicker font-mono text-muted-foreground">
                 {carbonX.tagline}
               </p>
 
-              <h1 className="mt-7 font-display text-5xl sm:text-6xl md:text-7xl lg:text-[5.25rem] tracking-[0.18em] leading-none">
-                <span className="text-foreground">{carbonX.eventName}</span>{" "}
-                <span className="text-muted-foreground/55">{carbonX.year}</span>
+              <h1 className="landing-title">
+                <span className="landing-brand">{carbonX.eventName}</span>{" "}
+                <span className="landing-year">{carbonX.year}</span>
               </h1>
 
-              <div className="mt-7">
-                <div className="font-mono text-4xl sm:text-5xl md:text-6xl tracking-[0.18em] text-foreground">
+              <div className="landing-prize">
+                <div className="font-mono text-2xl sm:text-3xl md:text-4xl tracking-[0.18em] text-foreground leading-none">
                   <DecryptedText
                     text={carbonX.prizeAmount}
                     animateOn="view"
@@ -517,16 +516,14 @@ const CarbonX = () => {
                 <div className="mt-2 font-mono text-[10px] tracking-[0.56em] text-muted-foreground">
                   {carbonX.prizeCaption}
                 </div>
-                <div className="mt-3 font-mono text-xs text-muted-foreground">
-                  {carbonX.prizeHelper}
-                </div>
               </div>
 
-              <p className="mt-7 max-w-2xl mx-auto text-muted-foreground leading-relaxed">
-                A 42 hour national hackathon where developers, innovators, and students from across India team up to build practical, high-impact solutions.
+              <p className="landing-subtitle mx-auto text-muted-foreground">
+                A 42 hour national hackathon where developers, innovators, and students from across
+                India team up to build practical, high-impact solutions.
               </p>
 
-              <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
+              <div className="landing-actions flex-col sm:flex-row items-center">
                 <Button
                   onClick={() => scrollToSection("register")}
                   className="rounded-xl px-7 h-11 font-display tracking-wider shadow-[0_14px_42px_hsl(var(--primary)/0.18)]"
@@ -547,15 +544,15 @@ const CarbonX = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px 0px -20% 0px" }}
                 transition={{ duration: 0.55, ease: "easeOut" }}
-                className="mt-14"
+                className="w-full"
               >
-                <div className="mx-auto max-w-4xl rounded-none card-beveled border border-border bg-card px-5 py-5">
+                <div className="landing-stats mx-auto rounded-none card-beveled border border-border/70 bg-card/60 px-5 pb-5 md:px-6">
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-0">
                     {carbonX.stats.map((s, idx) => (
                       <div
                         key={s.label}
                         className={cn(
-                          "px-4 text-center",
+                          "px-4",
                           idx !== 0 && "sm:border-l sm:border-border/60",
                         )}
                       >
@@ -575,83 +572,83 @@ const CarbonX = () => {
         </section>
 
         {/* Event strip */}
-        <section id="register" className="relative py-10 md:py-12 scroll-mt-24">
-        <div className="container max-w-6xl px-6">
-          <GlassCard className="p-6 md:p-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
-              <div className="flex flex-col justify-between">
-                <div>
-                  <div className="inline-flex items-center gap-2">
-                    <Badge
-                      className="rounded-full bg-primary/15 text-primary border border-primary/25"
-                      variant="outline"
-                    >
-                      JOIN US
-                    </Badge>
+        <section id="register" className="relative py-14 md:py-20 scroll-mt-24">
+          <div className="container max-w-[1100px] px-6">
+            <GlassCard className="p-7 md:p-10">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                <div className="lg:col-span-7 flex flex-col justify-between">
+                  <div>
+                    <div className="inline-flex items-center gap-2">
+                      <Badge
+                        className="rounded-full bg-primary/15 text-primary border border-primary/25"
+                        variant="outline"
+                      >
+                        JOIN US
+                      </Badge>
+                    </div>
+
+                    <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2">
+                      <div className="flex items-center gap-2 text-foreground">
+                        <CalendarDays className="h-4 w-4 text-primary" />
+                        <span className="font-display text-2xl tracking-wide">
+                          {carbonX.date}
+                        </span>
+                      </div>
+                      <div className="h-6 w-px bg-border/70 hidden sm:block" />
+                      <div className="flex items-center gap-2 text-foreground">
+                        <MapPin className="h-4 w-4 text-primary" />
+                        <span className="font-display text-2xl tracking-wide">
+                          {carbonX.city}
+                        </span>
+                      </div>
+                    </div>
+
+                    <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+                      {carbonX.organizer}
+                    </p>
                   </div>
 
-                  <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
-                    <div className="flex items-center gap-2 text-foreground">
-                      <CalendarDays className="h-4 w-4 text-primary" />
-                      <span className="font-display text-2xl tracking-wide">
-                        {carbonX.date}
-                      </span>
-                    </div>
-                    <div className="h-6 w-px bg-border/70 hidden sm:block" />
-                    <div className="flex items-center gap-2 text-foreground">
-                      <MapPin className="h-4 w-4 text-primary" />
-                      <span className="font-display text-2xl tracking-wide">
-                        {carbonX.city}
-                      </span>
-                    </div>
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {carbonX.chips.map((chip) => (
+                      <Badge
+                        key={chip}
+                        variant="outline"
+                        className="rounded-full border-border/60 bg-background/10 text-muted-foreground"
+                      >
+                        {chip}
+                      </Badge>
+                    ))}
                   </div>
-
-                  <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
-                    {carbonX.organizer}
-                  </p>
                 </div>
 
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {carbonX.chips.map((chip) => (
-                    <Badge
-                      key={chip}
-                      variant="outline"
-                      className="rounded-full border-border/60 bg-background/10 text-muted-foreground"
-                    >
-                      {chip}
-                    </Badge>
-                  ))}
+                <div className="lg:col-span-5 relative overflow-hidden rounded-none card-beveled border border-border/70 bg-card/60 p-7 md:p-8">
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-80" />
+                  <div className="relative">
+                    <div className="font-mono text-[11px] tracking-[0.38em] text-muted-foreground">
+                      REGISTER NOW
+                    </div>
+                    <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                      Registration opens soon. This is a placeholder button; link will be added once
+                      registrations go live.
+                    </p>
+                    <div className="mt-6">
+                      <Button
+                        className="rounded-xl px-6 h-10 font-display tracking-wider shadow-[0_12px_36px_hsl(var(--primary)/0.16)]"
+                        type="button"
+                      >
+                        REGISTER NOW <ArrowRight className="ml-1" />
+                      </Button>
+                    </div>
+                  </div>
                 </div>
               </div>
-
-              <div className="relative overflow-hidden rounded-none card-beveled border border-border bg-card p-6">
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-80" />
-                <div className="relative">
-                  <div className="font-mono text-[11px] tracking-[0.38em] text-muted-foreground">
-                    REGISTER NOW
-                  </div>
-                  <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-                    Registration opens soon. This is a placeholder button; link
-                    will be added once registrations go live.
-                  </p>
-                  <div className="mt-6">
-                    <Button
-                      className="rounded-xl px-6 h-10 font-display tracking-wider shadow-[0_12px_36px_hsl(var(--primary)/0.16)]"
-                      type="button"
-                    >
-                      REGISTER NOW <ArrowRight className="ml-1" />
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </GlassCard>
-        </div>
+            </GlassCard>
+          </div>
         </section>
 
         {/* About */}
-        <section id="about" className="relative py-16 md:py-20 scroll-mt-24">
-        <div className="container max-w-6xl px-6">
+        <section id="about" className="relative py-20 md:py-28 scroll-mt-24">
+          <div className="container max-w-[1100px] px-6">
           <SectionHeading
             eyebrow="ABOUT"
             title={
@@ -662,7 +659,7 @@ const CarbonX = () => {
             description="A national hackathon designed to move fast, build practical demos, and ship impact."
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-8">
             {carbonX.aboutCards.map((c) => (
               <motion.div
                 key={c.title}
@@ -671,8 +668,8 @@ const CarbonX = () => {
                 viewport={{ once: true, margin: "-80px 0px -20% 0px" }}
                 transition={{ duration: 0.55, ease: "easeOut" }}
               >
-                <GlassCard className="p-6 h-full">
-                  <div className="font-display text-2xl tracking-wide">
+                <GlassCard className="p-7 md:p-8 h-full">
+                  <div className="font-display text-xl md:text-2xl tracking-wide">
                     {c.title}
                   </div>
                   <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
@@ -682,12 +679,12 @@ const CarbonX = () => {
               </motion.div>
             ))}
           </div>
-        </div>
+          </div>
         </section>
 
         {/* Experience */}
-        <section id="experience" className="relative py-16 md:py-20 scroll-mt-24">
-        <div className="container max-w-6xl px-6">
+        <section id="experience" className="relative py-20 md:py-28 scroll-mt-24">
+          <div className="container max-w-[1100px] px-6">
           <SectionHeading
             eyebrow="EXPERIENCE"
             title={
@@ -698,7 +695,7 @@ const CarbonX = () => {
             description="No rigid agenda — just a high-signal build experience with expert support."
           />
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 md:gap-8">
             {carbonX.experience.map((x) => (
               <motion.div
                 key={x.title}
@@ -707,9 +704,9 @@ const CarbonX = () => {
                 viewport={{ once: true, margin: "-80px 0px -20% 0px" }}
                 transition={{ duration: 0.55, ease: "easeOut" }}
               >
-                <GlassCard className="p-6 h-full">
+                <GlassCard className="p-7 md:p-8 h-full">
                   <div className="flex items-center justify-between gap-3">
-                    <div className="font-display text-2xl tracking-wide">
+                    <div className="font-display text-xl md:text-2xl tracking-wide">
                       {x.title}
                     </div>
                     <div className="h-10 w-10 rounded-full border border-border/60 bg-background/15 flex items-center justify-center">
@@ -738,12 +735,12 @@ const CarbonX = () => {
               </motion.div>
             ))}
           </div>
-        </div>
+          </div>
         </section>
 
         {/* Tracks */}
-        <section id="tracks" className="relative py-16 md:py-20 scroll-mt-24">
-        <div className="container max-w-6xl px-6">
+        <section id="tracks" className="relative py-20 md:py-28 scroll-mt-24">
+          <div className="container max-w-[1100px] px-6">
           <SectionHeading
             eyebrow="TRACKS"
             title={
@@ -754,7 +751,7 @@ const CarbonX = () => {
             description="Each track has its own focus — keep it practical, high-impact, and demo-ready."
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-8">
             {carbonX.tracks.map((t) => (
               <motion.div
                 key={t.title}
@@ -763,10 +760,10 @@ const CarbonX = () => {
                 viewport={{ once: true, margin: "-80px 0px -20% 0px" }}
                 transition={{ duration: 0.55, ease: "easeOut" }}
               >
-                <GlassCard className="p-6 h-full">
+                <GlassCard className="p-7 md:p-8 h-full">
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <div className="font-display text-2xl tracking-wide">
+                      <div className="font-display text-xl md:text-2xl tracking-wide">
                         {t.title}
                       </div>
                       <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
@@ -785,19 +782,16 @@ const CarbonX = () => {
                   </div>
 
                   <div className="mt-6 h-px w-full bg-border/70" />
-                  <p className="mt-4 text-xs text-muted-foreground tracking-[0.26em] font-mono uppercase">
-                    Prizes worth Rs. 1 Lakh per Track
-                  </p>
                 </GlassCard>
               </motion.div>
             ))}
           </div>
-        </div>
+          </div>
         </section>
 
         {/* Why it matters */}
-        <section className="relative py-16 md:py-20">
-        <div className="container max-w-6xl px-6">
+        <section className="relative py-20 md:py-28">
+          <div className="container max-w-[1100px] px-6">
           <SectionHeading
             eyebrow="WHY IT MATTERS"
             title={
@@ -808,7 +802,7 @@ const CarbonX = () => {
             description="A hackathon designed to connect people, products, and opportunities."
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
             {carbonX.whyItMatters.map((b) => (
               <motion.div
                 key={b}
@@ -817,7 +811,7 @@ const CarbonX = () => {
                 viewport={{ once: true, margin: "-80px 0px -20% 0px" }}
                 transition={{ duration: 0.55, ease: "easeOut" }}
               >
-                <GlassCard className="p-6">
+                <GlassCard className="p-7 md:p-8">
                   <div className="flex items-start gap-3">
                     <div className="h-10 w-10 border border-primary/30 bg-primary/10 flex items-center justify-center">
                       <Check className="h-5 w-5 text-primary" />
@@ -830,12 +824,12 @@ const CarbonX = () => {
               </motion.div>
             ))}
           </div>
-        </div>
+          </div>
         </section>
 
         {/* Partnerships */}
-        <section className="relative py-16 md:py-20">
-        <div className="container max-w-6xl px-6">
+        <section className="relative py-20 md:py-28">
+          <div className="container max-w-[1100px] px-6">
           <SectionHeading
             eyebrow="PARTNERSHIPS"
             title={
@@ -843,10 +837,15 @@ const CarbonX = () => {
                 Support the <span className="text-primary">build.</span>
               </>
             }
-            description="Partner with CarbonX across tracks, prizes, logistics, and talent engagement."
+            description={
+              <>
+                Partner with <span className="font-mokoto">CARBONX</span> across tracks, prizes,
+                logistics, and talent engagement.
+              </>
+            }
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8">
             {carbonX.partnershipOptions.map((p) => (
               <motion.div
                 key={p.title}
@@ -855,7 +854,7 @@ const CarbonX = () => {
                 viewport={{ once: true, margin: "-80px 0px -20% 0px" }}
                 transition={{ duration: 0.55, ease: "easeOut" }}
               >
-                <GlassCard className="p-6 h-full">
+                <GlassCard className="p-7 md:p-8 h-full">
                   <div className="font-display text-xl tracking-wide">
                     {p.title}
                   </div>
@@ -868,7 +867,7 @@ const CarbonX = () => {
           </div>
 
           <div className="mt-10">
-            <div className="mx-auto max-w-3xl rounded-none card-beveled border border-border bg-card px-6 py-5 text-center">
+            <div className="mx-auto max-w-3xl rounded-none card-beveled border border-border/70 bg-card/60 px-6 py-6 text-center">
               <div className="font-mono text-xs tracking-[0.38em] text-muted-foreground">
                 PRIZES
               </div>
@@ -877,19 +876,19 @@ const CarbonX = () => {
               </div>
             </div>
           </div>
-        </div>
+          </div>
         </section>
 
         {/* Collaboration callout */}
-        <section className="relative py-10 md:py-12">
-        <div className="container max-w-6xl px-6">
+        <section className="relative py-14 md:py-20">
+          <div className="container max-w-[1100px] px-6">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px 0px -20% 0px" }}
             transition={{ duration: 0.55, ease: "easeOut" }}
           >
-            <GlassCard className="p-6 md:p-8">
+            <GlassCard className="p-7 md:p-10">
               <div className="flex flex-col lg:flex-row lg:items-center gap-6 justify-between">
                 <div>
                   <div className="font-mono text-xs tracking-[0.38em] text-muted-foreground">
@@ -907,12 +906,12 @@ const CarbonX = () => {
               </div>
             </GlassCard>
           </motion.div>
-        </div>
+          </div>
         </section>
 
         {/* FAQ */}
-        <section id="faq" className="relative py-16 md:py-20 scroll-mt-24">
-        <div className="container max-w-4xl px-6">
+        <section id="faq" className="relative py-20 md:py-28 scroll-mt-24">
+          <div className="container max-w-4xl px-6">
           <SectionHeading
             eyebrow="FAQ"
             title={
@@ -941,12 +940,12 @@ const CarbonX = () => {
               ))}
             </Accordion>
           </GlassCard>
-        </div>
+          </div>
         </section>
 
         {/* Contact */}
-        <section id="contact" className="relative py-16 md:py-20 scroll-mt-24">
-        <div className="container max-w-6xl px-6">
+        <section id="contact" className="relative py-20 md:py-28 scroll-mt-24">
+          <div className="container max-w-[1100px] px-6">
           <SectionHeading
             eyebrow="CONTACT INFORMATION"
             title={
@@ -956,7 +955,7 @@ const CarbonX = () => {
             }
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-8">
             {carbonX.contacts.map((c) => (
               <motion.div
                 key={c.email}
@@ -965,8 +964,8 @@ const CarbonX = () => {
                 viewport={{ once: true, margin: "-80px 0px -20% 0px" }}
                 transition={{ duration: 0.55, ease: "easeOut" }}
               >
-                <GlassCard className="p-6 h-full">
-                  <div className="font-display text-xl tracking-wide">
+                <GlassCard className="p-7 md:p-8 h-full">
+                  <div className="font-display text-xl md:text-2xl tracking-wide">
                     {c.name}
                   </div>
                   <div className="mt-5 space-y-3 text-sm">
@@ -989,21 +988,21 @@ const CarbonX = () => {
               </motion.div>
             ))}
           </div>
-        </div>
+          </div>
         </section>
 
         {/* Footer */}
-        <footer className="relative py-10 md:py-12">
-        <div className="container max-w-6xl px-6">
-          <div className="rounded-none card-beveled border border-border bg-card p-6 md:p-8 text-center">
+        <footer className="relative py-14 md:py-20">
+          <div className="container max-w-[1100px] px-6">
+          <div className="rounded-none card-beveled border border-border/70 bg-card/60 p-7 md:p-10 text-center">
             <p className="text-sm text-muted-foreground leading-relaxed">
               {carbonX.organizer}
             </p>
             <div className="mt-6 font-mono text-xs tracking-[0.34em] text-muted-foreground">
-              © {carbonX.eventName} {carbonX.year}
+              © <span className="font-mokoto">{carbonX.eventName}</span> {carbonX.year}
             </div>
           </div>
-        </div>
+          </div>
         </footer>
       </div>
     </main>

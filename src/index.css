@@ -2,6 +2,16 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
 
+/* Mokoto: add the font files to `public/fonts/` (e.g., MOKOTO.woff2, MOKOTO.woff)
+   Ensure you have the appropriate license to host Mokoto. */
+@font-face {
+  font-family: 'Mokoto';
+  src: url('/fonts/mokoto.regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Tan Nimbus: add the font files to `public/fonts/` (e.g., TanNimbus-Regular.woff2, TanNimbus-Bold.woff2)
    Ensure you have the appropriate license to host Tan Nimbus. */
 @font-face {
@@ -327,11 +337,119 @@
 .landing-bg {
   position: fixed;
   inset: 0;
-  opacity: 0.75;
+  opacity: 1;
+  background: #000;
 }
 
 @media (max-width: 767px) {
   .landing-bg {
+    display: none;
+  }
+}
+
+.landing-surface {
+  min-height: 100svh;
+  background: #000;
+}
+
+.landing-content {
+  position: relative;
+  z-index: 10;
+}
+
+.landing-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: hsl(var(--background) / 0.82);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid hsl(var(--border) / 0.7);
+}
+
+.landing-header-inner {
+  width: min(1100px, 100%);
+  margin: 0 auto;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.landing-hero {
+  min-height: min(660px, calc(100svh - 5.5rem));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0.9rem 0 0.2rem;
+}
+
+.landing-kicker {
+  font-size: 0.72rem;
+  letter-spacing: 0.34em;
+}
+
+.landing-title {
+  margin-top: 0.8rem;
+  font-size: clamp(2.6rem, 5.6vw, 5.1rem);
+  line-height: 1;
+}
+
+.landing-brand {
+  font-family: 'Mokoto', 'Bebas Neue', sans-serif;
+  letter-spacing: 0.22em;
+  display: inline-block;
+  transform: scaleX(1.12);
+  transform-origin: center;
+}
+
+.landing-year {
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 0.12em;
+  font-size: 1em;
+  opacity: 0.55;
+  margin-left: 0.28em;
+}
+
+.font-mokoto {
+  font-family: 'Mokoto', 'Bebas Neue', sans-serif;
+}
+
+.landing-prize {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.landing-subtitle {
+  margin-top: 0.85rem;
+  max-width: 42rem;
+  line-height: 1.65;
+  font-size: 0.98rem;
+}
+
+.landing-actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.85rem;
+  justify-content: center;
+}
+
+.landing-stats {
+  margin-top: 1rem;
+  padding-top: 0.85rem;
+  width: min(52rem, 100%);
+  display: grid;
+  gap: 0.9rem;
+}
+
+@media (max-width: 767px) {
+  .landing-actions {
     display: none;
   }
 }
