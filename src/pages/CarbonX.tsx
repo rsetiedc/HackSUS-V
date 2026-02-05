@@ -28,8 +28,8 @@ const carbonX = {
     organizer:
         "Organized by Department of Electronics and Communication Engineering, Rajagiri School of Engineering & Technology (Autonomous)",
     registerUrls: {
-        vegathon: "https://konfhub.com/hacksus-edition-5",
-        electrothon: "https://konfhub.com/hacksus-edition-5",
+        vegathon: "https://konfhub.com/carbonx",
+        electrothon: "https://konfhub.com/carbonx",
     },
     stats: [
         { label: "DURATION", value: "42 hours" },
