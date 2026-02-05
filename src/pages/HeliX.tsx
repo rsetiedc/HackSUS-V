@@ -29,7 +29,7 @@ const HeliX = () => {
                             HELIX <div className="text-primary">(Civil)</div>
                         </h1>
                         <p className="text-xl text-muted-foreground mt-6 max-w-2xl mx-auto text-center">
-                            Integrate intelligent tools into civil and mechanical engineering to build smarter, more efficient workflows
+                            Integrate intelligent tools into civil engineering to build smarter, more efficient workflows
                         </p>
                     </div>
 
@@ -101,7 +101,7 @@ const HeliX = () => {
                                 <div className="space-y-4 text-sm text-muted-foreground">
                                     <div>
                                         <p className="text-primary font-semibold mb-1">Prize Pool</p>
-                                        <p>TBD</p>
+                                        <p>TBA</p>
                                     </div>
                                     <div>
                                         <p className="text-primary font-semibold mb-1">Team Size</p>
@@ -112,9 +112,14 @@ const HeliX = () => {
                                         <p>42 hours</p>
                                     </div>
                                 </div>
-                                <button className="w-full mt-6 bg-primary text-primary-foreground px-6 py-3 font-display tracking-wider rounded-lg hover:bg-primary/90 transition-colors">
+                                <a
+                                    href="https://makemypass.com/event/hacksus-edition-v"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-block w-full mt-6 bg-primary text-primary-foreground px-6 py-3 font-display tracking-wider rounded-lg hover:bg-primary/90 transition-colors text-center"
+                                >
                                     Register Team
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>

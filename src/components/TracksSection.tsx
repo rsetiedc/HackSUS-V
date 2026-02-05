@@ -26,7 +26,7 @@ const tracks = [
   {
     icon: Hammer,
     title: "HeliX (Civil)",
-    description: "Integrate intelligent tools into civil and mechanical engineering to build smarter, more efficient workflows.",
+    description: "Integrate intelligent tools into civil engineering to build smarter, more efficient workflows.",
     color: "from-accent to-primary",
     path: "/helix",
   },
@@ -89,8 +89,13 @@ const TracksSection = () => {
                 </h3>
 
                 {/* Description */}
-                <p className="text-muted-foreground text-sm leading-relaxed">
+                <p className="text-muted-foreground text-sm leading-relaxed mb-4">
                   {track.description}
+                </p>
+
+                {/* Visit page */}
+                <p className="text-primary text-sm font-semibold drop-shadow-[0_0_8px_rgba(var(--color-primary),0.6)] group-hover:drop-shadow-[0_0_16px_rgba(var(--color-primary),0.8)] transition-all duration-500">
+                  Visit Page
                 </p>
 
                 {/* Bottom accent line */}

@@ -9,12 +9,22 @@ const AboutSection = () => {
       <div className="container px-6 relative">
         <div className="grid md:grid-cols-5 gap-12 items-center">
           {/* Left content - 3 columns */}
-          <div className="md:col-span-3 space-y-8">
+          <div
+            className="md:col-span-3 space-y-8 p-8 rounded-2xl"
+            style={{
+              background: "rgba(0, 0, 0, 0.19)",
+              borderRadius: "16px",
+              boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(5px)",
+              border: "1px solid rgba(0, 0, 0, 0.3)",
+            }}
+          >
             {/* Terminal-style header */}
-            <div className="flex items-center gap-3 text-scanline font-mono text-sm">
+            {/* <div className="flex items-center gap-3 text-scanline font-mono text-sm">
               <Terminal size={18} />
               <span className="typing-animation">./about --edition 5</span>
-            </div>
+            </div> */}
 
             <h2 className="font-display text-5xl md:text-7xl text-foreground leading-none">
               42 HOURS.

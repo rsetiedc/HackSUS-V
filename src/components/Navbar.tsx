@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,8 +20,6 @@ const Navbar = () => {
     { href: "#about", label: "About" },
     { href: "#details", label: "Details" },
     { href: "#tracks", label: "Tracks" },
-    // { href: "#schedule", label: "Schedule" },
-    // { href: "#faq", label: "FAQ" },
   ];
 
   return (
@@ -29,28 +30,50 @@ const Navbar = () => {
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          {/* <a href="#" className="font-display text-2xl text-primary tracking-wider">
-            HACK<span className="text-foreground">S'US</span> */}
-          <img src="hacksus_logo.svg" className="h-12 "></img>
-          {/* </a> */}
+          <Link to="/">
+            <img src="hacksus_logo.svg" className="h-12" alt="HackSUS Logo" />
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="relative text-muted-foreground hover:text-primary transition-colors duration-300 font-medium text-sm tracking-wide group"
-              >
-                {link.label}
-                <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
-              </a>
-            ))}
+            {isHomePage ? (
+              <>
+                {navLinks.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className="relative text-muted-foreground hover:text-primary transition-colors duration-300 font-medium text-sm tracking-wide group"
+                  >
+                    {link.label}
+                    <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+                  </a>
+                ))}
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/"
+                  className="relative text-muted-foreground hover:text-primary transition-colors duration-300 font-medium text-sm tracking-wide group"
+                >
+                  Home
+                  <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+                </Link>
+                <a
+                  href="/#tracks"
+                  className="relative text-muted-foreground hover:text-primary transition-colors duration-300 font-medium text-sm tracking-wide group"
+                >
+                  Tracks
+                  <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+                </a>
+              </>
+            )}
             <a
-              href="#register"
+              href="https://makemypass.com/event/hacksus-edition-v"
+              target="_blank"
+              rel="noopener noreferrer"
               className="bg-primary text-primary-foreground px-6 py-2 font-display tracking-wider text-sm hover:bg-primary/90 transition-colors rounded-xl"
             >
-              PRE-REGISTER
+              REGISTER NOW
             </a>
           </div>
 
@@ -68,16 +91,37 @@ const Navbar = () => {
         {isMobileOpen && (
           <div className="md:hidden absolute top-16 left-0 right-0 bg-background/98 backdrop-blur-md border-b border-border">
             <div className="flex flex-col py-4">
-              {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className="px-6 py-3 text-muted-foreground hover:text-primary hover:bg-muted/50 transition-colors"
-                  onClick={() => setIsMobileOpen(false)}
-                >
-                  {link.label}
-                </a>
-              ))}
+              {isHomePage ? (
+                <>
+                  {navLinks.map((link) => (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      className="px-6 py-3 text-muted-foreground hover:text-primary hover:bg-muted/50 transition-colors"
+                      onClick={() => setIsMobileOpen(false)}
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/"
+                    className="px-6 py-3 text-muted-foreground hover:text-primary hover:bg-muted/50 transition-colors"
+                    onClick={() => setIsMobileOpen(false)}
+                  >
+                    Home
+                  </Link>
+                  <a
+                    href="/#tracks"
+                    className="px-6 py-3 text-muted-foreground hover:text-primary hover:bg-muted/50 transition-colors"
+                    onClick={() => setIsMobileOpen(false)}
+                  >
+                    Tracks
+                  </a>
+                </>
+              )}
               <a
                 href="#register"
                 className="mx-6 mt-4 bg-primary text-primary-foreground px-6 py-3 font-display tracking-wider text-center rounded-lg"
@@ -89,7 +133,7 @@ const Navbar = () => {
           </div>
         )}
       </div>
-    </nav >
+    </nav>
   );
 };
 

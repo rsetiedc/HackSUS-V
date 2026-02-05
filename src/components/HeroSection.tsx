@@ -81,7 +81,7 @@ const HeroSection = () => {
         {/* Date and Location */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-12 animate-fade-in" style={{ animationDelay: "0.8s" }}>
           {/* Date */}
-          <div className="flex items-center justify-center md:justify-beginning gap-2 font-mono text-lg text-primary flex-wrap">
+          <div className="flex items-center justify-center md:justify-beginning  gap-2 font-mono text-lg text-primary flex-wrap">
             <Calendar size={20} className="flex-shrink-0" />
             <p>MARCH 6-8, 2026</p>
           </div>
@@ -96,7 +96,7 @@ const HeroSection = () => {
         {/* CTA Button */}
         <div className="animate-fade-in" style={{ animationDelay: "1s" }}>
           <Button variant="hero" size="xl">
-            <a href="https://app.makemypass.com/event/hacksus-pre-event" target="_blank" rel="noopener noreferrer" className="relative z-10">Pre-Register Now</a>
+            <a href="https://makemypass.com/event/hacksus-edition-v" target="_blank" rel="noopener noreferrer" className="relative z-10">Register Now</a>
           </Button>
         </div>
 
