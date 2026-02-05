@@ -52,7 +52,7 @@ const HeroSection = () => {
         ))}
       </div>
 
-      <div className="container relative z-10 px-6 text-center translate-y-[-5em] sm:translate-y-[-1em]">
+      <div className="container relative z-10 px-6 text-center translate-y-[2em] sm:translate-y-[-5em]">
         {/* Main title */}
         <h1
           className="font-BrittanicBold text-6xl sm:text-7xl md:text-7xl lg:text-[6.5rem] text-foreground leading-none tracking-wider mb-0 animate-fade-in select-none flex justify-center items-end items-baseline gap-2 w-full"
