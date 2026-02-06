@@ -581,12 +581,19 @@
 }
 
 .truefocus-dimmed {
-  opacity: 0.92;
-  filter: blur(var(--tf-blur, 2.2px)) saturate(0.92) brightness(0.94);
+  opacity: 1;
+}
+
+.truefocus-content {
   transition:
-    filter 200ms cubic-bezier(0.2, 0.8, 0.2, 1),
-    opacity 200ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    filter 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
   will-change: filter, opacity;
+}
+
+.truefocus-dimmed .truefocus-content {
+  opacity: 0.62;
+  filter: blur(var(--tf-blur, 2.2px)) saturate(0.9) brightness(0.95);
 }
 
 .truefocus-sharp,
@@ -624,11 +631,12 @@
 }
 
 .truefocus-dimmed .truefocus-veil {
-  opacity: 0.75;
+  opacity: 0.55;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .truefocus-dimmed {
+  .truefocus-content,
+  .truefocus-dimmed .truefocus-content {
     transition: none;
   }
 
@@ -641,9 +649,9 @@
 
 /* Low-power / slow update devices: avoid expensive blur. */
 @media (update: slow), (prefers-reduced-data: reduce) {
-  .truefocus-dimmed {
+  .truefocus-dimmed .truefocus-content {
     filter: none;
-    opacity: 0.8;
+    opacity: 0.75;
   }
 
   .truefocus-blur {

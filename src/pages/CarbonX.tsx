@@ -970,50 +970,52 @@ const CarbonX = () => {
 	                      )}
 	                      aria-hidden="true"
 	                    />
-	                    <div className="flex items-start justify-between gap-4">
-	                      <div className="min-w-0">
-	                        <div className="font-display text-xl md:text-2xl tracking-wide">
-	                          {t.title}
+	                    <div className="truefocus-content">
+	                      <div className="flex items-start justify-between gap-4">
+	                        <div className="min-w-0">
+	                          <div className="font-display text-xl md:text-2xl tracking-wide">
+	                            {t.title}
+	                          </div>
+	                          <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+	                            {t.description}
+	                          </p>
 	                        </div>
-	                        <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-	                          {t.description}
+
+	                        <div className="flex flex-col items-end gap-2 shrink-0">
+	                          <span className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.34em] text-primary shadow-[0_0_0_1px_rgba(255,49,46,0.06),0_14px_40px_rgba(255,49,46,0.08)]">
+	                            TRACK <span className="text-foreground/90">{t.badge}</span>
+	                          </span>
+	                          <span
+	                            className={cn(
+	                              "inline-flex items-center gap-2 rounded-full border px-3 py-1 font-mono text-[10px] uppercase tracking-[0.34em]",
+	                              ui.metaPillClass,
+	                            )}
+	                          >
+	                            <TrackIcon
+	                              className={cn("h-3.5 w-3.5", ui.metaIconClass)}
+	                              aria-hidden="true"
+	                            />
+	                            {ui.lane} LANE
+	                          </span>
+	                        </div>
+	                      </div>
+
+	                      <div className="mt-6 h-px w-full bg-border/70" />
+	                      <div className="mt-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+	                        <p className="text-sm text-muted-foreground leading-relaxed">
+	                          Registration is per-track. Choose your lane, then lock your spot.
 	                        </p>
-	                      </div>
-
-	                      <div className="flex flex-col items-end gap-2 shrink-0">
-	                        <span className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.34em] text-primary shadow-[0_0_0_1px_rgba(255,49,46,0.06),0_14px_40px_rgba(255,49,46,0.08)]">
-	                          TRACK <span className="text-foreground/90">{t.badge}</span>
-	                        </span>
-	                        <span
-	                          className={cn(
-	                            "inline-flex items-center gap-2 rounded-full border px-3 py-1 font-mono text-[10px] uppercase tracking-[0.34em]",
-	                            ui.metaPillClass,
-	                          )}
+	                        <Button
+	                          type="button"
+	                          onClick={() =>
+	                            openRegistration(t.registerKey as keyof typeof carbonX.registerUrls)
+	                          }
+	                          className="h-11 rounded-xl px-7 font-display tracking-widest shadow-[0_14px_42px_hsl(var(--primary)/0.18)]"
 	                        >
-	                          <TrackIcon
-	                            className={cn("h-3.5 w-3.5", ui.metaIconClass)}
-	                            aria-hidden="true"
-	                          />
-	                          {ui.lane} LANE
-	                        </span>
+	                          REGISTER {t.ctaLabel}
+	                          <ArrowRight className="ml-2 h-4 w-4" />
+	                        </Button>
 	                      </div>
-	                    </div>
-
-	                    <div className="mt-6 h-px w-full bg-border/70" />
-	                    <div className="mt-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-	                      <p className="text-sm text-muted-foreground leading-relaxed">
-	                        Registration is per-track. Choose your lane, then lock your spot.
-	                      </p>
-	                      <Button
-	                        type="button"
-	                        onClick={() =>
-	                          openRegistration(t.registerKey as keyof typeof carbonX.registerUrls)
-	                        }
-	                        className="h-11 rounded-xl px-7 font-display tracking-widest shadow-[0_14px_42px_hsl(var(--primary)/0.18)]"
-	                      >
-	                        REGISTER {t.ctaLabel}
-	                        <ArrowRight className="ml-2 h-4 w-4" />
-	                      </Button>
 	                    </div>
 	                    <div
 	                      className="truefocus-veil pointer-events-none absolute inset-0"
