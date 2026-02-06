@@ -41,8 +41,11 @@ const UnmuteX = () => {
                                 <section className="bg-card border border-border p-8 rounded-xl">
                                     <h2 className="font-display text-2xl text-foreground mb-4">Overview</h2>
                                     <p className="text-muted-foreground leading-relaxed">
-                                        UnmuteX challenges musicians and audio engineers to harness AI and technology to revolutionize music production workflows.
-                                        Create tools for composition, sound design, mixing, mastering, or distribution that empower artists and streamline the creative process.
+                                        The Music Production track at HackS'US 2026 explores how AI can enhance music production workflows without replacing human creativity. The focus is on AI-augmented workflows, where intelligent tools assist in ideation, arrangement, mixing feedback, learning, and adaptive audio while keeping creative control with the artist.
+                                    </p>
+                                    <br />
+                                    <p className="text-muted-foreground leading-relaxed">
+                                        Participants will build practical, creator-centric solutions that address real-world challenges in music production, education, gaming, film, and interactive media. This track encourages collaboration between musicians, engineers, designers, and creators to rethink how music is made in the age of intelligent tools.
                                     </p>
                                 </section>
 

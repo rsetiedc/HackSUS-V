@@ -60,11 +60,11 @@ const SyncConX = () => {
                                         </li>
                                         <li className="flex gap-3">
                                             <span className="text-primary">•</span>
-                                            <span>System design documentation</span>
+                                            <span>Instrumentation in Biomedical Technology</span>
                                         </li>
                                         <li className="flex gap-3">
                                             <span className="text-primary">•</span>
-                                            <span>Data analysis and insights presentation</span>
+                                            <span>Robot telemetry (encoders/IMU), motor current sensing</span>
                                         </li>
                                     </ul>
                                 </section>

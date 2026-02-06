@@ -52,13 +52,21 @@ const HeroSection = () => {
         ))}
       </div>
 
-      <div className="container relative z-10 px-6 text-center">
+      <div className="container relative z-10 px-6 text-center translate-y-[-2.5em] sm:translate-y-[-5em]">
         {/* Main title */}
         <h1
-          className="font-tanNimbus text-5xl sm:text-6xl md:text-7xl lg:text-[6.5rem] text-foreground leading-none tracking-wider mb-0 animate-fade-in select-none"
-          style={{ animationDelay: "0.4s" }}
+          className="font-BrittanicBold text-6xl sm:text-7xl md:text-7xl lg:text-[6.5rem] text-foreground leading-none tracking-wider mb-0 animate-fade-in select-none flex justify-center items-end items-baseline gap-2 w-full"
+          style={{ animationDelay: "0.4s", textShadow: "4px 6px 10px rgba(255, 49, 46, 0.9), 4px 6px 10px rgba(255, 49, 46, 0.9)" }}
         >
-          HACK<span className="text-primary">S'US</span>
+          <img
+            src="/hacksus_logo.svg"
+            alt="H"
+            className="h-[2em] w-auto object-contain translate-y-[0.3em]"
+            style={{ filter: "drop-shadow(4px 6px 10px rgba(255, 49, 46, 0.5))" }}
+          />
+          <span className="translate-x-[-0.4em]">
+            ackS'US
+          </span>
         </h1>
 
         {/* Edition image */}
@@ -90,6 +98,17 @@ const HeroSection = () => {
           <div className="flex items-center justify-center md:justify-start gap-4 font-mono text-lg text-primary">
             <MapPin size={20} className="flex-shrink-0" />
             <p className="text-left">Rajagiri School of Engineering & Techonology (Autonomous), Kochi</p>
+          </div>
+        </div>
+
+        <div className="mt-2 mb-6 flex justify-center animate-fade-in" style={{ animationDelay: "0.9s" }}>
+          <div className="inline-flex items-center gap-3 rounded-full border border-primary/30 bg-primary/10 px-5 py-2">
+            <span className="font-monoBold text-xm uppercase tracking-[0.35em] text-primary">
+              Early Bird Tickets
+            </span>
+            <span className="font-monoBold text-xm uppercase tracking-[0.2em] text-foreground/80">
+              out now
+            </span>
           </div>
         </div>
 

@@ -41,7 +41,7 @@ const HeliX = () => {
                                 <section className="bg-card border border-border p-8 rounded-xl">
                                     <h2 className="font-display text-2xl text-foreground mb-4">Overview</h2>
                                     <p className="text-muted-foreground leading-relaxed">
-                                        HeliX invites civil and mechanical engineers to apply AI and intelligent tools to revolutionize construction and engineering workflows.
+                                        HeliX invites civil engineers to apply AI and intelligent tools to revolutionize construction and engineering workflows.
                                         Design solutions for structural optimization, project management, safety enhancement, or sustainable building practices.
                                     </p>
                                 </section>
@@ -52,7 +52,7 @@ const HeliX = () => {
                                     <ul className="space-y-3 text-muted-foreground">
                                         <li className="flex gap-3">
                                             <span className="text-primary">•</span>
-                                            <span>AI-powered civil/mechanical engineering solution</span>
+                                            <span>AI-powered civil engineering solution</span>
                                         </li>
                                         <li className="flex gap-3">
                                             <span className="text-primary">•</span>
