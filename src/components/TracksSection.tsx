@@ -109,8 +109,8 @@ const TracksSection = () => {
             </Link>
           ))}
         </div>
-      </div >
-    </section >
+      </div>
+    </section>
   );
 };
 

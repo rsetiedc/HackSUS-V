@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { ArrowRight, Menu } from "lucide-react";
+import { ArrowRight, CircuitBoard, Cpu, Menu } from "lucide-react";
 import { motion } from "motion/react";
 
 import { cn } from "@/lib/utils";
@@ -28,19 +28,50 @@ const carbonX = {
   organizer:
     "Organized by Department of Electronics and Communication Engineering, Rajagiri School of Engineering & Technology (Autonomous)",
   registerUrls: {
-    vegathon: "",
-    electrothon: "",
+    vegathon: "https://konfhub.com/carbonx",
+    electrothon: "https://konfhub.com/carbonx",
   },
   stats: [
     { label: "DURATION", value: "42 hours" },
     { label: "PARTICIPANTS", value: "250+ expected" },
-    { label: "VISITORS", value: "3000+ expected" },
+    { label: "VISITORS", value: "1000+ expected" },
   ],
   aboutLong:
     "CARBONX is the flagship hackathon initiative curated by the Department of Electronics and Communication Engineering, currently conducted as a dedicated track under Hacks’us, an innovation event organized by IEDC and IICRSET. CARBONX focuses on hardware-centric innovation, embedded systems, and electronics-driven problem solving, providing participants with a platform to design, prototype, and validate real-world engineering solutions. While hosted under Hacks’us for the present edition, CARBONX retains complete technical ownership by the department and is envisioned as an annual, independently conducted hackathon in the coming years. The initiative continues its collaboration with the Centre for Development of Advanced Computing (CDAC), reinforcing its emphasis on indigenous technology and deep-tech development.",
   historyLong:
     "CARBONX traces its origins back to 2022, when it was first launched as VEGATHON, a national-level hardware hackathon conducted by the Department of Electronics and Communication Engineering in collaboration with CDAC. VEGATHON 2022 was centered around the VEGA Processor, an indigenous processor architecture developed by CDAC, and was designed to promote hands-on learning, processor-level understanding, and system-based innovation. Building on the success and technical legacy of VEGATHON, the initiative was later rebranded as CARBON, with CARBONX introduced as its competitive hackathon format. This evolution reflects the department’s long-term vision of creating a sustained innovation ecosystem rooted in electronics and hardware excellence.",
 } as const;
+
+const trackLaneUi = {
+  vegathon: {
+    icon: Cpu,
+    lane: "SYSTEMS",
+    patternClass:
+      "bg-[radial-gradient(circle_at_1px_1px,rgba(255,49,46,0.14)_1px,transparent_1.6px)] [background-size:20px_20px]",
+    washClass: "bg-gradient-to-br from-primary/10 via-transparent to-transparent",
+    metaPillClass: "border-primary/25 bg-background/5 text-primary/90",
+    metaIconClass: "text-primary/80",
+    detailsVariant: "outline" as const,
+    detailsClass:
+      "border-primary/30 text-primary hover:bg-primary/10 hover:text-primary hover:border-primary/45",
+    glassOverlayClass: "bg-gradient-to-br from-primary/10 via-transparent to-transparent",
+  },
+  electrothon: {
+    icon: CircuitBoard,
+    lane: "WORKFLOWS",
+    patternClass:
+      "bg-[radial-gradient(circle_at_1px_1px,rgba(255,49,46,0.16)_1px,transparent_1.35px)] [background-size:18px_18px]",
+    washClass: "bg-gradient-to-br from-primary/10 via-transparent to-transparent",
+    metaPillClass: "border-primary/25 bg-background/5 text-primary/90",
+    metaIconClass: "text-primary/80",
+    detailsVariant: "outline" as const,
+    detailsClass:
+      "border-primary/30 text-primary hover:bg-primary/10 hover:text-primary hover:border-primary/45",
+    glassOverlayClass: "bg-gradient-to-br from-primary/10 via-transparent to-transparent",
+  },
+} as const;
+
+type TrackKey = keyof typeof trackLaneUi;
 
 function useActiveSection(sectionIds: string[]) {
   const [active, setActive] = useState(sectionIds[0] ?? "");
@@ -139,9 +170,11 @@ function SectionHeading({
 function GlassCard({
   className,
   children,
+  overlayClassName = "bg-gradient-to-br from-primary/10 via-transparent to-transparent",
 }: {
   className?: string;
   children: React.ReactNode;
+  overlayClassName?: string;
 }) {
   return (
     <Card
@@ -150,7 +183,7 @@ function GlassCard({
         className,
       )}
     >
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent" />
+      <div className={cn("pointer-events-none absolute inset-0", overlayClassName)} />
       <div className="relative">{children}</div>
     </Card>
   );
@@ -543,62 +576,119 @@ const CarbonX = () => {
                     </button>
                   </div>
 
-                  <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
-                    {[
-                      {
-                        badge: "01",
-                        title: "VEGATHON",
-                        meta: "VEGA Processor",
-                        blurb: "System-level builds inspired by indigenous processor lineage.",
-                        registerKey: "vegathon",
-                      },
-                      {
-                        badge: "02",
-                        title: "ELECTROTHON",
-                        meta: "EDA Based",
-                        blurb: "Design, simulate, validate — ship clean electronic workflows.",
-                        registerKey: "electrothon",
-                      },
-                    ].map((t) => (
-                      <div
-                        key={t.title}
-                        className="group relative overflow-hidden text-left rounded-none card-beveled border border-border/70 bg-background/5 px-5 py-3.5 transition hover:bg-background/10 hover:border-border/90"
-                      >
-                        <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-primary/10 via-transparent to-transparent" />
-                        <div className="pointer-events-none absolute -top-8 -right-6 font-mono text-[6.5rem] leading-none tracking-[0.18em] text-transparent opacity-80 [-webkit-text-stroke:1px_hsl(var(--foreground)_/_0.18)] [text-shadow:0_0_32px_hsl(var(--primary)_/_0.12)] group-hover:opacity-95">
-                          {t.badge}
-                        </div>
+	                  <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
+	                    {[
+	                      {
+	                        badge: "01",
+	                        title: "VEGATHON",
+	                        meta: "VEGA Processor",
+	                        blurb: "System-level builds inspired by indigenous processor lineage.",
+	                        registerKey: "vegathon",
+	                      },
+	                      {
+	                        badge: "02",
+	                        title: "ELECTROTHON",
+	                        meta: "EDA Based",
+	                        blurb: "Design, simulate, validate — ship clean electronic workflows.",
+	                        registerKey: "electrothon",
+	                      },
+	                    ].map((t) => {
+	                      const ui = trackLaneUi[t.registerKey as TrackKey];
+	                      const TrackIcon = ui.icon;
 
-                        <div className="relative">
-                          <div className="flex items-center justify-between gap-3">
-                            <div className="font-mono text-[10px] tracking-[0.56em] text-muted-foreground uppercase">
-                              TRACK {t.badge}
-                            </div>
-                            <span className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.34em] text-primary">
-                              {t.meta}
-                            </span>
-                          </div>
-                          <div className="mt-3 font-display text-lg md:text-xl tracking-wide text-foreground/95">
-                            {t.title}
-                          </div>
-                          <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
-                            {t.blurb}
-                          </p>
+	                      return (
+	                        <div
+	                          key={t.title}
+	                          className={cn(
+	                            "group relative overflow-hidden text-left rounded-none card-beveled border border-border/70 bg-background/5 px-5 py-3.5 transition hover:bg-background/10 hover:border-border/90",
+	                            t.badge === "02" && "card-beveled-mirror",
+	                          )}
+	                        >
+	                          <div
+	                            className={cn(
+	                              "pointer-events-none absolute inset-0 opacity-[0.06]",
+	                              ui.patternClass,
+	                            )}
+	                            aria-hidden="true"
+	                          />
+	                          <div
+	                            className={cn(
+	                              "pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300",
+	                              ui.washClass,
+	                            )}
+	                            aria-hidden="true"
+	                          />
+	                          <div
+	                            className="pointer-events-none absolute left-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-primary/80 via-primary/25 to-transparent"
+	                            aria-hidden="true"
+	                          />
+	                          <div
+	                            className="pointer-events-none absolute right-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-primary/80 via-primary/25 to-transparent"
+	                            aria-hidden="true"
+	                          />
+	                          <div className="pointer-events-none absolute -top-8 -right-6 font-mono text-[6.5rem] leading-none tracking-[0.18em] text-transparent opacity-80 [-webkit-text-stroke:1px_hsl(var(--foreground)_/_0.18)] [text-shadow:0_0_32px_hsl(var(--primary)_/_0.12)] group-hover:opacity-95">
+	                            {t.badge}
+	                          </div>
 
-                          <div className="mt-3.5 pt-3.5 border-t border-border/60 flex items-center justify-between gap-3">
-                            <Button
-                              type="button"
-                              onClick={() => scrollToSection("tracks")}
-                              className="h-9 rounded-xl px-4 font-display tracking-widest shadow-[0_12px_34px_hsl(var(--primary)/0.18)]"
-                              aria-label={`View ${t.title} track details`}
-                            >
-                              DETAILS <ArrowRight className="ml-2 h-4 w-4" />
-                            </Button>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+	                          <div className="relative">
+	                            <div className="flex items-center justify-between gap-3">
+	                              <div className="font-mono text-[10px] tracking-[0.56em] text-muted-foreground uppercase">
+	                                TRACK {t.badge}{" "}
+	                                <span className="tracking-[0.34em] text-primary/80">
+	                                  · {ui.lane}
+	                                </span>
+	                              </div>
+	                              <span
+	                                className={cn(
+	                                  "inline-flex items-center gap-2 rounded-full border px-3 py-1 font-mono text-[10px] uppercase tracking-[0.34em]",
+	                                  ui.metaPillClass,
+	                                )}
+	                              >
+	                                <TrackIcon
+	                                  className={cn("h-3.5 w-3.5", ui.metaIconClass)}
+	                                  aria-hidden="true"
+	                                />
+	                                {t.meta}
+	                              </span>
+	                            </div>
+	                            <div className="mt-3 font-display text-lg md:text-xl tracking-wide text-foreground/95">
+	                              {t.title}
+	                            </div>
+	                            <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
+	                              {t.blurb}
+	                            </p>
+
+	                            <div className="mt-3.5 pt-3.5 border-t border-border/60 flex items-center justify-between gap-3">
+	                              <Button
+	                                type="button"
+	                                variant={ui.detailsVariant}
+	                                onClick={() => scrollToSection("tracks")}
+	                                className={cn(
+	                                  "h-9 rounded-xl px-4 font-display tracking-widest",
+	                                  ui.detailsClass,
+	                                )}
+	                                aria-label={`View ${t.title} track details`}
+	                              >
+	                                DETAILS <ArrowRight className="ml-2 h-4 w-4" />
+	                              </Button>
+	                              <Button
+	                                type="button"
+	                                onClick={() =>
+	                                  openRegistration(
+	                                    t.registerKey as keyof typeof carbonX.registerUrls,
+	                                  )
+	                                }
+	                                className="h-9 rounded-xl px-4 font-display tracking-widest shadow-[0_14px_42px_hsl(var(--primary)/0.18)] hover:shadow-[0_18px_58px_hsl(var(--primary)/0.26)]"
+	                                aria-label={`Register for ${t.title} on KonfHub`}
+	                              >
+	                                REGISTER <ArrowRight className="ml-2 h-4 w-4" />
+	                              </Button>
+	                            </div>
+	                          </div>
+	                        </div>
+	                      );
+	                    })}
+	                  </div>
                 </div>
               </motion.div>
 
@@ -855,43 +945,69 @@ const CarbonX = () => {
                 registerKey: "electrothon",
                 ctaLabel: "ELECTROTHON",
               },
-            ].map((t) => (
-              <motion.div
-                key={t.title}
-                id={t.id}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px 0px -20% 0px" }}
-                transition={{ duration: 0.55, ease: "easeOut" }}
-                className="h-full"
-              >
-                <GlassCard className="p-7 md:p-8 h-full">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="truefocus-stack min-w-0">
-                      <div className="truefocus-sharp">
-                        <div className="font-display text-xl md:text-2xl tracking-wide">
-                          {t.title}
-                        </div>
-                        <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-                          {t.description}
-                        </p>
-                      </div>
-                      <div className="truefocus-blur" aria-hidden="true">
-                        <div className="font-display text-xl md:text-2xl tracking-wide">
-                          {t.title}
-                        </div>
-                        <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-                          {t.description}
-                        </p>
-                      </div>
-                    </div>
+	            ].map((t) => {
+	              const ui = trackLaneUi[t.registerKey as TrackKey];
+	              const TrackIcon = ui.icon;
 
-                    <div className="flex flex-col items-end gap-2 shrink-0">
-                      <span className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.34em] text-primary shadow-[0_0_0_1px_rgba(255,49,46,0.06),0_14px_40px_rgba(255,49,46,0.08)]">
-                        TRACK <span className="text-foreground/90">{t.badge}</span>
-                      </span>
-                    </div>
-                  </div>
+	              return (
+	                <motion.div
+	                  key={t.title}
+	                  id={t.id}
+	                  initial={{ opacity: 0, y: 18 }}
+	                  whileInView={{ opacity: 1, y: 0 }}
+	                  viewport={{ once: true, margin: "-80px 0px -20% 0px" }}
+	                  transition={{ duration: 0.55, ease: "easeOut" }}
+	                  className="h-full"
+	                >
+	                  <GlassCard
+	                    className="p-7 md:p-8 h-full"
+	                    overlayClassName="bg-[radial-gradient(140%_120%_at_24%_18%,rgba(255,255,255,0.035)_0%,transparent_58%),linear-gradient(to_bottom,rgba(0,0,0,0.02),rgba(0,0,0,0.18))]"
+	                  >
+	                    <div
+	                      className={cn(
+	                        "pointer-events-none absolute inset-0 opacity-[0.06]",
+	                        ui.patternClass,
+	                      )}
+	                      aria-hidden="true"
+	                    />
+	                    <div className="flex items-start justify-between gap-4">
+	                      <div className="truefocus-stack min-w-0">
+	                        <div className="truefocus-sharp">
+	                          <div className="font-display text-xl md:text-2xl tracking-wide">
+	                            {t.title}
+	                          </div>
+	                          <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+	                            {t.description}
+	                          </p>
+	                        </div>
+	                        <div className="truefocus-blur" aria-hidden="true">
+	                          <div className="font-display text-xl md:text-2xl tracking-wide">
+	                            {t.title}
+	                          </div>
+	                          <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+	                            {t.description}
+	                          </p>
+	                        </div>
+	                      </div>
+
+	                      <div className="flex flex-col items-end gap-2 shrink-0">
+	                        <span className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.34em] text-primary shadow-[0_0_0_1px_rgba(255,49,46,0.06),0_14px_40px_rgba(255,49,46,0.08)]">
+	                          TRACK <span className="text-foreground/90">{t.badge}</span>
+	                        </span>
+	                        <span
+	                          className={cn(
+	                            "inline-flex items-center gap-2 rounded-full border px-3 py-1 font-mono text-[10px] uppercase tracking-[0.34em]",
+	                            ui.metaPillClass,
+	                          )}
+	                        >
+	                          <TrackIcon
+	                            className={cn("h-3.5 w-3.5", ui.metaIconClass)}
+	                            aria-hidden="true"
+	                          />
+	                          {ui.lane} LANE
+	                        </span>
+	                      </div>
+	                    </div>
 
                   <div className="mt-6 h-px w-full bg-border/70" />
                   <div className="mt-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -909,11 +1025,15 @@ const CarbonX = () => {
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </div>
-                  <div className="truefocus-veil pointer-events-none absolute inset-0" aria-hidden="true" />
-                </GlassCard>
-              </motion.div>
-            ))}
-          </TrueFocus>
+	                    <div
+	                      className="truefocus-veil pointer-events-none absolute inset-0"
+	                      aria-hidden="true"
+	                    />
+	                  </GlassCard>
+	                </motion.div>
+	              );
+	            })}
+	          </TrueFocus>
           </div>
         </section>
 
