@@ -571,7 +571,7 @@ const CarbonX = () => {
           particleBaseSize={particleTuning.particleBaseSize}
           sizeRandomness={particleTuning.sizeRandomness}
           moveParticlesOnHover={true}
-          moveParticlesOnDeviceOrientation={true}
+          moveParticlesOnDeviceOrientation={false}
           deviceOrientationFactor={2.4}
           particleHoverFactor={particleTuning.particleHoverFactor}
           hoverMode="window"
@@ -679,7 +679,7 @@ const CarbonX = () => {
                     <button
                       type="button"
                       onClick={() => scrollToSection("tracks")}
-                      className="inline-flex items-center justify-center rounded-xl border border-border/70 bg-background/5 px-3.5 py-1.5 font-display text-[11px] tracking-[0.2em] text-foreground/90 transition hover:bg-background/10 hover:border-border/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                      className="hidden md:inline-flex items-center justify-center rounded-xl border border-border/70 bg-background/5 px-3.5 py-1.5 font-display text-[11px] tracking-[0.2em] text-foreground/90 transition hover:bg-background/10 hover:border-border/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                       aria-label="Jump to the tracks section"
                     >
                       VIEW TRACKS <ArrowRight className="ml-1.5 h-3.5 w-3.5" />

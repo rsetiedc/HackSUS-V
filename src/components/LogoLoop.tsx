@@ -122,7 +122,8 @@ const useAnimationLoop = (
   seqHeight: number,
   isHovered: boolean,
   hoverSpeed: number | undefined,
-  isVertical: boolean
+  isVertical: boolean,
+  isVisible: boolean
 ) => {
   const rafRef = useRef<number | null>(null);
   const lastTimestampRef = useRef<number | null>(null);
@@ -132,6 +133,15 @@ const useAnimationLoop = (
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
+
+    if (!isVisible) {
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+      lastTimestampRef.current = null;
+      return;
+    }
 
     const prefersReduced =
       typeof window !== 'undefined' &&
@@ -191,7 +201,7 @@ const useAnimationLoop = (
       }
       lastTimestampRef.current = null;
     };
-  }, [targetVelocity, seqWidth, seqHeight, isHovered, hoverSpeed, isVertical]);
+  }, [targetVelocity, seqWidth, seqHeight, isHovered, hoverSpeed, isVertical, isVisible]);
 };
 
 export const LogoLoop = React.memo<LogoLoopProps>(
@@ -220,6 +230,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
     const [seqHeight, setSeqHeight] = useState<number>(0);
     const [copyCount, setCopyCount] = useState<number>(ANIMATION_CONFIG.MIN_COPIES);
     const [isHovered, setIsHovered] = useState<boolean>(false);
+    const [isInView, setIsInView] = useState<boolean>(false);
 
     const effectiveHoverSpeed = useMemo(() => {
       if (hoverSpeed !== undefined) return hoverSpeed;
@@ -271,7 +282,44 @@ export const LogoLoop = React.memo<LogoLoopProps>(
 
     useImageLoader(seqRef, updateDimensions, [logos, gap, logoHeight, isVertical]);
 
-    useAnimationLoop(trackRef, targetVelocity, seqWidth, seqHeight, isHovered, effectiveHoverSpeed, isVertical);
+    useEffect(() => {
+      const container = containerRef.current;
+      if (!container) return;
+
+      if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
+        setIsInView(true);
+        return;
+      }
+
+      const observer = new IntersectionObserver(
+        entries => {
+          const [entry] = entries;
+          setIsInView(Boolean(entry?.isIntersecting));
+        },
+        {
+          root: null,
+          rootMargin: '160px 0px',
+          threshold: 0
+        }
+      );
+
+      observer.observe(container);
+
+      return () => {
+        observer.disconnect();
+      };
+    }, []);
+
+    useAnimationLoop(
+      trackRef,
+      targetVelocity,
+      seqWidth,
+      seqHeight,
+      isHovered,
+      effectiveHoverSpeed,
+      isVertical,
+      isInView
+    );
 
     const cssVariables = useMemo(
       () =>
