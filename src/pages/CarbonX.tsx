@@ -429,11 +429,11 @@ const CarbonX = () => {
     () => [
       {
         node: (
-          <span className="inline-flex min-w-[280px] items-center justify-center px-4 py-1">
+          <span className="inline-flex items-center justify-center pl-2 pr-3 py-1 md:pr-4">
             <img
               src="/images/cdac.svg"
               alt="CDAC"
-              className="h-[4.2rem] w-auto object-contain opacity-95 drop-shadow-[0_10px_24px_rgba(0,0,0,0.36)]"
+              className="h-[3.6rem] w-auto object-contain opacity-95 drop-shadow-[0_10px_24px_rgba(0,0,0,0.36)] md:h-[4.2rem]"
             />
           </span>
         ),
@@ -441,11 +441,11 @@ const CarbonX = () => {
       },
       {
         node: (
-          <span className="inline-flex min-w-[430px] items-center justify-center px-2 py-1">
+          <span className="inline-flex items-center justify-center px-3 py-1 md:px-4">
             <img
               src="/images/enauts.svg"
               alt="ENAUTS"
-              className="h-[7.4rem] w-auto object-contain opacity-95 scale-[1.55] drop-shadow-[0_10px_24px_rgba(0,0,0,0.36)]"
+              className="h-[4.8rem] w-auto object-contain opacity-95 scale-[1.25] drop-shadow-[0_10px_24px_rgba(0,0,0,0.36)] md:h-[7.4rem] md:scale-[1.55]"
             />
           </span>
         ),
@@ -453,15 +453,39 @@ const CarbonX = () => {
       },
       {
         node: (
-          <span className="inline-flex min-w-[300px] items-center justify-center px-3 py-1">
+          <span className="inline-flex items-center justify-center px-2 py-1">
             <img
               src="/images/rset_jubilee.png"
               alt="RSET Silver Jubilee"
-              className="h-[6.8rem] w-auto object-contain opacity-95 drop-shadow-[0_10px_24px_rgba(0,0,0,0.36)]"
+              className="h-[5.2rem] w-auto object-contain opacity-95 drop-shadow-[0_10px_24px_rgba(0,0,0,0.36)] md:h-[6.8rem]"
             />
           </span>
         ),
         ariaLabel: "RSET Silver Jubilee logo",
+      },
+      {
+        node: (
+          <span className="inline-flex items-center justify-center px-2 py-1">
+            <img
+              src="/images/rset_iic.PNG"
+              alt="RSET IIC"
+              className="h-[5.4rem] w-auto object-contain opacity-95 drop-shadow-[0_10px_24px_rgba(0,0,0,0.36)] md:h-[6.9rem]"
+            />
+          </span>
+        ),
+        ariaLabel: "RSET IIC logo",
+      },
+      {
+        node: (
+          <span className="inline-flex items-center justify-center px-2 py-1">
+            <img
+              src="/images/rset_iedc.PNG"
+              alt="RSET IEDC"
+              className="h-[3.4rem] w-auto object-contain opacity-95 drop-shadow-[0_10px_24px_rgba(0,0,0,0.36)] md:h-[4.7rem]"
+            />
+          </span>
+        ),
+        ariaLabel: "RSET IEDC logo",
       },
     ],
     [],
@@ -622,6 +646,7 @@ const CarbonX = () => {
                   text={carbonX.year}
                   animateOn="view"
                   speed={55}
+                  durationMs={1400}
                   maxIterations={18}
                   numbersOnly={true}
                   parentClassName="landing-year"
@@ -1160,6 +1185,39 @@ const CarbonX = () => {
           </div>
 
           <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px 0px -10% 0px" }}
+            transition={{ duration: 0.5, ease: "easeOut", delay: 0.05 }}
+            className="mt-8 w-full"
+          >
+            <div className="w-full rounded-none card-beveled border border-border/70 bg-card/35 backdrop-blur-sm px-4 py-3 md:px-5">
+              <div className="mb-2 flex items-center gap-3">
+                <span className="font-mono text-[9px] uppercase tracking-[0.26em] text-muted-foreground sm:text-[10px]">
+                  Presented Partners
+                </span>
+                <div className="h-px flex-1 bg-border/60" />
+              </div>
+              <LogoLoop
+                logos={partnerLogos}
+                speed={52}
+                gap={6}
+                logoHeight={72}
+                pauseOnHover={true}
+                fadeOut={false}
+                ariaLabel="CDAC and ENAUTS partner logos"
+                className="w-full py-1"
+                style={
+                  {
+                    "--logoloop-gap": "clamp(6px, 2vw, 14px)",
+                    "--logoloop-logoHeight": "clamp(44px, 12vw, 72px)"
+                  } as React.CSSProperties
+                }
+              />
+            </div>
+          </motion.div>
+
+          <motion.div
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px 0px -20% 0px" }}
@@ -1172,33 +1230,6 @@ const CarbonX = () => {
             >
               BACK TO TOP <ArrowRight className="ml-1" />
             </Button>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px 0px -10% 0px" }}
-            transition={{ duration: 0.5, ease: "easeOut", delay: 0.05 }}
-            className="mt-8 w-full"
-          >
-            <div className="mx-auto max-w-[52rem] rounded-none card-beveled border border-border/70 bg-card/35 backdrop-blur-sm px-4 py-3 md:px-5">
-              <div className="mb-2 flex items-center gap-3">
-                <span className="font-mono text-[9px] uppercase tracking-[0.26em] text-muted-foreground sm:text-[10px]">
-                  Presented Partners
-                </span>
-                <div className="h-px flex-1 bg-border/60" />
-              </div>
-              <LogoLoop
-                logos={partnerLogos}
-                speed={52}
-                gap={8}
-                logoHeight={72}
-                pauseOnHover={true}
-                fadeOut={false}
-                ariaLabel="CDAC and ENAUTS partner logos"
-                className="w-full py-1"
-              />
-            </div>
           </motion.div>
           </div>
         </section>
