@@ -905,11 +905,21 @@ const CarbonX = () => {
                 className="h-full"
               >
                 <GlassCard className="p-7 md:p-8 h-full">
-                  <div className="font-mono text-[10px] tracking-[0.52em] text-muted-foreground">
-                    COLLABORATION
-                  </div>
-                  <div className="mt-2 font-display text-xl md:text-2xl tracking-wide">
-                    Built with <span className="text-primary">CDAC</span>.
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <div className="font-mono text-[10px] tracking-[0.52em] text-muted-foreground">
+                        COLLABORATION
+                      </div>
+                      <div className="mt-2 font-display text-xl md:text-2xl tracking-wide">
+                        Built with <span className="text-primary">CDAC</span>.
+                      </div>
+                    </div>
+                    <img
+                      src="/images/cdac.svg"
+                      alt="CDAC logo"
+                      className="h-11 w-auto shrink-0 object-contain opacity-90 sm:h-12 md:h-14"
+                      loading="lazy"
+                    />
                   </div>
                   <p className="mt-3 text-sm md:text-base text-muted-foreground leading-relaxed">
                     Continuing collaboration with CDAC to reinforce indigenous technology and a
