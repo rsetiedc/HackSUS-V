@@ -615,19 +615,16 @@ const CarbonX = () => {
                 initial={{ opacity: 0, y: -4 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, ease: "easeOut", delay: 0.03 }}
-                className="mb-2 flex max-w-full items-center justify-center gap-3 text-center"
+                className="mb-1.5 flex w-full max-w-full items-center justify-center gap-3 text-center sm:mb-2 sm:gap-3"
               >
-                <span className="h-px w-6 bg-border/60" aria-hidden="true" />
-                <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-muted-foreground sm:text-[10px]">
-                  Presented by{" "}
-                  <span className="hidden text-foreground/80 sm:inline">
-                    Department of Electronics & Communication Engineering
-                  </span>
-                  <span className="text-foreground/80 sm:hidden">
-                    Department of Electronics
+                <span className="hidden h-px w-6 bg-border/60 sm:block" aria-hidden="true" />
+                <span className="w-full max-w-[46ch] px-1 text-balance font-mono text-[9px] uppercase leading-[1.2] tracking-[0.12em] text-muted-foreground sm:max-w-none sm:px-0 sm:text-[10px] sm:leading-normal sm:tracking-[0.22em]">
+                  <span className="text-muted-foreground/90">Presented by </span>
+                  <span className="text-foreground/80">
+                    Department of Electronics & Communication Engineering, RSET
                   </span>
                 </span>
-                <span className="h-px w-6 bg-border/60" aria-hidden="true" />
+                <span className="hidden h-px w-6 bg-border/60 sm:block" aria-hidden="true" />
               </motion.p>
 
               <h1 className="landing-title">
@@ -1077,7 +1074,7 @@ const CarbonX = () => {
 	                      aria-hidden="true"
 	                    />
 	                    <div className="truefocus-content">
-	                      <div className="flex items-start justify-between gap-4">
+	                      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
 	                        <div className="min-w-0">
 	                          <div className="font-display text-xl md:text-2xl tracking-wide">
 	                            {t.title}
@@ -1087,7 +1084,7 @@ const CarbonX = () => {
 	                          </p>
 	                        </div>
 
-	                        <div className="flex flex-col items-end gap-2 shrink-0">
+	                        <div className="flex shrink-0 flex-wrap items-center gap-2 sm:flex-col sm:items-end">
 	                          <span className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.34em] text-primary shadow-[0_0_0_1px_rgba(255,49,46,0.06),0_14px_40px_rgba(255,49,46,0.08)]">
 	                            TRACK <span className="text-foreground/90">{t.badge}</span>
 	                          </span>
