@@ -107,7 +107,7 @@ const HeroSection = () => {
               Early Bird Tickets
             </span>
             <span className="font-monoBold text-xm uppercase tracking-[0.2em] text-foreground/80">
-              out now
+              Selling Out Fast!
             </span>
           </div>
         </div>
@@ -119,18 +119,45 @@ const HeroSection = () => {
           </Button>
         </div>
 
-        {/* Stats preview */}
+        {/* Prize Pool Highlight */}
+        <div className="mt-12 mb-8 animate-fade-in" style={{ animationDelay: "1.1s" }}>
+          <div className="inline-block relative">
+            <div className="absolute -inset-4 bg-primary/20 blur-2xl rounded-full animate-pulse-slow" />
+            <div className="relative">
+              <div className="font-monoBold text-xs sm:text-sm uppercase tracking-[0.5em] text-primary/80 mb-2">
+                TOTAL PRIZE POOL
+              </div>
+              <div
+                className="font-display text-7xl sm:text-8xl md:text-9xl text-foreground selection:bg-primary selection:text-white"
+                style={{
+                  textShadow: "0 0 20px rgba(255, 49, 46, 0.3), 0 0 40px rgba(255, 49, 46, 0.1)",
+                  background: "linear-gradient(to bottom, #fff, #ff312e)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent"
+                }}
+              >
+                ₹2 LAKHS+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Other Stats */}
         <div
-          className="mt-16 grid grid-cols-2 gap-8 max-w-2xl mx-auto animate-fade-in"
-          style={{ animationDelay: "1.2s" }}
+          className="grid grid-cols-2 gap-16 md:gap-24 max-w-lg mx-auto animate-fade-in"
+          style={{ animationDelay: "1.3s" }}
         >
           {[
             { value: "42", label: "HOURS" },
             { value: "500+", label: "HACKERS" }
           ].map((stat, i) => (
-            <div key={i} className="text-center">
-              <div className="font-display text-4xl md:text-5xl text-primary">{stat.value}</div>
-              <div className="font-mono text-xs text-muted-foreground tracking-widest mt-1">{stat.label}</div>
+            <div key={i} className="text-center group">
+              <div className="font-display text-4xl md:text-5xl text-primary/90 group-hover:text-primary transition-all duration-300 group-hover:scale-110">
+                {stat.value}
+              </div>
+              <div className="font-mono text-xs text-muted-foreground tracking-[0.3em] mt-2 uppercase">
+                {stat.label}
+              </div>
             </div>
           ))}
         </div>
