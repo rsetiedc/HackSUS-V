@@ -14,6 +14,7 @@ const SyncConX = lazy(() => import("./pages/SyncConX"));
 const HeliX = lazy(() => import("./pages/HeliX"));
 const ScreenX = lazy(() => import("./pages/ScreenX"));
 const UnmuteX = lazy(() => import("./pages/UnmuteX"));
+const Kruisex = lazy(() => import("./pages/Kruisex"));
 
 const queryClient = new QueryClient();
 
@@ -65,6 +66,7 @@ const AppShell = () => {
             <Route path="/helix" element={<HeliX />} />
             <Route path="/screenx" element={<ScreenX />} />
             <Route path="/unmutex" element={<UnmuteX />} />
+            <Route path="/kruisex" element={<Kruisex />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
@@ -77,7 +79,7 @@ const AppShell = () => {
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <BrowserRouter>
+      <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <AppShell />
       </BrowserRouter>
     </TooltipProvider>

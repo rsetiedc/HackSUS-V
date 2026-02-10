@@ -1,5 +1,6 @@
 
-import { Calendar, Monitor, Users, Lightbulb } from "lucide-react";
+import { Calendar, Monitor, Users, Lightbulb, Ship, Zap } from "lucide-react";
+import { Link } from "react-router-dom";
 
 /**
  * PreEventsTimeline component displaying the road to the hackathon
@@ -24,16 +25,17 @@ const PreEventsTimeline = () => {
         },
         {
             id: 3,
-            date: "Feb 19, 2026",
-            title: "??????",
-            description: "Something is brewing, Stay tuned to find out!",
-            icon: <Calendar className="w-5 h-5 text-primary" />,
+            date: "Mar 19, 2026",
+            title: "KRUISE X",
+            description: "An onboard Ideathon in Kochi Water Metro. Shortlisting teams now!",
+            icon: <Ship className="w-5 h-5 text-primary" />,
             align: "left",
-            highlight: true
+            highlight: true,
+            link: "/kruisex"
         },
         {
             id: 6,
-            date: "Mar 06, 2026",
+            date: "Mar 26, 2026",
             title: "HackSUS V Begins",
             description: "The 42-hour marathon starts here.",
             icon: <Calendar className="w-5 h-5 text-primary" />,
@@ -99,11 +101,23 @@ const PreEventsTimeline = () => {
                                     <h3 className={`font-display text-2xl text-foreground mb-2 
                      ${event.highlight ? "text-3xl" : ""}
                   `}>
-                                        {event.title}
+                                        {event.link ? (
+                                            <Link to={event.link} className="hover:text-primary transition-colors inline-flex items-center gap-2">
+                                                {event.title}
+                                                <Zap className="w-5 h-5 text-primary animate-pulse" />
+                                            </Link>
+                                        ) : (
+                                            event.title
+                                        )}
                                     </h3>
 
                                     <p className="text-muted-foreground">
                                         {event.description}
+                                        {event.link && (
+                                            <Link to={event.link} className="block mt-4 text-primary font-mono text-sm underline underline-offset-4 hover:text-primary/80 transition-all uppercase tracking-widest">
+                                                Learn More & Register //
+                                            </Link>
+                                        )}
                                     </p>
                                 </div>
 
