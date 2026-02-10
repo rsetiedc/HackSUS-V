@@ -99,7 +99,7 @@ const Kruisex = () => {
                                         transition={{ duration: 0.8, delay: 0.2 }}
                                         className="text-xl md:text-2xl text-white/90 max-w-2xl font-body leading-relaxed drop-shadow-lg"
                                     >
-                                        A first-of-its-its-kind Ideathon happening onboard the <span className="text-blue-400 font-semibold italic">Kochi Water Metro</span>. Solve real-world urban transit challenges where they happen.
+                                        A first-of-its-its-kind Problathon happening onboard the <span className="text-blue-400 font-semibold italic">Kochi Water Metro</span>. Solve real-world urban transit challenges where they happen.
                                     </motion.p>
                                 </div>
 
@@ -129,10 +129,12 @@ const Kruisex = () => {
                                             <div className="w-8 h-8 rounded bg-blue-600 flex items-center justify-center font-bold text-white text-[10px] shadow-lg shadow-blue-600/20">KMRL</div>
                                             <span className="font-display text-xl tracking-tight text-white">KMRL</span>
                                         </div>
+                                        {/*
                                         <div className="flex items-center gap-2">
                                             <div className="w-8 h-8 rounded bg-red-600 flex items-center justify-center font-bold text-white text-[10px] shadow-lg shadow-red-600/20">RB</div>
                                             <span className="font-display text-xl tracking-tight text-white italic">Red Bull</span>
                                         </div>
+                                        */}
                                     </div>
                                 </div>
                             </motion.div>
@@ -310,10 +312,10 @@ const Kruisex = () => {
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 max-w-5xl mx-auto">
                             {[
-                                { q: "Is registration free?", a: "Yes, KRUISE X is a zero-fee event for all students." },
+                                { q: "What is registration fee?", a: "KRUISE X is 49 INR per person" },
                                 { q: "Who can participate?", a: "Teams of 3-4 students from any college in Kerala." },
-                                { q: "Do we need a working prototype?", a: "For the online round, a solid plan/wireframe is enough. For the finale, a POC is preferred." },
-                                { q: "What are the prizes?", a: "Cash prizes, internships, and the chance to showcase to KMRL leadership." }
+                                { q: "Do we need a working prototype?", a: "No, Just presnet the problems and your ideas to solve them." },
+                                { q: "What are the prizes?", a: "Cash prizes, and the chance to showcase to KMRL leadership." }
                             ].map((faq, i) => (
                                 <div key={i} className="space-y-2">
                                     <h4 className="font-mono text-blue-400 text-sm uppercase tracking-wide">// {faq.q}</h4>
