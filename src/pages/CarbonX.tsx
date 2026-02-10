@@ -14,6 +14,14 @@ import { useParticleTuning } from "@/hooks/useParticlesQuality";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const carbonX = {
@@ -207,7 +215,7 @@ function GlassCard({
       )}
     >
       <div className={cn("pointer-events-none absolute inset-0", overlayClassName)} />
-      <div className="relative">{children}</div>
+      <div className="relative h-full">{children}</div>
     </Card>
   );
 }
@@ -707,7 +715,7 @@ const CarbonX = () => {
 		                        <div
 		                          key={t.title}
 		                          className={cn(
-		                            "group relative overflow-hidden text-left rounded-none card-beveled border border-border/70 bg-background/5 px-4 py-3 transition hover:bg-background/10 hover:border-border/90",
+		                            "group relative h-full overflow-hidden text-left rounded-none card-beveled border border-border/70 bg-background/5 px-4 py-3 transition hover:bg-background/10 hover:border-border/90",
 		                            t.badge === "02" && "card-beveled-mirror",
 		                          )}
 		                        >
@@ -737,7 +745,7 @@ const CarbonX = () => {
 		                            {t.badge}
 		                          </div>
 
-		                          <div className="relative">
+		                          <div className="relative flex h-full flex-col">
 		                            <div className="flex items-center justify-between gap-2">
 		                              <div className="font-mono text-[10px] tracking-[0.56em] text-muted-foreground uppercase">
 		                                TRACK {t.badge}{" "}
@@ -765,7 +773,7 @@ const CarbonX = () => {
 		                              {t.blurb}
 		                            </p>
 
-		                            <div className="mt-2.5 pt-2.5 border-t border-border/60 flex items-center justify-between gap-2">
+		                            <div className="mt-auto pt-2.5 border-t border-border/60 flex items-center justify-between gap-2">
 		                              <Button
 		                                type="button"
 		                                variant={ui.detailsVariant}
@@ -1034,10 +1042,20 @@ const CarbonX = () => {
                 id: "track-vegathon",
                 title: "VEGATHON (VEGA Processor)",
                 description:
-                  "Processor-aware, system-level builds inspired by the VEGA Processor lineage — prototype real hardware-first solutions.",
+                  "Build real-world hardware prototypes on RISC-V based Vega development boards.",
                 badge: "01",
                 registerKey: "vegathon",
                 ctaLabel: "VEGATHON",
+                writeupTitle: "VEGATHON 2026",
+                longDescription:
+                  "VEGATHON 2026 is the RISC-V Vega Processor hardware track that challenges teams to turn bold ideas into working hardware prototypes using RISC-V based Vega development boards. If you're excited about building real-world tech on next-gen processor platforms, this is your arena.",
+                problemStatements: [
+                  "Safety, Disaster & Emergency Response",
+                  "Healthcare & Assistive Technology",
+                  "Smart Agriculture & Food Security",
+                  "Smart Cities & Infrastructure",
+                  "Fiction in Real Life - Enhanced Gadgets",
+                ],
               },
               {
                 id: "track-electrothon",
@@ -1047,6 +1065,9 @@ const CarbonX = () => {
                 badge: "02",
                 registerKey: "electrothon",
                 ctaLabel: "ELECTROTHON",
+                writeupTitle: undefined,
+                longDescription: undefined,
+                problemStatements: undefined,
               },
 	            ].map((t) => {
 	              const ui = trackLaneUi[t.registerKey as TrackKey];
@@ -1073,15 +1094,56 @@ const CarbonX = () => {
 	                      )}
 	                      aria-hidden="true"
 	                    />
-	                    <div className="truefocus-content">
-	                      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
-	                        <div className="min-w-0">
-	                          <div className="font-display text-xl md:text-2xl tracking-wide">
-	                            {t.title}
-	                          </div>
+		                    <div className="truefocus-content flex h-full flex-col">
+		                      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+		                        <div className="min-w-0">
+		                          <div className="font-display text-xl md:text-2xl tracking-wide">
+		                            {t.title}
+		                          </div>
 	                          <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-	                            {t.description}
+                              {t.description}
 	                          </p>
+                              {t.writeupTitle && t.longDescription && t.problemStatements ? (
+                                <div className="mt-3 flex flex-wrap items-center gap-2.5">
+                                  <Badge
+                                    variant="outline"
+                                    className="border-primary/30 bg-primary/5 text-primary/90 font-mono text-[10px] tracking-[0.24em] uppercase"
+                                  >
+                                    {t.problemStatements.length} problem statements
+                                  </Badge>
+                                  <Dialog>
+                                    <DialogTrigger asChild>
+                                      <button
+                                        type="button"
+                                        className="inline-flex items-center rounded-full border border-border/70 bg-background/30 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.24em] text-foreground/90 transition hover:border-primary/45 hover:bg-primary/10 hover:text-foreground"
+                                      >
+                                        View details
+                                        <ArrowRight className="ml-1.5 h-3 w-3" />
+                                      </button>
+                                    </DialogTrigger>
+                                    <DialogContent className="border-border/70 bg-[#07090d]/95 text-foreground backdrop-blur-md sm:max-w-[680px]">
+                                      <DialogHeader>
+                                        <DialogTitle className="font-display text-2xl tracking-wide">
+                                          {t.writeupTitle}
+                                        </DialogTitle>
+                                        <DialogDescription className="text-muted-foreground text-sm leading-relaxed">
+                                          {t.longDescription}
+                                        </DialogDescription>
+                                      </DialogHeader>
+                                      <div className="mt-1">
+                                        <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-primary/90">
+                                          Problem statements
+                                        </p>
+                                        <ol className="mt-3 list-decimal space-y-1.5 pl-4 text-sm text-foreground/90 leading-relaxed">
+                                          {t.problemStatements.map((statement) => (
+                                            <li key={statement}>{statement}</li>
+                                          ))}
+                                        </ol>
+                                      </div>
+                                    </DialogContent>
+                                  </Dialog>
+                                </div>
+                              ) : null}
 	                        </div>
 
 	                        <div className="flex shrink-0 flex-wrap items-center gap-2 sm:flex-col sm:items-end">
@@ -1103,23 +1165,27 @@ const CarbonX = () => {
 	                        </div>
 	                      </div>
 
-	                      <div className="mt-6 h-px w-full bg-border/70" />
-	                      <div className="mt-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-	                        <p className="text-sm text-muted-foreground leading-relaxed">
-	                          Registration is per-track. Choose your lane, then lock your spot.
-	                        </p>
-	                        <Button
-	                          type="button"
-	                          onClick={() =>
-	                            openRegistration(t.registerKey as keyof typeof carbonX.registerUrls)
-	                          }
-	                          className="h-11 rounded-xl px-7 font-display tracking-widest shadow-[0_14px_42px_hsl(var(--primary)/0.18)]"
-	                        >
-	                          REGISTER {t.ctaLabel}
-	                          <ArrowRight className="ml-2 h-4 w-4" />
-	                        </Button>
-	                      </div>
-	                    </div>
+		                      <div className="mt-auto pt-6">
+		                        <div className="h-px w-full bg-border/70" />
+		                        <div className="mt-5 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+		                          <p className="text-sm text-muted-foreground leading-relaxed">
+		                            Registration is per-track. Choose your lane, then lock your spot.
+		                          </p>
+		                          <Button
+		                            type="button"
+		                            onClick={() =>
+		                              openRegistration(
+		                                t.registerKey as keyof typeof carbonX.registerUrls,
+		                              )
+		                            }
+		                            className="h-11 rounded-xl px-7 font-display tracking-widest shadow-[0_14px_42px_hsl(var(--primary)/0.18)]"
+		                          >
+		                            REGISTER {t.ctaLabel}
+		                            <ArrowRight className="ml-2 h-4 w-4" />
+		                          </Button>
+		                        </div>
+		                      </div>
+		                    </div>
 	                    <div
 	                      className="truefocus-veil pointer-events-none absolute inset-0"
 	                      aria-hidden="true"
