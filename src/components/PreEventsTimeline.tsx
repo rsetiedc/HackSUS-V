@@ -73,7 +73,7 @@ const PreEventsTimeline = () => {
                             >
                                 {/* Line connecting to next event */}
                                 {index !== filteredEvents.length - 1 && (
-                                    <div className="absolute left-4 md:left-1/2 top-0 h-[calc(100%+3rem)] w-px bg-border md:-translate-x-1/2" />
+                                    <div className="absolute left-4 md:left-1/2 top-2 h-[calc(100%+3rem)] w-px bg-border md:-translate-x-1/2" />
                                 )}
 
                                 {/* Center marker for desktop, left marker for mobile */}
