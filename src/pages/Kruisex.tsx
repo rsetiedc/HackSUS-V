@@ -83,7 +83,7 @@ const Kruisex = () => {
                                 </span>
                             </motion.div>
 
-                            <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-8">
+                            <div className="flex                                            X flex-col md:flex-row md:items-end justify-between gap-8 mb-8">
                                 <div className="max-w-3xl">
                                     <motion.h1
                                         initial={{ opacity: 0, x: -20 }}
@@ -91,7 +91,7 @@ const Kruisex = () => {
                                         transition={{ duration: 0.8, ease: "easeOut" }}
                                         className="font-display text-7xl md:text-9xl tracking-tighter leading-none mb-4 bg-gradient-to-r from-white via-blue-100 to-blue-200 bg-clip-text text-transparent [text-shadow:0_0_30px_rgba(255,255,255,0.2)]"
                                     >
-                                        KRUISE X
+                                        KRUIZE X
                                     </motion.h1>
                                     <motion.p
                                         initial={{ opacity: 0 }}
@@ -99,7 +99,7 @@ const Kruisex = () => {
                                         transition={{ duration: 0.8, delay: 0.2 }}
                                         className="text-xl md:text-2xl text-white/90 max-w-2xl font-body leading-relaxed drop-shadow-lg"
                                     >
-                                        A first-of-its-its-kind Problathon happening onboard the <span className="text-blue-400 font-semibold italic">Kochi Water Metro</span>. Solve real-world urban transit challenges where they happen.
+                                        A first-of-its-kind Problathon happening onboard the <span className="text-blue-400 font-semibold italic">Kochi Water Metro</span>. Solve real-world urban transit challenges where they happen.
                                     </motion.p>
                                 </div>
 
@@ -111,7 +111,7 @@ const Kruisex = () => {
                                 >
                                     <span className="font-mono text-sm text-white/70 uppercase">Event Date</span>
                                     <span className="font-display text-4xl text-primary tracking-tight uppercase [text-shadow:0_0_20px_rgba(231,24,24,0.4)]">FEB 19</span>
-                                    <span className="font-mono text-xs text-blue-300 font-bold uppercase">Location: Water Metro / Kochi</span>
+                                    <span className="font-mono text-xs text-blue-300 font-bold uppercase">Location: Water Metro, High Court / Kochi</span>
                                 </motion.div>
                             </div>
 
@@ -126,8 +126,8 @@ const Kruisex = () => {
                                     <span className="text-xs font-mono text-white/60 uppercase tracking-widest">In Partnership with</span>
                                     <div className="flex items-center gap-8 saturate-100 transition-all duration-500">
                                         <div className="flex items-center gap-2">
-                                            <div className="w-8 h-8 rounded bg-blue-600 flex items-center justify-center font-bold text-white text-[10px] shadow-lg shadow-blue-600/20">KMRL</div>
-                                            <span className="font-display text-xl tracking-tight text-white">KMRL</span>
+                                            <img src="/images/waterMetro.png" alt="KMRL Water Metro" className="w-30 h-20" />
+                                            {/* <span className="font-display text-xl tracking-tight text-white">KMRL</span> */}
                                         </div>
                                         {/*
                                         <div className="flex items-center gap-2">
@@ -138,6 +138,17 @@ const Kruisex = () => {
                                     </div>
                                 </div>
                             </motion.div>
+
+                            {/* Mobile Register Button */}
+                            <motion.a
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.8 }}
+                                href="https://konfhub.com/kruisex"
+                                className="block lg:hidden w-full py-4 bg-blue-600 hover:bg-blue-500 text-white text-center font-display text-xl tracking-[0.05em] uppercase rounded-2xl transition-all shadow-[0_0_30px_rgba(37,99,235,0.3)] mt-8"
+                            >
+                                Register Now
+                            </motion.a>
                         </div>
                     </div>
                 </div>
@@ -155,8 +166,8 @@ const Kruisex = () => {
                         {[
                             { icon: Users, label: "Team Size", value: "3 - 4 Members" },
                             { icon: Trophy, label: "Shortlisted Teams", value: "8 Finalists" },
-                            { icon: Zap, label: "Event Type", value: "Ideathon Onboard" },
-                            { icon: Calendar, label: "Online Selection", value: "Feb 3rd Weekend" }
+                            { icon: Zap, label: "Event Type", value: "Problathon Onboard" },
+                            { icon: Calendar, label: "Online Selection", value: "Feb 14th - 17th" }
                         ].map((stat, i) => (
                             <motion.div
                                 key={i}
@@ -263,7 +274,7 @@ const Kruisex = () => {
                                 <div className="bg-black/90 backdrop-blur-2xl border border-white/10 p-8 md:p-10 rounded-[2.4rem] space-y-8">
                                     <div className="space-y-2">
                                         <h3 className="font-display text-4xl tracking-tight uppercase">Ready to board?</h3>
-                                        <p className="text-muted-foreground text-sm uppercase font-mono tracking-widest">// Registration Open Soon</p>
+                                        <p className="text-muted-foreground text-sm uppercase font-mono tracking-widest">// Registration Open</p>
                                     </div>
 
                                     <div className="space-y-4">
@@ -275,9 +286,6 @@ const Kruisex = () => {
                                         >
                                             Register Now
                                         </motion.a>
-                                        <p className="text-center text-xs text-muted-foreground font-mono">
-                                            Deadline: Early March 2026
-                                        </p>
                                     </div>
 
                                     <div className="pt-8 border-t border-white/5 space-y-6">

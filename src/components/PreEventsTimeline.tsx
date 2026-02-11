@@ -21,20 +21,18 @@ const PreEventsTimeline = () => {
             title: "Ship With AI",
             description: "An intensive 4-day sprint to master building and deploying web apps using AI coding agents.",
             icon: <Monitor className="w-5 h-5 text-primary" />,
-            align: "right",
-            highlight: true,
-            link: ""
+            align: "right"
         },
-        // {
-        //     id: 3,
-        //     date: "Mar 19, 2026",
-        //     title: "KRUISE X",
-        //     description: "An onboard Ideathon in Kochi Water Metro. Shortlisting teams now!",
-        //     icon: <Ship className="w-5 h-5 text-primary" />,
-        //     align: "left",
-        //     highlight: true,
-        //     link: "/kruisex"
-        // },
+        {
+            id: 3,
+            date: "Mar 19, 2026",
+            title: "KRUISE X",
+            description: "An onboard Ideathon in Kochi Water Metro. Shortlisting teams now!",
+            icon: <Ship className="w-5 h-5 text-primary" />,
+            align: "left",
+            highlight: true,
+            link: "/kruisex"
+        },
         {
             id: 6,
             date: "Mar 26, 2026",
