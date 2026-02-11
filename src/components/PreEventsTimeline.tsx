@@ -25,7 +25,7 @@ const PreEventsTimeline = () => {
         },
         {
             id: 3,
-            date: "Mar 19, 2026",
+            date: "Feb 19, 2026",
             title: "KRUISE X",
             description: "An onboard Ideathon in Kochi Water Metro. Shortlisting teams now!",
             icon: <Ship className="w-5 h-5 text-primary" />,

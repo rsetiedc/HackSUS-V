@@ -156,7 +156,7 @@ const Kruisex = () => {
                             { icon: Users, label: "Team Size", value: "3 - 4 Members" },
                             { icon: Trophy, label: "Shortlisted Teams", value: "8 Finalists" },
                             { icon: Zap, label: "Event Type", value: "Ideathon Onboard" },
-                            { icon: Calendar, label: "Online Selection", value: "Early March" }
+                            { icon: Calendar, label: "Online Selection", value: "Feb 3rd Weekend" }
                         ].map((stat, i) => (
                             <motion.div
                                 key={i}
