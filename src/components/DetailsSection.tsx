@@ -5,7 +5,7 @@ const details = [
     icon: Calendar,
     title: "WHEN",
     value: "March 6-8, 2026",
-    description: "42 hours of non-stop innovation",
+    description: "March 6th, 7:30 pm to March 8th, 3:00pm",
   },
   {
     icon: MapPin,

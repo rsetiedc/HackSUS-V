@@ -61,6 +61,7 @@ export default {
         mono: ["JetBrains Mono", "monospace"],
         body: ["Inter", "sans-serif"],
         BrittanicBold: ["'BrittanicBold'", "sans-serif"],
+        copperplate: ["'CopperplateCC'", "Copperplate", "serif"],
       },
       borderRadius: {
         lg: "var(--radius)",
