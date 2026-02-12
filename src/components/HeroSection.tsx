@@ -72,7 +72,7 @@ const HeroSection = () => {
         {/* Edition image */}
         <div className="relative mb-4 -mt-8 animate-fade-in" style={{ animationDelay: "0.2s" }}>
           <img
-            src="/images/EditionV-Ribbon.png"
+            src="/images/EditionV-Ribbon.webp"
             alt="Edition V"
             className="mx-auto w-84 sm:w-80 md:w-96 lg:w-100"
           />

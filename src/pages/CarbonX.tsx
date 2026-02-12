@@ -293,7 +293,7 @@ function CarbonXNavbar({
           aria-label="Go to top"
         >
           <img
-            src="/images/Group%20(1).png"
+            src="/images/Group%20(1).webp"
             alt="CarbonX logo"
             className="h-10 w-10 md:h-11 md:w-11 object-contain -translate-y-1"
           />
@@ -466,7 +466,7 @@ const CarbonX = () => {
         node: (
           <span className="inline-flex items-center justify-center px-2 py-1">
             <img
-              src="/images/rset_jubilee.png"
+              src="/images/rset_jubilee.webp"
               alt="RSET Silver Jubilee"
               className="h-[5.2rem] w-auto object-contain opacity-95 drop-shadow-[0_10px_24px_rgba(0,0,0,0.36)] md:h-[6.8rem]"
             />
