@@ -99,7 +99,7 @@ const Kruizex = () => {
                                         transition={{ duration: 0.8, delay: 0.2 }}
                                         className="text-xl md:text-2xl text-white/90 max-w-2xl font-body leading-relaxed drop-shadow-lg"
                                     >
-                                        A first-of-its-kind Problathon happening onboard the <span className="text-blue-400 font-semibold italic">Kochi Water Metro</span>. Solve real-world urban transit challenges where they happen.
+                                        A first-of-its-kind Problathon as a <span className="text-red-600 font-semibold italic">Pre-Event</span> to <span className="text-red-600 font-semibold italic">HackS'US Edition V</span> happening onboard the <span className="text-blue-400 font-semibold italic">Kochi Water Metro</span>. Solve real-world urban transit challenges where they happen.
                                     </motion.p>
                                 </div>
 
@@ -255,7 +255,7 @@ const Kruizex = () => {
                                         <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center font-mono text-blue-400 mb-4 italic">02</div>
                                         <h3 className="font-display text-xl mb-2">Finale Onboard</h3>
                                         <p className="text-sm text-blue-100/70 leading-relaxed font-medium">
-                                            Finalist teams will present their solutions to KMRL officials while cruising on the Water Metro from the High Court Station on March 19.
+                                            Finalist teams will present their solutions to KMRL officials while cruising on the Water Metro from the High Court Station on Feb 19.
                                         </p>
                                     </motion.div>
                                 </div>

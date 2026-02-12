@@ -55,7 +55,7 @@ const Index = () => {
             </div>
             <DialogTitle className="text-7xl text-[#2563eb] text-center tracking-widest">Kruize<span className="ml-2">X</span></DialogTitle>
             <DialogDescription className="text-base leading-relaxed text-foreground mt-2">
-              Participate in this exclusive Problathon on the <span className="text-[#2563eb]">Kochi Water Metro</span> as part of the HackS'US Pre-Event.
+              Participate in this exclusive Problathon on the <span className="text-[#2563eb]">Kochi Water Metro</span> as part of the <span className="text-red-600 font-semibold">HackS'US Edition V Pre-Event</span>.
             </DialogDescription>
           </DialogHeader>
 
