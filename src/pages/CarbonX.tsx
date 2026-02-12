@@ -293,7 +293,7 @@ function CarbonXNavbar({
           aria-label="Go to top"
         >
           <img
-            src="/images/Group%20(1).png"
+            src="/images/Group%20(1).webp"
             alt="CarbonX logo"
             className="h-10 w-10 md:h-11 md:w-11 object-contain -translate-y-1"
           />
@@ -466,7 +466,7 @@ const CarbonX = () => {
         node: (
           <span className="inline-flex items-center justify-center px-2 py-1">
             <img
-              src="/images/rset_jubilee.png"
+              src="/images/rset_jubilee.webp"
               alt="RSET Silver Jubilee"
               className="h-[5.2rem] w-auto object-contain opacity-95 drop-shadow-[0_10px_24px_rgba(0,0,0,0.36)] md:h-[6.8rem]"
             />
@@ -1386,104 +1386,96 @@ const CarbonX = () => {
         </section>
 
         {/* Footer */}
-        <footer className="relative isolate overflow-hidden py-14 md:py-20">
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
-          <div className="pointer-events-none absolute inset-0 -z-10">
-            <div className="absolute inset-0 bg-[radial-gradient(760px_420px_at_50%_115%,hsl(var(--primary)/0.18),transparent_62%)]" />
-            <div className="absolute inset-0 opacity-[0.12] [background-image:linear-gradient(to_right,hsl(var(--border)/0.35)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border)/0.28)_1px,transparent_1px)] [background-size:44px_44px]" />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/40" />
-          </div>
+        <footer className="relative isolate py-10 md:py-12">
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-border/70" />
+          <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(640px_320px_at_50%_105%,hsl(var(--primary)/0.12),transparent_70%)]" />
 
           <div className="container max-w-[1100px] px-6">
-            <div className="rounded-none card-beveled border border-border/70 bg-card/55 backdrop-blur-sm p-7 md:p-10 shadow-[0_18px_60px_rgba(0,0,0,0.42)]">
-              <div className="grid gap-8 md:grid-cols-12 md:items-start">
+            <div className="border border-border/70 bg-card/35 p-5 md:p-6">
+              <div className="grid gap-5 md:grid-cols-12 md:items-start">
                 <div className="md:col-span-7">
                   <div className="flex items-center gap-3">
-                    <span className="font-mokoto tracking-[0.32em] text-[15px] text-foreground/90">
+                    <span className="font-mokoto tracking-[0.28em] text-[14px] text-foreground/90">
                       {carbonX.eventName}
                     </span>
-                    <span className="font-mono text-[10px] uppercase tracking-[0.34em] text-muted-foreground">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
                       {carbonX.year}
                     </span>
-                    <div className="h-px flex-1 bg-border/60" />
+                    <div className="h-px flex-1 bg-border/50" />
                   </div>
 
-                  <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+                  <p className="mt-3 max-w-[56ch] text-sm leading-relaxed text-muted-foreground">
                     {carbonX.organizer}
                   </p>
 
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    <span className="inline-flex items-center rounded-full border border-primary/25 bg-primary/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.34em] text-primary">
-                      {carbonX.date}
-                    </span>
-                    <span className="inline-flex items-center rounded-full border border-border/70 bg-background/30 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.34em] text-foreground/90">
-                      {carbonX.city}
-                    </span>
-                    <span className="inline-flex items-center rounded-full border border-border/70 bg-background/20 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.34em] text-muted-foreground">
-                      {carbonX.tagline}
-                    </span>
+                  <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[10px] uppercase tracking-[0.26em] text-muted-foreground">
+                    <span className="text-primary">{carbonX.date}</span>
+                    <span className="text-border">/</span>
+                    <span>{carbonX.city}</span>
+                    <span className="text-border">/</span>
+                    <span>{carbonX.tagline}</span>
                   </div>
                 </div>
 
                 <div className="md:col-span-5">
-                  <div className="font-mono text-[10px] uppercase tracking-[0.34em] text-muted-foreground">
+                  <div className="font-mono text-[9px] uppercase tracking-[0.3em] text-muted-foreground">
                     Quick links
                   </div>
 
-                  <div className="mt-3 flex flex-wrap gap-2">
+                  <div className="mt-2.5 grid grid-cols-2 gap-1.5">
                     {[
                       { id: "about", label: "ABOUT" },
                       { id: "history", label: "HISTORY" },
                       { id: "tracks", label: "TRACKS" },
                       { id: "contacts", label: "CONTACTS" },
-                      { id: "top", label: "CARBONX", fullWidth: true },
                     ].map((it) => (
                       <button
                         key={it.id}
                         type="button"
                         onClick={() => scrollToSection(it.id)}
-                        className={cn(
-                          "inline-flex items-center rounded-full border border-border/70 bg-background/20 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.34em] text-foreground/90 transition hover:border-primary/45 hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-                          it.fullWidth ? "w-full justify-center" : "",
-                        )}
+                        className="inline-flex h-9 items-center justify-center border border-border/60 bg-background/15 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.3em] text-foreground/85 transition hover:border-primary/40 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                       >
                         {it.label}
                       </button>
                     ))}
+                    <button
+                      type="button"
+                      onClick={() => scrollToSection("top")}
+                      className="col-span-2 inline-flex h-8 items-center justify-center border border-border/60 bg-background/15 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.3em] text-foreground/85 transition hover:border-primary/40 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                    >
+                      CARBONX
+                    </button>
                   </div>
 
-                  <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:items-center">
+                  <div className="mt-3.5 grid grid-cols-1 gap-1.5 sm:grid-cols-2">
                     <Button
                       type="button"
-                      onClick={() => openRegistration("vegathon")}
                       variant="outline"
-                      className="h-10 rounded-xl border-primary/30 bg-background/5 px-5 font-display text-[11px] tracking-[0.2em] text-primary hover:bg-primary/10 hover:text-primary hover:border-primary/45"
+                      onClick={() => openRegistration("vegathon")}
+                      className="h-9 w-full border-primary/30 bg-background/5 px-3.5 font-display text-[10px] tracking-[0.17em] text-primary hover:border-primary/45 hover:bg-primary/10 hover:text-primary"
                       aria-label="Register for Vegathon on KonfHub"
                     >
-                      REGISTER VEGATHON <ArrowRight className="ml-2 h-4 w-4" />
+                      REGISTER VEGATHON <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
                     </Button>
                     <Button
                       type="button"
                       variant="outline"
                       onClick={() => openRegistration("electrothon")}
-                      className="h-10 rounded-xl border-primary/30 bg-background/5 px-5 font-display text-[11px] tracking-[0.2em] text-primary hover:bg-primary/10 hover:text-primary hover:border-primary/45"
+                      className="h-9 w-full border-primary/30 bg-background/5 px-3.5 font-display text-[10px] tracking-[0.17em] text-primary hover:border-primary/45 hover:bg-primary/10 hover:text-primary"
                       aria-label="Register for Electrothon on KonfHub"
                     >
-                      REGISTER ELECTROTHON <ArrowRight className="ml-2 h-4 w-4" />
+                      REGISTER ELECTROTHON <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
                     </Button>
                   </div>
                 </div>
               </div>
 
-              <div className="mt-8 h-px w-full bg-border/70" />
-
-              <div className="mt-5 flex flex-col gap-3 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
-                <div className="font-mono text-xs tracking-[0.34em] text-muted-foreground">
+              <div className="mt-5 h-px w-full bg-border/60" />
+              <div className="mt-3 flex flex-col gap-1.5 font-mono text-[10px] uppercase tracking-[0.26em] text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+                <div>
                   © <span className="font-mokoto">{carbonX.eventName}</span> {carbonX.year}
                 </div>
-                <div className="font-mono text-[10px] uppercase tracking-[0.34em] text-muted-foreground">
-                  Innovation beyond boundaries
-                </div>
+                <div>{carbonX.tagline}</div>
               </div>
             </div>
           </div>

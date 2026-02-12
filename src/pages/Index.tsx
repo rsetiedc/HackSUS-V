@@ -49,9 +49,9 @@ const Index = () => {
         <DialogContent className="w-[90vw] max-w-md sm:max-w-lg mx-auto">
           <DialogHeader>
             <div className="flex items-center justify-center gap-4 mb-4">
-              <img src="/images/hacksus_logo.png" alt="Water Metro" className="h-20 w-auto" />
+              <img src="/images/hacksus_logo.webp" alt="Water Metro" className="h-20 w-auto" />
               <span className="text-4xl text-primary font-bold ml-2">×</span>
-              <img src="/images/waterMetro.png" alt="HackSUS" className="h-20 w-auto" />
+              <img src="/images/waterMetro.webp" alt="HackSUS" className="h-20 w-auto" />
             </div>
             <DialogTitle className="text-7xl text-[#2563eb] text-center tracking-widest">Kruize<span className="ml-2">X</span></DialogTitle>
             <DialogDescription className="text-base leading-relaxed text-foreground mt-2">

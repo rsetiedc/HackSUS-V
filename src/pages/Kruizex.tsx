@@ -126,7 +126,7 @@ const Kruizex = () => {
                                     <span className="text-xs font-mono text-white/60 uppercase tracking-widest">In Partnership with</span>
                                     <div className="flex items-center gap-8 saturate-100 transition-all duration-500">
                                         <div className="flex items-center gap-2">
-                                            <img src="/images/waterMetro.png" alt="KMRL Water Metro" className="w-30 h-20" />
+                                            <img src="/images/waterMetro.webp" alt="KMRL Water Metro" className="w-30 h-20" />
                                             {/* <span className="font-display text-xl tracking-tight text-white">KMRL</span> */}
                                         </div>
                                         {/*
