@@ -1386,16 +1386,106 @@ const CarbonX = () => {
         </section>
 
         {/* Footer */}
-        <footer className="relative py-14 md:py-20">
-          <div className="container max-w-[1100px] px-6">
-          <div className="rounded-none card-beveled border border-border/70 bg-card/60 p-7 md:p-10 text-center">
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              {carbonX.organizer}
-            </p>
-            <div className="mt-6 font-mono text-xs tracking-[0.34em] text-muted-foreground">
-              © <span className="font-mokoto">{carbonX.eventName}</span> {carbonX.year}
-            </div>
+        <footer className="relative isolate overflow-hidden py-14 md:py-20">
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
+          <div className="pointer-events-none absolute inset-0 -z-10">
+            <div className="absolute inset-0 bg-[radial-gradient(760px_420px_at_50%_115%,hsl(var(--primary)/0.18),transparent_62%)]" />
+            <div className="absolute inset-0 opacity-[0.12] [background-image:linear-gradient(to_right,hsl(var(--border)/0.35)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border)/0.28)_1px,transparent_1px)] [background-size:44px_44px]" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/40" />
           </div>
+
+          <div className="container max-w-[1100px] px-6">
+            <div className="rounded-none card-beveled border border-border/70 bg-card/55 backdrop-blur-sm p-7 md:p-10 shadow-[0_18px_60px_rgba(0,0,0,0.42)]">
+              <div className="grid gap-8 md:grid-cols-12 md:items-start">
+                <div className="md:col-span-7">
+                  <div className="flex items-center gap-3">
+                    <span className="font-mokoto tracking-[0.32em] text-[15px] text-foreground/90">
+                      {carbonX.eventName}
+                    </span>
+                    <span className="font-mono text-[10px] uppercase tracking-[0.34em] text-muted-foreground">
+                      {carbonX.year}
+                    </span>
+                    <div className="h-px flex-1 bg-border/60" />
+                  </div>
+
+                  <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+                    {carbonX.organizer}
+                  </p>
+
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    <span className="inline-flex items-center rounded-full border border-primary/25 bg-primary/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.34em] text-primary">
+                      {carbonX.date}
+                    </span>
+                    <span className="inline-flex items-center rounded-full border border-border/70 bg-background/30 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.34em] text-foreground/90">
+                      {carbonX.city}
+                    </span>
+                    <span className="inline-flex items-center rounded-full border border-border/70 bg-background/20 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.34em] text-muted-foreground">
+                      {carbonX.tagline}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="md:col-span-5">
+                  <div className="font-mono text-[10px] uppercase tracking-[0.34em] text-muted-foreground">
+                    Quick links
+                  </div>
+
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {[
+                      { id: "about", label: "ABOUT" },
+                      { id: "history", label: "HISTORY" },
+                      { id: "tracks", label: "TRACKS" },
+                      { id: "contacts", label: "CONTACTS" },
+                      { id: "top", label: "CARBONX", fullWidth: true },
+                    ].map((it) => (
+                      <button
+                        key={it.id}
+                        type="button"
+                        onClick={() => scrollToSection(it.id)}
+                        className={cn(
+                          "inline-flex items-center rounded-full border border-border/70 bg-background/20 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.34em] text-foreground/90 transition hover:border-primary/45 hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                          it.fullWidth ? "w-full justify-center" : "",
+                        )}
+                      >
+                        {it.label}
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:items-center">
+                    <Button
+                      type="button"
+                      onClick={() => openRegistration("vegathon")}
+                      variant="outline"
+                      className="h-10 rounded-xl border-primary/30 bg-background/5 px-5 font-display text-[11px] tracking-[0.2em] text-primary hover:bg-primary/10 hover:text-primary hover:border-primary/45"
+                      aria-label="Register for Vegathon on KonfHub"
+                    >
+                      REGISTER VEGATHON <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => openRegistration("electrothon")}
+                      className="h-10 rounded-xl border-primary/30 bg-background/5 px-5 font-display text-[11px] tracking-[0.2em] text-primary hover:bg-primary/10 hover:text-primary hover:border-primary/45"
+                      aria-label="Register for Electrothon on KonfHub"
+                    >
+                      REGISTER ELECTROTHON <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-8 h-px w-full bg-border/70" />
+
+              <div className="mt-5 flex flex-col gap-3 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
+                <div className="font-mono text-xs tracking-[0.34em] text-muted-foreground">
+                  © <span className="font-mokoto">{carbonX.eventName}</span> {carbonX.year}
+                </div>
+                <div className="font-mono text-[10px] uppercase tracking-[0.34em] text-muted-foreground">
+                  Innovation beyond boundaries
+                </div>
+              </div>
+            </div>
           </div>
         </footer>
       </div>
