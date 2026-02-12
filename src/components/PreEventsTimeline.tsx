@@ -31,7 +31,7 @@ const PreEventsTimeline = () => {
             icon: <Ship className="w-5 h-5 text-primary" />,
             align: "left",
             highlight: true,
-            link: "/kruisex"
+            link: "/kruizex"
         },
         {
             id: 6,

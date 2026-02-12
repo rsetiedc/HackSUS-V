@@ -21,11 +21,11 @@ import {
 import { Button } from "@/components/ui/button";
 
 const Index = () => {
-  const [isKruiseXOpen, setIsKruiseXOpen] = useState(false);
+  const [isKruizeXOpen, setIsKruizeXOpen] = useState(false);
 
   useEffect(() => {
-    // Open KruiseX pop-up on page load
-    setIsKruiseXOpen(true);
+    // Open KruizeX pop-up on page load
+    setIsKruizeXOpen(true);
   }, []);
 
   return (
@@ -44,8 +44,8 @@ const Index = () => {
         <Footer />
       </main>
 
-      {/* KruiseX Event Pop-up */}
-      <Dialog open={isKruiseXOpen} onOpenChange={setIsKruiseXOpen}>
+      {/* KruizeX Event Pop-up */}
+      <Dialog open={isKruizeXOpen} onOpenChange={setIsKruizeXOpen}>
         <DialogContent className="w-[90vw] max-w-md sm:max-w-lg mx-auto">
           <DialogHeader>
             <div className="flex items-center justify-center gap-4 mb-4">
@@ -73,7 +73,7 @@ const Index = () => {
           <DialogFooter className="flex gap-3">
             <Button
               onClick={() => {
-                window.location.href = "/kruisex";
+                window.location.href = "/kruizex";
               }}
               className="flex-1 bg-[#2563eb] hover:bg-[#2563eb] !focus:ring-[#2563eb] !focus:ring-offset-0 !ring-[#2563eb]"
             >

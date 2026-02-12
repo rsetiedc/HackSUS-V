@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const Kruisex = () => {
+const Kruizex = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -144,7 +144,7 @@ const Kruisex = () => {
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.6, delay: 0.8 }}
-                                href="https://konfhub.com/kruisex"
+                                href="https://konfhub.com/kruizex"
                                 className="block lg:hidden w-full py-4 bg-blue-600 hover:bg-blue-500 text-white text-center font-display text-xl tracking-[0.05em] uppercase rounded-2xl transition-all shadow-[0_0_30px_rgba(37,99,235,0.3)] mt-8"
                             >
                                 Register Now
@@ -281,7 +281,7 @@ const Kruisex = () => {
                                         <motion.a
                                             whileHover={{ scale: 1.02 }}
                                             whileTap={{ scale: 0.98 }}
-                                            href="https://konfhub.com/kruisex"
+                                            href="https://konfhub.com/kruizex"
                                             className="block w-full py-5 bg-blue-600 hover:bg-blue-500 text-white text-center font-display text-2xl tracking-[0.05em] uppercase rounded-2xl transition-all shadow-[0_0_30px_rgba(37,99,235,0.3)] hover:shadow-[0_0_50px_rgba(37,99,235,0.5)]"
                                         >
                                             Register Now
@@ -341,4 +341,4 @@ const Kruisex = () => {
     );
 };
 
-export default Kruisex;
+export default Kruizex;
