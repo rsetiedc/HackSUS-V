@@ -32,8 +32,8 @@ const Footer = () => {
           </div>
 
           <div className="flex flex-wrap [@media(min-width:1115px)]:flex-nowrap justify-center items-center gap-6 max-w-[340px] [@media(min-width:1115px)]:max-w-none mx-auto">
-            <img className="w-40" src="/images/iic_logo.png" alt="RSET IIC" />
-            <img className="w-40" src="/images/rset_jubilee.png" alt="Silver Jubilee RSET" />
+            <img className="w-40" src="/images/iic_logo.webp" alt="RSET IIC" />
+            <img className="w-40" src="/images/rset_jubilee.webp" alt="Silver Jubilee RSET" />
             <img className="w-40" src="/images/rset_iedc.PNG" alt="RSET IEDC" />
           </div>
 
@@ -64,6 +64,18 @@ const Footer = () => {
                   <social.icon size={18} />
                 </a>
               ))}
+            </div>
+
+            {/* Email contacts */}
+            <div className="flex flex-col gap-2 mt-4">
+              <a href="mailto:rsetiedc@rajagiritech.edu.in" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors font-mono text-sm">
+                <Mail size={16} />
+                <span>rsetiedc@rajagiritech.edu.in</span>
+              </a>
+              <a href="mailto:iic_rset@rajagiritech.edu.in" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors font-mono text-sm">
+                <Mail size={16} />
+                <span>iic_rset@rajagiritech.edu.in</span>
+              </a>
             </div>
           </div>
         </div>

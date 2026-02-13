@@ -305,6 +305,52 @@ const UnmuteX = () => {
                                 <span className="text-sm text-muted-foreground">Curated for <span className="text-white">Music Producers</span> • 42 hrs duration</span>
                             </div>
 
+                            {/* Prize Pool Badge */}
+                            <motion.div
+                                className="flex flex-col items-center gap-4 bg-charcoal/40 backdrop-blur-md border border-primary/30 rounded-xl px-8 md:px-12 py-8 md:py-10 z-20 relative overflow-hidden"
+                                style={{
+                                    boxShadow: "0 0 20px rgba(255,49,46,0.3), inset 0 0 20px rgba(255,49,46,0.05)",
+                                }}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                            >
+                                <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+
+                                <div className="flex items-center gap-2 mb-2">
+                                    <motion.div
+                                        className="w-2 h-2 rounded-full bg-primary"
+                                        animate={{ opacity: [0.5, 1, 0.5] }}
+                                        transition={{ duration: 1.5, repeat: Infinity }}
+                                    />
+                                    <span className="font-mono text-[10px] text-primary uppercase tracking-widest">Prize Broadcasting</span>
+                                </div>
+
+                                <p className="font-mono text-xs text-muted-foreground uppercase tracking-[0.3em] mb-3">
+                                    Grand Prize Pool
+                                </p>
+
+                                <motion.p
+                                    className="font-display text-5xl md:text-7xl text-white font-black tracking-wider"
+                                    animate={{
+                                        textShadow: [
+                                            "0 0 10px rgba(255,49,46,0.5), 0 0 30px rgba(255,49,46,0.2)",
+                                            "0 0 20px rgba(255,49,46,0.7), 0 0 50px rgba(255,49,46,0.3)",
+                                            "0 0 10px rgba(255,49,46,0.5), 0 0 30px rgba(255,49,46,0.2)"
+                                        ]
+                                    }}
+                                    transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                                >
+                                    ₹10,000
+                                </motion.p>
+
+                                <div className="flex gap-1 mt-4">
+                                    <LevelMeter count={8} />
+                                </div>
+
+                                <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+                            </motion.div>
+
                             <motion.div
                                 className="flex flex-wrap justify-center gap-4 mt-10"
                                 initial={{ opacity: 0, y: 10 }}

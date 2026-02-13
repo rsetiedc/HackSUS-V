@@ -21,11 +21,11 @@ import {
 import { Button } from "@/components/ui/button";
 
 const Index = () => {
-  const [isKruiseXOpen, setIsKruiseXOpen] = useState(false);
+  const [isKruizeXOpen, setIsKruizeXOpen] = useState(false);
 
   useEffect(() => {
-    // Open KruiseX pop-up on page load
-    setIsKruiseXOpen(true);
+    // Open KruizeX pop-up on page load
+    setIsKruizeXOpen(true);
   }, []);
 
   return (
@@ -44,18 +44,18 @@ const Index = () => {
         <Footer />
       </main>
 
-      {/* KruiseX Event Pop-up */}
-      <Dialog open={isKruiseXOpen} onOpenChange={setIsKruiseXOpen}>
+      {/* KruizeX Event Pop-up */}
+      <Dialog open={isKruizeXOpen} onOpenChange={setIsKruizeXOpen}>
         <DialogContent className="w-[90vw] max-w-md sm:max-w-lg mx-auto">
           <DialogHeader>
             <div className="flex items-center justify-center gap-4 mb-4">
-              <img src="/images/hacksus_logo.png" alt="Water Metro" className="h-20 w-auto" />
+              <img src="/images/hacksus_logo.webp" alt="Water Metro" className="h-20 w-auto" />
               <span className="text-4xl text-primary font-bold ml-2">×</span>
-              <img src="/images/waterMetro.png" alt="HackSUS" className="h-20 w-auto" />
+              <img src="/images/waterMetro.webp" alt="HackSUS" className="h-20 w-auto" />
             </div>
-            <DialogTitle className="text-7xl text-[#2563eb] text-center tracking-widest">Kruise<span className="text-primary">X</span> </DialogTitle>
+            <DialogTitle className="text-7xl text-[#2563eb] text-center tracking-widest">Kruize<span className="ml-2">X</span></DialogTitle>
             <DialogDescription className="text-base leading-relaxed text-foreground mt-2">
-              Participate in this exclusive Ideathon on the Kochi Water Metro as part of the HackS'US Pre-Event.
+              Participate in this exclusive Problathon on the <span className="text-[#2563eb]">Kochi Water Metro</span> as part of the <span className="text-red-600 font-semibold">HackS'US Edition V Pre-Event</span>.
             </DialogDescription>
           </DialogHeader>
 
@@ -73,15 +73,15 @@ const Index = () => {
           <DialogFooter className="flex gap-3">
             <Button
               onClick={() => {
-                window.open("/kruisex", "_blank");
+                window.location.href = "/kruizex";
               }}
               className="flex-1 bg-[#2563eb] hover:bg-[#2563eb] !focus:ring-[#2563eb] !focus:ring-offset-0 !ring-[#2563eb]"
             >
               VISIT PAGE
             </Button>
           </DialogFooter>
-        </DialogContent>
-      </Dialog>
+        </DialogContent >
+      </Dialog >
     </>
   );
 };

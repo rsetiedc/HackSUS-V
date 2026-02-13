@@ -25,17 +25,17 @@ const PreEventsTimeline = () => {
         },
         {
             id: 3,
-            date: "Mar 19, 2026",
-            title: "KRUISE X",
+            date: "Feb 19, 2026",
+            title: "KRUIZE X",
             description: "An onboard Ideathon in Kochi Water Metro. Shortlisting teams now!",
             icon: <Ship className="w-5 h-5 text-primary" />,
             align: "left",
             highlight: true,
-            link: "/kruisex"
+            link: "/kruizex"
         },
         {
             id: 6,
-            date: "Mar 26, 2026",
+            date: "Mar 6, 2026",
             title: "HackSUS V Begins",
             description: "The 42-hour marathon starts here.",
             icon: <Calendar className="w-5 h-5 text-primary" />,
@@ -71,7 +71,7 @@ const PreEventsTimeline = () => {
                             >
                                 {/* Line connecting to next event */}
                                 {index !== filteredEvents.length - 1 && (
-                                    <div className="absolute left-4 md:left-1/2 top-0 h-[calc(100%+3rem)] w-px bg-border md:-translate-x-1/2" />
+                                    <div className="absolute left-4 md:left-1/2 top-2 h-[calc(100%+3rem)] w-px bg-border md:-translate-x-1/2" />
                                 )}
 
                                 {/* Center marker for desktop, left marker for mobile */}

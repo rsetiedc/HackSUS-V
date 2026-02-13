@@ -31,6 +31,16 @@ const SyncConX = () => {
                         <p className="text-xl text-muted-foreground mt-6 max-w-2xl mx-auto text-center">
                             Create data-driven electrical and instrumentation systems for smarter, more efficient workflows
                         </p>
+
+                        {/* Prize Pool */}
+                        <div className="mt-8 inline-block bg-card border border-border px-10 py-5 rounded-xl">
+                            <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground uppercase mb-2">
+                                Total Prize Pool
+                            </p>
+                            <p className="font-display text-5xl md:text-6xl text-primary font-bold">
+                                ₹20,000
+                            </p>
+                        </div>
                     </div>
 
                     {/* Content sections */}
@@ -101,7 +111,7 @@ const SyncConX = () => {
                                 <div className="space-y-4 text-sm text-muted-foreground">
                                     <div>
                                         <p className="text-primary font-semibold mb-1">Prize Pool</p>
-                                        <p>TBA</p>
+                                        <p>₹20K</p>
                                     </div>
                                     <div>
                                         <p className="text-primary font-semibold mb-1">Team Size</p>

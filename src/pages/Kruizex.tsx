@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const Kruisex = () => {
+const Kruizex = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -83,7 +83,7 @@ const Kruisex = () => {
                                 </span>
                             </motion.div>
 
-                            <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-8">
+                            <div className="flex                                            X flex-col md:flex-row md:items-end justify-between gap-8 mb-8">
                                 <div className="max-w-3xl">
                                     <motion.h1
                                         initial={{ opacity: 0, x: -20 }}
@@ -91,7 +91,7 @@ const Kruisex = () => {
                                         transition={{ duration: 0.8, ease: "easeOut" }}
                                         className="font-display text-7xl md:text-9xl tracking-tighter leading-none mb-4 bg-gradient-to-r from-white via-blue-100 to-blue-200 bg-clip-text text-transparent [text-shadow:0_0_30px_rgba(255,255,255,0.2)]"
                                     >
-                                        KRUISE X
+                                        KRUIZE X
                                     </motion.h1>
                                     <motion.p
                                         initial={{ opacity: 0 }}
@@ -99,20 +99,35 @@ const Kruisex = () => {
                                         transition={{ duration: 0.8, delay: 0.2 }}
                                         className="text-xl md:text-2xl text-white/90 max-w-2xl font-body leading-relaxed drop-shadow-lg"
                                     >
-                                        A first-of-its-its-kind Problathon happening onboard the <span className="text-blue-400 font-semibold italic">Kochi Water Metro</span>. Solve real-world urban transit challenges where they happen.
+                                        A first-of-its-kind Problathon as a <span className="text-red-600 font-semibold italic">Pre-Event</span> to <span className="text-red-600 font-semibold italic">HackS'US Edition V</span> happening onboard the <span className="text-blue-400 font-semibold italic">Kochi Water Metro</span>. Solve real-world urban transit challenges where they happen.
                                     </motion.p>
                                 </div>
 
-                                <motion.div
-                                    initial={{ opacity: 0, x: 20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ duration: 0.8, delay: 0.4 }}
-                                    className="flex flex-col items-start md:items-end gap-2 border-l md:border-l-0 md:border-r border-blue-500/40 pl-6 md:pr-6 py-2 bg-black/20 backdrop-blur-md rounded-r-none md:rounded-l-none"
-                                >
-                                    <span className="font-mono text-sm text-white/70 uppercase">Event Date</span>
-                                    <span className="font-display text-4xl text-primary tracking-tight uppercase [text-shadow:0_0_20px_rgba(231,24,24,0.4)]">FEB 19</span>
-                                    <span className="font-mono text-xs text-blue-300 font-bold uppercase">Location: Water Metro / Kochi</span>
-                                </motion.div>
+                                <div className="flex flex-col gap-6 md:items-end">
+                                    {/* Prize Pool Section */}
+                                    <motion.div
+                                        initial={{ opacity: 0, x: 20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ duration: 0.8, delay: 0.3 }}
+                                        className="flex flex-col items-start md:items-end gap-4 border-l md:border-l-0 md:border-r border-blue-500/40 pl-6 md:pl-14 pr-8 py-6 bg-blue-500/10 backdrop-blur-md rounded-r-none md:rounded-l-none"
+                                    >
+                                        <span className="font-mono text-sm text-blue-300 uppercase tracking-widest">Prize Pool</span>
+                                        <span className="font-display text-5xl md:text-6xl text-blue-300 tracking-tight uppercase [text-shadow:0_0_15px_rgba(96,165,250,0.4)]">₹5,000</span>
+                                        <span className="font-mono text-xs text-blue-200/60 italic">Total Competition Fund</span>
+                                    </motion.div>
+
+                                    {/* Event Date Section */}
+                                    <motion.div
+                                        initial={{ opacity: 0, x: 20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ duration: 0.8, delay: 0.4 }}
+                                        className="flex flex-col items-start md:items-end gap-2 border-l md:border-l-0 md:border-r border-blue-500/40 pl-6 md:pr-6 py-2 bg-black/20 backdrop-blur-md rounded-r-none md:rounded-l-none"
+                                    >
+                                        <span className="font-mono text-sm text-white/70 uppercase">Event Date</span>
+                                        <span className="font-display text-4xl text-primary tracking-tight uppercase [text-shadow:0_0_20px_rgba(231,24,24,0.4)]">FEB 19</span>
+                                        <span className="font-mono text-xs text-blue-300 font-bold uppercase">Location: Water Metro, High Court / Kochi</span>
+                                    </motion.div>
+                                </div>
                             </div>
 
                             {/* Partnerships */}
@@ -126,8 +141,8 @@ const Kruisex = () => {
                                     <span className="text-xs font-mono text-white/60 uppercase tracking-widest">In Partnership with</span>
                                     <div className="flex items-center gap-8 saturate-100 transition-all duration-500">
                                         <div className="flex items-center gap-2">
-                                            <div className="w-8 h-8 rounded bg-blue-600 flex items-center justify-center font-bold text-white text-[10px] shadow-lg shadow-blue-600/20">KMRL</div>
-                                            <span className="font-display text-xl tracking-tight text-white">KMRL</span>
+                                            <img src="/images/waterMetro.webp" alt="KMRL Water Metro" className="w-30 h-20" />
+                                            {/* <span className="font-display text-xl tracking-tight text-white">KMRL</span> */}
                                         </div>
                                         {/*
                                         <div className="flex items-center gap-2">
@@ -137,7 +152,27 @@ const Kruisex = () => {
                                         */}
                                     </div>
                                 </div>
+
+                                <div className="flex items-center gap-4 group">
+                                    <span className="text-xs font-mono text-white/60 uppercase tracking-widest">Sponsored By</span>
+                                    <div className="flex items-center gap-8 saturate-100 transition-all duration-500">
+                                        <div className="flex items-center gap-2">
+                                            <img src="/images/cachet_kruizeX.webp" alt="Cacheet Sponsorship" className="w-32 h-20 object-contain" />
+                                        </div>
+                                    </div>
+                                </div>
                             </motion.div>
+
+                            {/* Mobile Register Button */}
+                            <motion.a
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.8 }}
+                                href="https://konfhub.com/kruizex"
+                                className="block lg:hidden w-full py-4 bg-blue-600 hover:bg-blue-500 text-white text-center font-display text-xl tracking-[0.05em] uppercase rounded-2xl transition-all shadow-[0_0_30px_rgba(37,99,235,0.3)] mt-8"
+                            >
+                                Register Now
+                            </motion.a>
                         </div>
                     </div>
                 </div>
@@ -155,8 +190,8 @@ const Kruisex = () => {
                         {[
                             { icon: Users, label: "Team Size", value: "3 - 4 Members" },
                             { icon: Trophy, label: "Shortlisted Teams", value: "8 Finalists" },
-                            { icon: Zap, label: "Event Type", value: "Ideathon Onboard" },
-                            { icon: Calendar, label: "Online Selection", value: "Early March" }
+                            { icon: Zap, label: "Event Type", value: "Problathon Onboard" },
+                            { icon: Calendar, label: "Online Selection", value: "Feb 14th - 17th" }
                         ].map((stat, i) => (
                             <motion.div
                                 key={i}
@@ -185,7 +220,7 @@ const Kruisex = () => {
                                 </div>
                                 <div className="space-y-6 text-muted-foreground leading-relaxed text-lg">
                                     <p>
-                                        In collaboration with <span className="text-foreground font-semibold">KMRL</span>, KRUISE X tasks participants to identify and solve critical bottlenecks in Kochi's public transport ecosystem.
+                                        In collaboration with <span className="text-foreground font-semibold">Kochi Water Metro</span>, KRUIZE<span className="ml-1">X</span> tasks participants to identify and solve critical bottlenecks in Kochi's public transport ecosystem.
                                     </p>
                                     <p>
                                         The mission is simple yet profound: <span className="text-blue-400 underline decoration-blue-500/30 underline-offset-4 font-medium italic">How can we increase the adoption of public transport like the Metro and Water Metro?</span>
@@ -244,7 +279,7 @@ const Kruisex = () => {
                                         <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center font-mono text-blue-400 mb-4 italic">02</div>
                                         <h3 className="font-display text-xl mb-2">Finale Onboard</h3>
                                         <p className="text-sm text-blue-100/70 leading-relaxed font-medium">
-                                            Finalist teams will present their solutions to KMRL officials while cruising on the Water Metro on March 19.
+                                            Finalist teams will present their solutions to KMRL officials while cruising on the Water Metro from the High Court Station on Feb 19.
                                         </p>
                                     </motion.div>
                                 </div>
@@ -263,21 +298,18 @@ const Kruisex = () => {
                                 <div className="bg-black/90 backdrop-blur-2xl border border-white/10 p-8 md:p-10 rounded-[2.4rem] space-y-8">
                                     <div className="space-y-2">
                                         <h3 className="font-display text-4xl tracking-tight uppercase">Ready to board?</h3>
-                                        <p className="text-muted-foreground text-sm uppercase font-mono tracking-widest">// Registration Open Soon</p>
+                                        <p className="text-muted-foreground text-sm uppercase font-mono tracking-widest">// Registration Open</p>
                                     </div>
 
                                     <div className="space-y-4">
                                         <motion.a
                                             whileHover={{ scale: 1.02 }}
                                             whileTap={{ scale: 0.98 }}
-                                            href="https://konfhub.com/kruisex"
+                                            href="https://konfhub.com/kruizex"
                                             className="block w-full py-5 bg-blue-600 hover:bg-blue-500 text-white text-center font-display text-2xl tracking-[0.05em] uppercase rounded-2xl transition-all shadow-[0_0_30px_rgba(37,99,235,0.3)] hover:shadow-[0_0_50px_rgba(37,99,235,0.5)]"
                                         >
                                             Register Now
                                         </motion.a>
-                                        <p className="text-center text-xs text-muted-foreground font-mono">
-                                            Deadline: Early March 2026
-                                        </p>
                                     </div>
 
                                     <div className="pt-8 border-t border-white/5 space-y-6">
@@ -312,10 +344,11 @@ const Kruisex = () => {
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 max-w-5xl mx-auto">
                             {[
-                                { q: "What is registration fee?", a: "KRUISE X is 49 INR per person" },
+                                { q: "What is registration fee?", a: "KRUIZE X is 49 INR per person" },
                                 { q: "Who can participate?", a: "Teams of 3-4 students from any college in Kerala." },
                                 { q: "Do we need a working prototype?", a: "No, Just present the problems and your ideas to solve them." },
-                                { q: "What are the prizes?", a: "Cash prizes, and the chance to showcase to KMRL leadership." }
+                                { q: "What are the prizes?", a: "Cash prizes, and the chance to showcase to KMRL leadership." },
+                                { q: "Where does the water metro start from?", a: "The offline round will start on the Kochi Water Metro from the High Court Station" }
                             ].map((faq, i) => (
                                 <div key={i} className="space-y-2">
                                     <h4 className="font-mono text-blue-400 text-sm uppercase tracking-wide">// {faq.q}</h4>
@@ -332,4 +365,4 @@ const Kruisex = () => {
     );
 };
 
-export default Kruisex;
+export default Kruizex;
