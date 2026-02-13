@@ -103,16 +103,31 @@ const Kruizex = () => {
                                     </motion.p>
                                 </div>
 
-                                <motion.div
-                                    initial={{ opacity: 0, x: 20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ duration: 0.8, delay: 0.4 }}
-                                    className="flex flex-col items-start md:items-end gap-2 border-l md:border-l-0 md:border-r border-blue-500/40 pl-6 md:pr-6 py-2 bg-black/20 backdrop-blur-md rounded-r-none md:rounded-l-none"
-                                >
-                                    <span className="font-mono text-sm text-white/70 uppercase">Event Date</span>
-                                    <span className="font-display text-4xl text-primary tracking-tight uppercase [text-shadow:0_0_20px_rgba(231,24,24,0.4)]">FEB 19</span>
-                                    <span className="font-mono text-xs text-blue-300 font-bold uppercase">Location: Water Metro, High Court / Kochi</span>
-                                </motion.div>
+                                <div className="flex flex-col gap-6 md:items-end">
+                                    {/* Prize Pool Section */}
+                                    <motion.div
+                                        initial={{ opacity: 0, x: 20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ duration: 0.8, delay: 0.3 }}
+                                        className="flex flex-col items-start md:items-end gap-4 border-l md:border-l-0 md:border-r border-blue-500/40 pl-6 md:pl-14 pr-8 py-6 bg-blue-500/10 backdrop-blur-md rounded-r-none md:rounded-l-none"
+                                    >
+                                        <span className="font-mono text-sm text-blue-300 uppercase tracking-widest">Prize Pool</span>
+                                        <span className="font-display text-5xl md:text-6xl text-blue-300 tracking-tight uppercase [text-shadow:0_0_15px_rgba(96,165,250,0.4)]">₹5,000</span>
+                                        <span className="font-mono text-xs text-blue-200/60 italic">Total Competition Fund</span>
+                                    </motion.div>
+
+                                    {/* Event Date Section */}
+                                    <motion.div
+                                        initial={{ opacity: 0, x: 20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ duration: 0.8, delay: 0.4 }}
+                                        className="flex flex-col items-start md:items-end gap-2 border-l md:border-l-0 md:border-r border-blue-500/40 pl-6 md:pr-6 py-2 bg-black/20 backdrop-blur-md rounded-r-none md:rounded-l-none"
+                                    >
+                                        <span className="font-mono text-sm text-white/70 uppercase">Event Date</span>
+                                        <span className="font-display text-4xl text-primary tracking-tight uppercase [text-shadow:0_0_20px_rgba(231,24,24,0.4)]">FEB 19</span>
+                                        <span className="font-mono text-xs text-blue-300 font-bold uppercase">Location: Water Metro, High Court / Kochi</span>
+                                    </motion.div>
+                                </div>
                             </div>
 
                             {/* Partnerships */}
@@ -135,6 +150,15 @@ const Kruizex = () => {
                                             <span className="font-display text-xl tracking-tight text-white italic">Red Bull</span>
                                         </div>
                                         */}
+                                    </div>
+                                </div>
+
+                                <div className="flex items-center gap-4 group">
+                                    <span className="text-xs font-mono text-white/60 uppercase tracking-widest">Sponsored By</span>
+                                    <div className="flex items-center gap-8 saturate-100 transition-all duration-500">
+                                        <div className="flex items-center gap-2">
+                                            <img src="/images/cachet_kruizeX.webp" alt="Cacheet Sponsorship" className="w-32 h-20 object-contain" />
+                                        </div>
                                     </div>
                                 </div>
                             </motion.div>

@@ -11,19 +11,19 @@ const ScreenX = () => {
     const filmReelRow1 = [
         { icon: Film, title: "Scriptwriting", desc: "AI-powered story generation" },
         { icon: Clapperboard, title: "Storyboarding", desc: "Visual scene planning" },
-        { icon: Camera, title: "Cinematography", desc: "Shot composition AI" },
+        { icon: Camera, title: "Shot Selection", desc: "Shot composition AI" },
         { icon: Palette, title: "Color Grading", desc: "Automated color correction" },
-        { icon: Scissors, title: "Video Editing", desc: "Intelligent clip assembly" },
-        { icon: Sparkles, title: "Visual Effects", desc: "AI-generated VFX" },
+        { icon: Scissors, title: "Automated Editing", desc: "Intelligent clip assembly" },
+        { icon: Sparkles, title: "Continuity Check", desc: "AI-powered error detection" },
     ];
 
     const filmReelRow2 = [
         { icon: Music, title: "Sound Design", desc: "Audio enhancement AI" },
-        { icon: Mic, title: "Voice Synthesis", desc: "AI voice generation" },
-        { icon: Film, title: "Motion Capture", desc: "Performance tracking" },
-        { icon: Clapperboard, title: "Scene Detection", desc: "Smart scene analysis" },
+        { icon: Mic, title: "Dialogue Cleanup", desc: "AI voice generation" },
+        { icon: Film, title: "Location Scouting", desc: "AI-driven location discovery" },
+        { icon: Clapperboard, title: "Scene Breakdown", desc: "Smart scene analysis" },
         { icon: Camera, title: "Lighting AI", desc: "Optimal light setup" },
-        { icon: Palette, title: "Style Transfer", desc: "Cinematic filters" },
+        { icon: Palette, title: "Moodboard AI", desc: "Cinematic filters" },
     ];
 
     useEffect(() => {
@@ -82,6 +82,31 @@ const ScreenX = () => {
                 >
                     Where AI meets the art of filmmaking
                 </motion.p>
+
+                {/* Prize Pool Badge */}
+                <motion.div
+                    className="border border-primary rounded-tl-3xl rounded-br-3xl px-10 md:px-16 py-6 md:py-10 mt-12 z-20"
+                    style={{
+                        background: "rgba(0, 0, 0, 0.5)",
+                    }}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                >
+                    <p className="font-copperplate text-sm md:text-lg tracking-wider text-white/60 uppercase mb-2 text-center">
+                        Prize Pool
+                    </p>
+                    <p
+                        className="font-copperplate font-bold text-4xl md:text-6xl"
+                        style={{
+                            color: "#ffffff",
+                            textShadow:
+                                "0 0 10px rgba(255,49,46,0.6), 0 0 40px rgba(255,49,46,0.3), 0 0 80px rgba(208,37,46,0.15)",
+                        }}
+                    >
+                        ₹10,000
+                    </p>
+                </motion.div>
 
                 {/* Scroll indicator */}
                 <motion.div
@@ -240,7 +265,7 @@ const ScreenX = () => {
                                 </h3>
                                 <div className="space-y-5 text-sm font-body">
                                     {[
-                                        { label: "Prize Pool", value: "TBA" },
+                                        { label: "Prize Pool", value: "₹10K" },
                                         { label: "Team Size", value: "4–6 members" },
                                         { label: "Duration", value: "42 hours" },
                                     ].map((detail, i) => (

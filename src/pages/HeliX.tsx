@@ -97,6 +97,45 @@ const HeliX = () => {
                             >
                                 Synthesizing <span className="text-white font-medium">Artificial Intelligence</span> with <span className="text-primary font-medium">Modern Civil Engineering</span> to build the infrastructure of tomorrow.
                             </motion.p>
+
+                            {/* Prize Pool */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 1, duration: 0.8 }}
+                                className="mt-16 max-w-2xl mx-auto relative px-12 py-10 bg-card/20 backdrop-blur-xl border border-primary/20 rounded-[1.5rem]"
+                            >
+                                {/* Technical Corners */}
+                                <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-primary/40" />
+                                <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-primary/40" />
+                                <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-primary/40" />
+                                <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-primary/40" />
+
+                                <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+                                <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+
+                                <div className="text-center">
+                                    <span className="font-mono text-[10px] text-primary/60 tracking-[0.3em] uppercase block mb-4">
+                                        [ PRIZE_ALLOCATION ]
+                                    </span>
+                                    <motion.h3
+                                        className="font-display text-5xl md:text-6xl text-white font-bold tracking-wider"
+                                        animate={{
+                                            textShadow: [
+                                                "0 0 10px rgba(255,49,46,0.3), 0 0 20px rgba(255,49,46,0.1)",
+                                                "0 0 20px rgba(255,49,46,0.5), 0 0 40px rgba(255,49,46,0.2)",
+                                                "0 0 10px rgba(255,49,46,0.3), 0 0 20px rgba(255,49,46,0.1)"
+                                            ]
+                                        }}
+                                        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                                    >
+                                        ₹20,000
+                                    </motion.h3>
+                                    <p className="font-mono text-[9px] text-muted-foreground tracking-[0.2em] uppercase mt-4">
+                                        Total Track Competition Fund
+                                    </p>
+                                </div>
+                            </motion.div>
                         </div>
                     </div>
 
@@ -212,7 +251,7 @@ const HeliX = () => {
 
                                 <div className="space-y-10">
                                     {[
-                                        { label: "Track Prize Pool", value: "TBA", color: "text-primary shadow-primary/20" },
+                                        { label: "Track Prize Pool", value: "₹20K", color: "text-primary shadow-primary/20" },
                                         { label: "Squad Capacity", value: "4-6 members" },
                                         { label: "Timeframe", value: "42 hours" },
                                     ].map((detail, i) => (
