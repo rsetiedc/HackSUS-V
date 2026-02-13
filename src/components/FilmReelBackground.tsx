@@ -119,17 +119,17 @@ const FilmReelBackground = ({ images = [
                 }}
             >
                 {/* Left reel */}
-                <motion.div className="absolute left-[-5%] md:left-[8%]" style={{ left: "1%", top: "-20%", height: "140%", y: parallaxLeft, willChange: "transform" }}>
+                <motion.div className="absolute left-[-10%] md:left-[1%]" style={{ top: "-20%", height: "140%", y: parallaxLeft, willChange: "transform" }}>
                     <FilmStrip images={images} frameCount={14} duration={300} />
                 </motion.div>
 
                 {/* Center reel */}
-                <motion.div className="absolute" style={{ left: "42%", top: "-20%", height: "140%", y: parallaxCenter, willChange: "transform" }}>
+                <motion.div className="absolute left-[33%] md:left-[42%]" style={{ top: "-20%", height: "140%", y: parallaxCenter, willChange: "transform" }}>
                     <FilmStrip images={images} frameCount={14} duration={280} reverse />
                 </motion.div>
 
                 {/* Right reel */}
-                <motion.div className="absolute" style={{ left: "81%", top: "-20%", height: "140%", y: parallaxRight, willChange: "transform" }}>
+                <motion.div className="absolute left-[75%] md:left-[81%]" style={{ top: "-20%", height: "140%", y: parallaxRight, willChange: "transform" }}>
                     <FilmStrip images={images} frameCount={14} duration={300} />
                 </motion.div>
             </div>

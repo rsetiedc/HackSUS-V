@@ -592,7 +592,7 @@
 
 .landing-bg-particles canvas {
   mix-blend-mode: screen;
-  opacity: 0.95;
+  opacity: 1;
   transform: translateZ(0);
 }
 
@@ -603,7 +603,7 @@
   }
 
   .landing-bg-particles canvas {
-    opacity: 0.88;
+    opacity: 0.95;
   }
 }
 

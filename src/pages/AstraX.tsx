@@ -57,7 +57,7 @@ function NeuralNetwork() {
         const dx = mouseRef.current.x - node.x;
         const dy = mouseRef.current.y - node.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        
+
         if (dist < 150) {
           node.x -= dx * 0.01;
           node.y -= dy * 0.01;
@@ -204,38 +204,20 @@ function HolographicCard({ className, children, delay = 0, colorTheme = "red" })
       onMouseLeave={() => setIsHovered(false)}
       className={cn(
         "relative overflow-hidden rounded-2xl border transition-all duration-500",
-        isHovered 
-          ? "border-primary/40 bg-black/60 shadow-[0_0_60px_rgba(255,49,46,0.15)]" 
+        isHovered
+          ? "border-primary/40 bg-black/60 shadow-[0_0_60px_rgba(255,49,46,0.15)]"
           : "border-white/10 bg-black/40",
         className
       )}
     >
       {/* Holographic shimmer effect */}
       <motion.div
-        className="absolute inset-0 opacity-0 transition-opacity duration-300"
+        className="absolute inset-0 opacity-0 transition-opacity duration-300 pointer-events-none"
         style={{
           background: `radial-gradient(circle at ${mousePos.x * 100}% ${mousePos.y * 100}%, ${gradientColors[colorTheme]}, transparent 60%)`,
           opacity: isHovered ? 1 : 0,
         }}
       />
-
-      {/* Liquid gradient border effect */}
-      {isHovered && (
-        <motion.div
-          className="absolute inset-0 rounded-2xl"
-          style={{
-            background: `conic-gradient(from ${mousePos.x * 360}deg at ${mousePos.x * 100}% ${mousePos.y * 100}%, transparent, rgba(255,49,46,0.3), transparent)`,
-          }}
-          animate={{
-            rotate: [0, 360],
-          }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-      )}
 
       {/* Content */}
       <div className="relative backdrop-blur-xl rounded-2xl p-1">
@@ -353,9 +335,9 @@ function AstraXNavbar({ activeId, items, onNavigate }) {
             whileTap={{ scale: 0.95 }}
             className="flex items-center text-foreground/90 hover:text-foreground transition-colors"
           >
-            <img 
-              src="/images/hacksus_logo.png" 
-              alt="Hacks'us" 
+            <img
+              src="/images/hacksus_logo.png"
+              alt="Hacks'us"
               className="h-10 w-10 md:h-11 md:w-11 object-contain"
             />
           </motion.a>
@@ -407,10 +389,10 @@ function AstraXNavbar({ activeId, items, onNavigate }) {
               scaleX: indicator.width / 100,
               opacity: indicator.opacity,
             }}
-            transition={{ 
-              type: "spring", 
-              stiffness: 400, 
-              damping: 30, 
+            transition={{
+              type: "spring",
+              stiffness: 400,
+              damping: 30,
               mass: 0.5,
             }}
           />
@@ -427,8 +409,8 @@ function AstraXNavbar({ activeId, items, onNavigate }) {
               }}
               className={cn(
                 "relative text-sm tracking-[0.3em] uppercase transition-all duration-300 font-medium",
-                activeId === it.id 
-                  ? "text-primary scale-105" 
+                activeId === it.id
+                  ? "text-primary scale-105"
                   : "text-muted-foreground hover:text-foreground hover:scale-105"
               )}
             >
@@ -536,9 +518,7 @@ const AstraX = () => {
   const partnerLogos = useMemo(
     () => [
       { node: <img src="/images/rset_iedc.PNG" alt="IEDC" className="h-16 w-auto object-contain opacity-90" />, ariaLabel: "IEDC" },
-      { node: <img src="/images/rset_iic.PNG" alt="IIC" className="h-16 w-auto object-contain opacity-90" />, ariaLabel: "IIC" },
-      { node: <img src="/images/cdac.svg" alt="CDAC" className="h-16 w-auto object-contain opacity-90" />, ariaLabel: "CDAC" },
-      { node: <img src="/images/enauts.svg" alt="ENAUTS" className="h-20 w-auto object-contain opacity-90" />, ariaLabel: "ENAUTS" },
+      { node: <img src="/images/iic_logo.png" alt="IIC" className="h-16 w-auto object-contain opacity-90" />, ariaLabel: "IIC" },
       { node: <img src="/images/rset_jubilee.png" alt="RSET Jubilee" className="h-16 w-auto object-contain opacity-90" />, ariaLabel: "RSET Jubilee" },
     ],
     []
@@ -636,11 +616,10 @@ const AstraX = () => {
             ease: "easeInOut",
           }}
         />
-<GraphNetwork 
-  gridSpacing={50}     // Density of the grid
-  mouseRadius={300}    // How far away the cursor affects the lines
-  strength={0.8}       // How much the lines "bend"
-/>
+        <GraphNetwork
+          gridSpacing={50}     // Density of the grid
+          mouseRadius={300}// How much the lines "bend"
+        />
 
 
 
@@ -715,8 +694,8 @@ const AstraX = () => {
                   <motion.div
                     key={`${animationKey}-${index}`}
                     initial={{ x: 200, opacity: 0, scale: 0.5 }}
-                    animate={{ 
-                      x: 0, 
+                    animate={{
+                      x: 0,
                       opacity: 1,
                       scale: [0.5, 1.15, 0.97, 1],
                     }}
@@ -782,10 +761,70 @@ const AstraX = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 1 }}
-            className="text-3xl md:text-4xl text-muted-foreground font-light tracking-wide mb-16"
+            className="text-3xl md:text-4xl text-muted-foreground font-light tracking-wide mb-10"
           >
             Designing Software That <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-500">Thinks</span>.
           </motion.p>
+
+          {/* Prize Pool */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 1.1, type: "spring", stiffness: 200 }}
+            className="relative inline-block mb-16"
+          >
+            {/* Glow backdrop */}
+            <motion.div
+              className="absolute inset-0 rounded-2xl blur-2xl -z-10"
+              animate={{
+                opacity: [0.4, 0.7, 0.4],
+              }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              style={{
+                background: "linear-gradient(135deg, rgba(255,49,46,0.3), rgba(59,130,246,0.3))",
+              }}
+            />
+
+            <div className="relative px-14 md:px-20 py-8 md:py-10 rounded-3xl border border-primary/30 bg-black/60 backdrop-blur-xl overflow-hidden">
+              {/* Animated gradient border overlay */}
+              <motion.div
+                className="absolute inset-0 rounded-3xl opacity-30"
+                animate={{
+                  background: [
+                    "linear-gradient(0deg, rgba(255,49,46,0.2) 0%, transparent 50%, rgba(59,130,246,0.2) 100%)",
+                    "linear-gradient(180deg, rgba(255,49,46,0.2) 0%, transparent 50%, rgba(59,130,246,0.2) 100%)",
+                    "linear-gradient(0deg, rgba(255,49,46,0.2) 0%, transparent 50%, rgba(59,130,246,0.2) 100%)",
+                  ],
+                }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              />
+
+              {/* Neural dots decoration */}
+              <div className="absolute top-3 left-4 flex gap-2">
+                <div className="w-2 h-2 rounded-full bg-primary/50" />
+                <div className="w-2 h-2 rounded-full bg-blue-500/50" />
+                <div className="w-2 h-2 rounded-full bg-orange-500/50" />
+              </div>
+
+              <p className="font-mono text-sm md:text-base tracking-[0.4em] text-muted-foreground uppercase mb-3 relative">
+                Total Prize Pool
+              </p>
+
+              <motion.p
+                className="font-display text-6xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary via-white to-blue-500 relative"
+                animate={{
+                  textShadow: [
+                    "0 0 20px rgba(255,49,46,0.5), 0 0 40px rgba(59,130,246,0.3)",
+                    "0 0 30px rgba(255,49,46,0.7), 0 0 60px rgba(59,130,246,0.5)",
+                    "0 0 20px rgba(255,49,46,0.5), 0 0 40px rgba(59,130,246,0.3)",
+                  ],
+                }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+              >
+                ₹50,000
+              </motion.p>
+            </div>
+          </motion.div>
 
           {/* Quick Stats with holographic cards */}
           <motion.div
@@ -851,7 +890,7 @@ const AstraX = () => {
 
           <div className="grid md:grid-cols-2 gap-8 md:gap-10">
             {/* Main description */}
-            <HolographicCard delay={0} colorTheme="red">
+            <HolographicCard className="max-w-5xl mx-auto" colorTheme="red" delay={0}>
               <div className="flex items-start gap-5 mb-6">
                 <motion.div
                   whileHover={{ rotate: [0, -10, 10, 0], scale: 1.1 }}
@@ -871,7 +910,7 @@ const AstraX = () => {
               </div>
 
               <p className="text-base text-muted-foreground leading-relaxed">
-                AstraX – Software is a 42-hour AI-first hackathon focused on building
+                AstraX - Software is a 42-hour AI-first hackathon focused on building
                 intelligent systems, scalable platforms, automation frameworks,
                 and next-generation AI-powered software products. Think systems that learn.
                 Think tools that optimize. Think applications that redefine efficiency.
@@ -879,9 +918,9 @@ const AstraX = () => {
             </HolographicCard>
 
             {/* Focus areas */}
-            <HolographicCard delay={0.1} colorTheme="blue">
+            <HolographicCard className="max-w-5xl mx-auto" colorTheme="mixed" delay={0.1}>
               <h3 className="font-display text-2xl mb-6 text-foreground">Technical Focus</h3>
-              
+
               <div className="space-y-4">
                 {[
                   { icon: Cpu, text: "Intelligent Systems & AI/ML", color: "from-primary to-red-500" },
@@ -927,7 +966,7 @@ const AstraX = () => {
             transition={{ delay: 0.2 }}
             className="mt-12"
           >
-            <HolographicCard delay={0.2} colorTheme="mixed">
+            <HolographicCard className="max-w-5xl mx-auto" colorTheme="mixed" delay={0.2}>
               <div className="flex flex-wrap justify-center gap-4">
                 {[
                   { text: "AI/ML Engineering", color: "from-primary to-red-500" },
@@ -979,29 +1018,29 @@ const AstraX = () => {
 
           <div className="grid md:grid-cols-3 gap-8 mb-16">
             {[
-              { 
-                place: "1st", 
-                emoji: "🥇", 
-                prize: "₹ TBA", 
+              {
+                place: "1st",
+                emoji: "🥇",
+                prize: "₹25,000",
                 gradient: "from-yellow-400 via-yellow-500 to-orange-500",
                 glow: "rgba(251, 191, 36, 0.4)"
               },
-              { 
-                place: "2nd", 
-                emoji: "🥈", 
-                prize: "₹ TBA", 
+              {
+                place: "2nd",
+                emoji: "🥈",
+                prize: "₹15,000",
                 gradient: "from-gray-300 via-gray-400 to-gray-500",
                 glow: "rgba(156, 163, 175, 0.4)"
               },
-              { 
-                place: "3rd", 
-                emoji: "🥉", 
-                prize: "₹ TBA", 
+              {
+                place: "3rd",
+                emoji: "🥉",
+                prize: "₹10,000",
                 gradient: "from-orange-400 via-orange-500 to-orange-600",
                 glow: "rgba(251, 146, 60, 0.4)"
               },
             ].map((tier, index) => (
-              <HolographicCard key={tier.place} delay={index * 0.1} colorTheme={index === 0 ? "red" : index === 1 ? "blue" : "mixed"}>
+              <HolographicCard className="max-w-5xl mx-auto" key={tier.place} delay={index * 0.1} colorTheme={index === 0 ? "red" : index === 1 ? "blue" : "mixed"}>
                 <div className="text-center py-4">
                   <motion.div
                     className="text-7xl mb-6"
@@ -1039,26 +1078,26 @@ const AstraX = () => {
           </div>
 
           {/* What participants get */}
-          <HolographicCard delay={0.3} colorTheme="mixed">
+          <HolographicCard className="max-w-5xl mx-auto" colorTheme="mixed" delay={0.3}>
             <h3 className="font-display text-3xl mb-10 text-center text-foreground">What You'll Receive</h3>
-            
+
             <div className="grid md:grid-cols-3 gap-10 text-center">
               {[
-                { 
-                  icon: Sparkles, 
-                  text: "Goodies & Swag", 
+                {
+                  icon: Sparkles,
+                  text: "Goodies & Swag",
                   desc: "Exclusive AstraX merchandise",
                   gradient: "from-pink-500 to-rose-500"
                 },
-                { 
-                  icon: Database, 
-                  text: "Participation Certificate", 
+                {
+                  icon: Database,
+                  text: "Participation Certificate",
                   desc: "Official recognition",
                   gradient: "from-blue-500 to-cyan-500"
                 },
-                { 
-                  icon: Zap, 
-                  text: "Cash Prizes", 
+                {
+                  icon: Zap,
+                  text: "Cash Prizes",
                   desc: "For top performers",
                   gradient: "from-orange-500 to-red-500"
                 },
@@ -1138,7 +1177,7 @@ const AstraX = () => {
                 colorTheme: "mixed",
               },
             ].map((contact, index) => (
-              <HolographicCard key={contact.name} delay={index * 0.1} colorTheme={contact.colorTheme}>
+              <HolographicCard key={contact.name} className="max-w-5xl mx-auto" colorTheme={contact.colorTheme} delay={index * 0.1}>
                 <div className="font-mono text-xs tracking-[0.4em] text-primary/80 uppercase mb-4">
                   {contact.role}
                 </div>
@@ -1146,7 +1185,7 @@ const AstraX = () => {
                 <div className="font-display text-3xl mb-8 text-foreground">
                   {contact.name}
                 </div>
-                
+
                 <div className="space-y-4">
                   <motion.a
                     href={`mailto:${contact.email}`}
@@ -1158,7 +1197,7 @@ const AstraX = () => {
                       {contact.email}
                     </div>
                   </motion.a>
-                  
+
                   <motion.a
                     href={`tel:${contact.phoneLink}`}
                     whileHover={{ scale: 1.02, x: 4 }}
@@ -1184,7 +1223,7 @@ const AstraX = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <HolographicCard colorTheme="mixed">
+            <HolographicCard className="" colorTheme="mixed">
               <p className="mb-10 font-mono text-sm tracking-[0.4em] text-primary/80 uppercase text-center">
                 Presented Partners
               </p>
