@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowUp, Instagram, Linkedin, Globe, Zap, Brain, Cpu, Sparkles, Code, Database, Network, Menu } from "lucide-react";
+import { ArrowUp, Instagram, Linkedin, Facebook, Twitter, Zap, Brain, Cpu, Sparkles, Code, Database, Network, Menu } from "lucide-react";
 
 import LogoLoop from "@/components/LogoLoop";
 import ResponsiveParticles from "@/components/ResponsiveParticles";
@@ -13,7 +13,7 @@ import { useParticleTuning } from "@/hooks/useParticlesQuality";
 import GraphNetwork from "@/components/GraphNetwork";
 
 
-// ==================== NEURAL NETWORK BACKGROUND ====================
+// ==================== NEURAL NETWORK BACKGROUND (OPTIMIZED) ====================
 function NeuralNetwork() {
   const canvasRef = useRef(null);
   const nodesRef = useRef([]);
@@ -31,8 +31,8 @@ function NeuralNetwork() {
     };
     setCanvasSize();
 
-    // Create nodes
-    const nodeCount = 50;
+    // Reduced node count for performance
+    const nodeCount = 30; // Reduced from 50
     nodesRef.current = Array.from({ length: nodeCount }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
@@ -57,7 +57,7 @@ function NeuralNetwork() {
         const dx = mouseRef.current.x - node.x;
         const dy = mouseRef.current.y - node.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-
+        
         if (dist < 150) {
           node.x -= dx * 0.01;
           node.y -= dy * 0.01;
@@ -172,7 +172,7 @@ function useActiveSection(sectionIds) {
   return active;
 }
 
-// ==================== HOLOGRAPHIC CARD ====================
+// ==================== HOLOGRAPHIC CARD (OPTIMIZED) ====================
 function HolographicCard({ className, children, delay = 0, colorTheme = "red" }) {
   const cardRef = useRef(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -195,32 +195,31 @@ function HolographicCard({ className, children, delay = 0, colorTheme = "red" })
   return (
     <motion.div
       ref={cardRef}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-200px" }}
+      initial={{ opacity: 1, y: 0 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay, ease: [0.25, 0.1, 0.25, 1] }}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className={cn(
         "relative overflow-hidden rounded-2xl border transition-all duration-500",
-        isHovered
-          ? "border-primary/40 bg-black/60 shadow-[0_0_60px_rgba(255,49,46,0.15)]"
+        isHovered 
+          ? "border-primary/40 bg-black/60 shadow-[0_0_60px_rgba(255,49,46,0.15)]" 
           : "border-white/10 bg-black/40",
         className
       )}
     >
       {/* Holographic shimmer effect */}
       <motion.div
-        className="absolute inset-0 opacity-0 transition-opacity duration-300 pointer-events-none"
+        className="absolute inset-0 opacity-0 transition-opacity duration-300"
         style={{
           background: `radial-gradient(circle at ${mousePos.x * 100}% ${mousePos.y * 100}%, ${gradientColors[colorTheme]}, transparent 60%)`,
           opacity: isHovered ? 1 : 0,
         }}
       />
 
-      {/* Content */}
-      <div className="relative backdrop-blur-xl rounded-2xl p-1">
+      {/* Content - reduced blur for performance */}
+      <div className="relative backdrop-blur-md rounded-2xl p-1">
         <div className="relative z-10 p-8">
           {children}
         </div>
@@ -233,34 +232,16 @@ function HolographicCard({ className, children, delay = 0, colorTheme = "red" })
 function SectionHeading({ eyebrow, title, description }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-200px" }}
+      initial={{ opacity: 1, y: 0 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
       className="mb-16 md:mb-20 text-center relative"
     >
-      {/* Decorative particles */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0 }}
-        whileInView={{ opacity: [0, 1, 0], scale: [0.8, 1.5, 2] }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.2, delay: 0.3 }}
-        className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-8 w-32 h-32 bg-gradient-radial from-primary/20 via-blue-500/10 to-transparent rounded-full blur-xl"
-      />
+      {/* Decorative particles - simplified */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-8 w-32 h-32 bg-gradient-radial from-primary/20 via-blue-500/10 to-transparent rounded-full blur-xl opacity-60" />
 
       <span className="inline-block font-mono text-sm text-primary tracking-[0.4em] uppercase mb-6 relative">
         <span className="relative z-10">// {eyebrow}</span>
-        <motion.span
-          className="absolute inset-0 bg-primary/20 blur-lg"
-          animate={{
-            opacity: [0.5, 0.8, 0.5],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
       </span>
 
       <h2 className="font-display text-5xl md:text-7xl text-foreground tracking-wide mb-6 leading-tight">
@@ -325,7 +306,7 @@ function AstraXNavbar({ activeId, items, onNavigate }) {
   );
 
   return (
-    <header className="astrax-header fixed top-0 left-0 right-0 z-50 bg-black/70 backdrop-blur-2xl border-b border-white/5">
+    <header className="astrax-header fixed top-0 left-0 right-0 z-50 bg-black/70 backdrop-blur-xl border-b border-white/5">
       <div className="container max-w-[1200px] mx-auto px-6 h-20 flex items-center justify-between">
         <div className="flex items-center gap-4">
           {/* Hacks'us Logo */}
@@ -335,9 +316,9 @@ function AstraXNavbar({ activeId, items, onNavigate }) {
             whileTap={{ scale: 0.95 }}
             className="flex items-center text-foreground/90 hover:text-foreground transition-colors"
           >
-            <img
-              src="/images/hacksus_logo.png"
-              alt="Hacks'us"
+            <img 
+              src="/images/hacksus_logo.webp" 
+              alt="Hacks'us" 
               className="h-10 w-10 md:h-11 md:w-11 object-contain"
             />
           </motion.a>
@@ -357,17 +338,7 @@ function AstraXNavbar({ activeId, items, onNavigate }) {
             className="flex items-center gap-3 text-foreground/90 hover:text-foreground transition-colors"
           >
             <div className="relative w-12 h-12">
-              <motion.div
-                className="absolute inset-0 rounded-full bg-gradient-to-br from-primary via-red-500 to-orange-500"
-                animate={{
-                  rotate: [0, 360],
-                }}
-                transition={{
-                  duration: 20,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-              />
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary via-red-500 to-orange-500" />
               <div className="absolute inset-0.5 rounded-full bg-black flex items-center justify-center">
                 <Sparkles className="w-6 h-6 text-primary" />
               </div>
@@ -389,10 +360,10 @@ function AstraXNavbar({ activeId, items, onNavigate }) {
               scaleX: indicator.width / 100,
               opacity: indicator.opacity,
             }}
-            transition={{
-              type: "spring",
-              stiffness: 400,
-              damping: 30,
+            transition={{ 
+              type: "spring", 
+              stiffness: 400, 
+              damping: 30, 
               mass: 0.5,
             }}
           />
@@ -409,8 +380,8 @@ function AstraXNavbar({ activeId, items, onNavigate }) {
               }}
               className={cn(
                 "relative text-sm tracking-[0.3em] uppercase transition-all duration-300 font-medium",
-                activeId === it.id
-                  ? "text-primary scale-105"
+                activeId === it.id 
+                  ? "text-primary scale-105" 
                   : "text-muted-foreground hover:text-foreground hover:scale-105"
               )}
             >
@@ -440,7 +411,7 @@ function AstraXNavbar({ activeId, items, onNavigate }) {
             </SheetTrigger>
             <SheetContent
               side="right"
-              className="bg-black/95 border-white/10 backdrop-blur-2xl px-6"
+              className="bg-black/95 border-white/10 backdrop-blur-xl px-6"
             >
               <div className="mt-10 flex flex-col gap-8">
                 <div className="font-display tracking-[0.3em] text-lg text-foreground/90">
@@ -464,18 +435,11 @@ function AstraXNavbar({ activeId, items, onNavigate }) {
                       <span className="font-mono text-sm tracking-[0.35em] uppercase font-medium">
                         {it.label}
                       </span>
-                      <motion.span
+                      <span
                         className={cn(
                           "h-2 w-2 rounded-full",
                           activeId === it.id ? "bg-primary" : "bg-primary/50"
                         )}
-                        animate={{
-                          scale: activeId === it.id ? [1, 1.3, 1] : 1,
-                        }}
-                        transition={{
-                          duration: 1,
-                          repeat: activeId === it.id ? Infinity : 0,
-                        }}
                       />
                     </motion.button>
                   ))}
@@ -501,7 +465,7 @@ function AstraXNavbar({ activeId, items, onNavigate }) {
 
 // ==================== MAIN COMPONENT ====================
 const AstraX = () => {
-  const sectionIds = useMemo(() => ["about", "prizes", "contacts"], []);
+  const sectionIds = useMemo(() => ["about", "contacts"], []);
   const activeId = useActiveSection(sectionIds);
 
   // Logo animation state - bouncy slide-in effect
@@ -514,11 +478,12 @@ const AstraX = () => {
   const particleColors = useMemo(() => ["#ffffff"], []);
   const particleTuning = useParticleTuning();
 
-  // Partner logos
+  // Partner logos - WEBP FORMAT
   const partnerLogos = useMemo(
     () => [
       { node: <img src="/images/rset_iedc.PNG" alt="IEDC" className="h-16 w-auto object-contain opacity-90" />, ariaLabel: "IEDC" },
-      { node: <img src="/images/iic_logo.png" alt="IIC" className="h-16 w-auto object-contain opacity-90" />, ariaLabel: "IIC" },
+      { node: <img src="/images/rset_iic.PNG" alt="IIC" className="h-16 w-auto object-contain opacity-90" />, ariaLabel: "IIC" },
+      { node: <img src="/images/articon_logo.png" alt="Articon" className="h-16 w-auto object-contain opacity-90" />, ariaLabel: "Articon" },
       { node: <img src="/images/rset_jubilee.png" alt="RSET Jubilee" className="h-16 w-auto object-contain opacity-90" />, ariaLabel: "RSET Jubilee" },
     ],
     []
@@ -529,7 +494,7 @@ const AstraX = () => {
     if (logoStep < letters.length) {
       const timer = setTimeout(() => {
         setLogoStep((prev) => prev + 1);
-      }, 150); // Smooth timing
+      }, 150);
       return () => clearTimeout(timer);
     } else if (logoStep === letters.length) {
       const timer = setTimeout(() => {
@@ -537,7 +502,6 @@ const AstraX = () => {
       }, 200);
       return () => clearTimeout(timer);
     } else if (showYear) {
-      // Wait 10 seconds then restart
       const timer = setTimeout(() => {
         setLogoStep(0);
         setShowYear(false);
@@ -579,50 +543,31 @@ const AstraX = () => {
 
   return (
     <div id="top" className="relative min-h-screen bg-black text-foreground overflow-x-hidden">
-      {/* ==================== LAYERED BACKGROUND WITH NEURAL NETWORK ==================== */}
+      {/* ==================== LAYERED BACKGROUND (OPTIMIZED) ==================== */}
       <div className="fixed inset-0 -z-0 overflow-hidden">
         {/* Deep gradient base */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-900 via-black to-black" />
 
-        {/* Subtle gradient orbs */}
-        <motion.div
-          className="absolute top-0 -left-1/4 w-[600px] h-[600px] rounded-full blur-[120px] opacity-10"
+        {/* Subtle gradient orbs - STATIC for performance */}
+        <div 
+          className="absolute top-0 -left-1/4 w-[600px] h-[600px] rounded-full blur-[120px] opacity-8"
           style={{
             background: "radial-gradient(circle, rgba(255,49,46,0.3) 0%, transparent 70%)",
           }}
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.08, 0.15, 0.08],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
         />
 
-        <motion.div
+        <div 
           className="absolute bottom-0 -right-1/4 w-[500px] h-[500px] rounded-full blur-[100px] opacity-10"
           style={{
             background: "radial-gradient(circle, rgba(59,130,246,0.2) 0%, transparent 70%)",
           }}
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.1, 0.18, 0.1],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <GraphNetwork
-          gridSpacing={50}     // Density of the grid
-          mouseRadius={300}// How much the lines "bend"
         />
 
-
-
+        <GraphNetwork 
+          gridSpacing={50}
+          mouseRadius={300}
+          strength={0.8}
+        />
       </div>
 
       {/* ==================== NAVBAR ==================== */}
@@ -630,14 +575,13 @@ const AstraX = () => {
         activeId={activeId}
         items={[
           { id: "about", label: "ABOUT" },
-          { id: "prizes", label: "PRIZES" },
           { id: "contacts", label: "CONTACTS" },
         ]}
         onNavigate={scrollToSection}
       />
 
       {/* ==================== HERO ==================== */}
-      <section className="relative pt-40 pb-24 text-center">
+      <section className="relative pt-32 pb-16 text-center">
         <div className="container max-w-[1200px] px-6 mx-auto">
           {/* Department label */}
           <motion.p
@@ -649,40 +593,26 @@ const AstraX = () => {
             Department of Artificial Intelligence & Data Science, RSET
           </motion.p>
 
-          {/* Organizers with glow effect */}
+          {/* Organizers - BIGGER, CYAN COLOR, MORE VISIBLE */}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-            className="flex items-center justify-center gap-4 mb-20 relative"
+            className="flex items-center justify-center gap-5 mb-20 relative"
           >
-            <motion.div
-              className="absolute inset-0 blur-2xl opacity-40"
-              animate={{
-                background: [
-                  "radial-gradient(circle at 30%, rgba(255,49,46,0.2) 0%, transparent 50%)",
-                  "radial-gradient(circle at 70%, rgba(59,130,246,0.2) 0%, transparent 50%)",
-                  "radial-gradient(circle at 30%, rgba(255,49,46,0.2) 0%, transparent 50%)",
-                ],
-              }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            />
-            <span className="relative font-display text-base tracking-[0.25em] text-primary/90">ARTICON</span>
-            <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-primary to-blue-500" />
-            <span className="relative font-display text-base tracking-[0.25em] text-primary/90">IEDC</span>
-            <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-blue-500 to-orange-500" />
-            <span className="relative font-display text-base tracking-[0.25em] text-primary/90">IIC</span>
+            <div className="absolute inset-0 blur-3xl opacity-50 bg-[radial-gradient(circle,rgba(34,211,238,0.3)_0%,transparent_50%)]" />
+            <span className="relative font-display text-2xl md:text-3xl tracking-[0.25em] text-cyan-400 font-bold drop-shadow-[0_0_20px_rgba(34,211,238,0.6)]">ARTICON</span>
+            <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 shadow-[0_0_15px_rgba(34,211,238,0.8)]" />
+            <span className="relative font-display text-2xl md:text-3xl tracking-[0.25em] text-cyan-400 font-bold drop-shadow-[0_0_20px_rgba(34,211,238,0.6)]">IEDC</span>
+            <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-blue-500 to-emerald-400 shadow-[0_0_15px_rgba(59,130,246,0.8)]" />
+            <span className="relative font-display text-2xl md:text-3xl tracking-[0.25em] text-cyan-400 font-bold drop-shadow-[0_0_20px_rgba(34,211,238,0.6)]">IIC</span>
           </motion.div>
 
           {/* Logo Animation - Bouncy slide-in with RED theme */}
           <div className="h-[240px] flex items-center justify-center relative mb-16" key={animationKey}>
-            {/* Glowing background */}
-            <motion.div
-              className="absolute inset-0 blur-[80px] -z-10"
-              animate={{
-                opacity: [0.3, 0.5, 0.3],
-              }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            {/* Glowing background - static for performance */}
+            <div
+              className="absolute inset-0 blur-[80px] -z-10 opacity-40"
               style={{
                 background: "radial-gradient(circle, rgba(255,49,46,0.4) 0%, transparent 70%)",
               }}
@@ -694,8 +624,8 @@ const AstraX = () => {
                   <motion.div
                     key={`${animationKey}-${index}`}
                     initial={{ x: 200, opacity: 0, scale: 0.5 }}
-                    animate={{
-                      x: 0,
+                    animate={{ 
+                      x: 0, 
                       opacity: 1,
                       scale: [0.5, 1.15, 0.97, 1],
                     }}
@@ -706,7 +636,7 @@ const AstraX = () => {
                       mass: 0.7,
                       delay: index * 0.12,
                     }}
-                    className="font-display text-8xl md:text-9xl font-bold text-primary drop-shadow-[0_0_40px_rgba(255,49,46,0.6)]"
+                    className="font-mokoto text-6xl md:text-9xl font-bold text-primary drop-shadow-[0_0_40px_rgba(255,49,46,0.6)]"
                   >
                     {letter}
                   </motion.div>
@@ -719,29 +649,15 @@ const AstraX = () => {
                 transition={{ type: "spring", stiffness: 200, damping: 20 }}
                 className="flex items-baseline gap-5"
               >
-                {/* Main ASTRAX in RED */}
                 <motion.h1
-                  className="font-display text-8xl md:text-9xl font-bold text-primary"
+                  className="font-mokoto text-6xl md:text-9xl text-primary"
                   style={{
                     filter: "drop-shadow(0 0 60px rgba(255,49,46,0.5))",
-                  }}
-                  animate={{
-                    textShadow: [
-                      "0 0 20px rgba(255,49,46,0.5)",
-                      "0 0 40px rgba(255,49,46,0.7)",
-                      "0 0 20px rgba(255,49,46,0.5)",
-                    ],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut",
                   }}
                 >
                   ASTRAX
                 </motion.h1>
 
-                {/* Year appears after */}
                 {showYear && (
                   <motion.span
                     initial={{ opacity: 0, x: -30 }}
@@ -842,9 +758,8 @@ const AstraX = () => {
                 ].map((stat, index) => (
                   <motion.div
                     key={stat.label}
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 1, y: 0 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 1.4 + index * 0.1 }}
                     className="text-center group"
                   >
                     <motion.div
@@ -875,8 +790,8 @@ const AstraX = () => {
         </div>
       </section>
 
-      {/* ==================== ABOUT ==================== */}
-      <section id="about" className="relative py-28 md:py-36 scroll-mt-24">
+      {/* ==================== ABOUT (IMPROVED WRITEUP) ==================== */}
+      <section id="about" className="relative py-16 md:py-20 scroll-mt-24">
         <div className="container max-w-[1200px] px-6 mx-auto">
           <SectionHeading
             eyebrow="ABOUT"
@@ -885,12 +800,12 @@ const AstraX = () => {
                 What is <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-500 to-orange-500">AstraX – Software</span>?
               </>
             }
-            description="An AI-first hackathon focused on building intelligent systems that learn, optimize, and redefine efficiency."
+            description="A hackathon by Articon × IEDC, focused on building intelligent systems that learn, optimize, and redefine efficiency."
           />
 
           <div className="grid md:grid-cols-2 gap-8 md:gap-10">
-            {/* Main description */}
-            <HolographicCard className="max-w-5xl mx-auto" colorTheme="red" delay={0}>
+            {/* Main description - IMPROVED WRITEUP */}
+            <HolographicCard delay={0} colorTheme="red">
               <div className="flex items-start gap-5 mb-6">
                 <motion.div
                   whileHover={{ rotate: [0, -10, 10, 0], scale: 1.1 }}
@@ -904,23 +819,48 @@ const AstraX = () => {
                     Intelligence First
                   </h3>
                   <p className="text-base text-muted-foreground leading-relaxed">
-                    Build systems that don't just execute—they learn, adapt, and evolve.
+                    A collaboration between Articon, IEDC & IIC
                   </p>
                 </div>
               </div>
 
-              <p className="text-base text-muted-foreground leading-relaxed">
-                AstraX - Software is a 42-hour AI-first hackathon focused on building
-                intelligent systems, scalable platforms, automation frameworks,
-                and next-generation AI-powered software products. Think systems that learn.
-                Think tools that optimize. Think applications that redefine efficiency.
+              <p className="text-base text-muted-foreground leading-relaxed mb-4">
+                <span className="text-cyan-400 font-semibold">AstraX – Software</span> is a 42-hour AI-first hackathon 
+                proudly presented by <span className="text-primary font-semibold">Articon</span>, the flagship technical 
+                organization of the Department of Artificial Intelligence & Data Science at RSET.
               </p>
+              
+              <p className="text-base text-muted-foreground leading-relaxed mb-4">
+                Built on the foundation of innovation and collaboration, AstraX brings together students, developers, 
+                and AI enthusiasts to build <span className="text-foreground font-medium">intelligent systems</span>, 
+                <span className="text-foreground font-medium"> scalable platforms</span>, 
+                <span className="text-foreground font-medium"> automation frameworks</span>, and 
+                <span className="text-foreground font-medium"> next-generation AI-powered software products</span>.
+              </p>
+
+              <p className="text-base text-muted-foreground leading-relaxed">
+                Think systems that <span className="text-cyan-400">learn</span>. 
+                Think tools that <span className="text-cyan-400">optimize</span>. 
+                Think applications that <span className="text-cyan-400">redefine efficiency</span>.
+              </p>
+
+              <div className="mt-6 pt-6 border-t border-white/10">
+                <div className="flex items-center gap-3">
+                  <div className="px-3 py-1.5 rounded-lg bg-primary/10 border border-primary/20">
+                    <span className="text-sm font-mono text-primary tracking-wider">ARTICON</span>
+                  </div>
+                  <span className="text-muted-foreground">×</span>
+                  <div className="px-3 py-1.5 rounded-lg bg-cyan-400/10 border border-cyan-400/20">
+                    <span className="text-sm font-mono text-cyan-400 tracking-wider">IEDC</span>
+                  </div>
+                </div>
+              </div>
             </HolographicCard>
 
             {/* Focus areas */}
-            <HolographicCard className="max-w-5xl mx-auto" colorTheme="mixed" delay={0.1}>
+            <HolographicCard delay={0.1} colorTheme="blue">
               <h3 className="font-display text-2xl mb-6 text-foreground">Technical Focus</h3>
-
+              
               <div className="space-y-4">
                 {[
                   { icon: Cpu, text: "Intelligent Systems & AI/ML", color: "from-primary to-red-500" },
@@ -930,10 +870,8 @@ const AstraX = () => {
                 ].map((item, index) => (
                   <motion.div
                     key={item.text}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.1 + index * 0.05 }}
+                    initial={{ opacity: 1, x: 0 }}
+                    animate={{ opacity: 1, x: 0 }}
                     whileHover={{ x: 8 }}
                     className="flex items-center gap-4 group cursor-pointer"
                   >
@@ -952,7 +890,7 @@ const AstraX = () => {
 
               <div className="mt-8 pt-6 border-t border-white/10">
                 <p className="text-sm text-muted-foreground/80">
-                  Organized by Department of AI & DS, RSET
+                  Organized by Articon in collaboration with IEDC & IIC
                 </p>
               </div>
             </HolographicCard>
@@ -960,30 +898,26 @@ const AstraX = () => {
 
           {/* Key highlights with animated badges */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
+            initial={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
             className="mt-12"
           >
-            <HolographicCard className="max-w-5xl mx-auto" colorTheme="mixed" delay={0.2}>
+            <HolographicCard delay={0.2} colorTheme="mixed">
               <div className="flex flex-wrap justify-center gap-4">
                 {[
-                  { text: "AI/ML Engineering", color: "from-primary to-red-500" },
-                  { text: "Deep Learning", color: "from-blue-500 to-purple-500" },
-                  { text: "Natural Language Processing", color: "from-green-500 to-emerald-500" },
+                  { text: "AI/ML Engineering", color: "from-orange-500 to-pink-500" },
+                  { text: "Deep Learning", color: "from-orange-500 to-pink-500" },
+                  { text: "Natural Language Processing", color: "from-orange-500 to-pink-500"},
                   { text: "Computer Vision", color: "from-orange-500 to-pink-500" },
-                  { text: "Intelligent Automation", color: "from-cyan-500 to-blue-500" },
-                  { text: "Predictive Analytics", color: "from-violet-500 to-purple-500" },
-                  { text: "Neural Networks", color: "from-rose-500 to-pink-500" },
-                  { text: "LLM Applications", color: "from-amber-500 to-orange-500" },
+                  { text: "Intelligent Automation", color: "from-orange-500 to-pink-500" },
+                  { text: "Predictive Analytics", color: "from-orange-500 to-pink-500" },
+                  { text: "Neural Networks", color: "from-orange-500 to-pink-500" },
+                  { text: "LLM Applications", color: "from-orange-500 to-pink-500" },
                 ].map((tag, index) => (
                   <motion.div
                     key={tag.text}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.3 + index * 0.05 }}
+                    initial={{ opacity: 1, scale: 1 }}
+                    animate={{ opacity: 1, scale: 1 }}
                     whileHover={{ scale: 1.1, y: -2 }}
                   >
                     <Badge
@@ -1003,7 +937,8 @@ const AstraX = () => {
         </div>
       </section>
 
-      {/* ==================== PRIZES ==================== */}
+      {/* ==================== PRIZES (KEPT COMMENTED) ==================== */}
+      {/*
       <section id="prizes" className="relative py-28 md:py-36 scroll-mt-24">
         <div className="container max-w-[1200px] px-6 mx-auto">
           <SectionHeading
@@ -1040,7 +975,7 @@ const AstraX = () => {
                 glow: "rgba(251, 146, 60, 0.4)"
               },
             ].map((tier, index) => (
-              <HolographicCard className="max-w-5xl mx-auto" key={tier.place} delay={index * 0.1} colorTheme={index === 0 ? "red" : index === 1 ? "blue" : "mixed"}>
+              <HolographicCard key={tier.place} delay={index * 0.1} colorTheme={index === 0 ? "red" : index === 1 ? "blue" : "mixed"}>
                 <div className="text-center py-4">
                   <motion.div
                     className="text-7xl mb-6"
@@ -1077,8 +1012,8 @@ const AstraX = () => {
             ))}
           </div>
 
-          {/* What participants get */}
-          <HolographicCard className="max-w-5xl mx-auto" colorTheme="mixed" delay={0.3}>
+          {/* What participants get }
+          <HolographicCard colorTheme="mixed" delay={0.3}>
             <h3 className="font-display text-3xl mb-10 text-center text-foreground">What You'll Receive</h3>
 
             <div className="grid md:grid-cols-3 gap-10 text-center">
@@ -1104,10 +1039,8 @@ const AstraX = () => {
               ].map((item, index) => (
                 <motion.div
                   key={item.text}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.4 + index * 0.1 }}
+                  initial={{ opacity: 1, y: 0 }}
+                  animate={{ opacity: 1, y: 0 }}
                   whileHover={{ y: -8 }}
                   className="group cursor-pointer"
                 >
@@ -1136,9 +1069,10 @@ const AstraX = () => {
           </HolographicCard>
         </div>
       </section>
+      */}
 
       {/* ==================== CONTACTS ==================== */}
-      <section id="contacts" className="relative py-28 md:py-36 scroll-mt-24">
+      <section id="contacts" className="relative py-16 md:py-20 scroll-mt-24">
         <div className="container max-w-[1200px] px-6 mx-auto">
           <SectionHeading
             eyebrow="CONTACTS"
@@ -1169,15 +1103,15 @@ const AstraX = () => {
                 colorTheme: "blue",
               },
               {
-                name: "Neha Biju",
+                name: "Shwetha Prabhakaran",
                 role: "General Support",
-                email: "nehabiju605@gmail.com",
-                phone: "+91 96569 14957",
-                phoneLink: "+919656914957",
+                email: "U2301197@rajagiri.edu.in",
+                phone: "+91 90747 80066",
+                phoneLink: "+919074780066",
                 colorTheme: "mixed",
               },
             ].map((contact, index) => (
-              <HolographicCard key={contact.name} className="max-w-5xl mx-auto" colorTheme={contact.colorTheme} delay={index * 0.1}>
+              <HolographicCard key={contact.name} delay={index * 0.1} colorTheme={contact.colorTheme}>
                 <div className="font-mono text-xs tracking-[0.4em] text-primary/80 uppercase mb-4">
                   {contact.role}
                 </div>
@@ -1185,7 +1119,7 @@ const AstraX = () => {
                 <div className="font-display text-3xl mb-8 text-foreground">
                   {contact.name}
                 </div>
-
+                
                 <div className="space-y-4">
                   <motion.a
                     href={`mailto:${contact.email}`}
@@ -1197,7 +1131,7 @@ const AstraX = () => {
                       {contact.email}
                     </div>
                   </motion.a>
-
+                  
                   <motion.a
                     href={`tel:${contact.phoneLink}`}
                     whileHover={{ scale: 1.02, x: 4 }}
@@ -1219,11 +1153,10 @@ const AstraX = () => {
       <section className="relative py-28 border-t border-white/5">
         <div className="container max-w-[1200px] px-6 mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
           >
-            <HolographicCard className="" colorTheme="mixed">
+            <HolographicCard colorTheme="mixed">
               <p className="mb-10 font-mono text-sm tracking-[0.4em] text-primary/80 uppercase text-center">
                 Presented Partners
               </p>
@@ -1232,7 +1165,7 @@ const AstraX = () => {
                 logos={partnerLogos}
                 speed={52}
                 gap={24}
-                pauseOnHover={true}
+                pauseOnHover={false}
                 fadeOut={false}
                 className="mb-10"
               />
@@ -1253,30 +1186,30 @@ const AstraX = () => {
         </div>
       </section>
 
-      {/* ==================== SOCIAL FLOAT ==================== */}
+      {/* ==================== SOCIAL FLOAT - UPDATED THEME MATCHING STYLES ==================== */}
       <motion.div
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 2 }}
-        className="fixed bottom-8 right-8 flex flex-col gap-4 z-50"
+        className="fixed bottom-8 right-8 flex flex-col gap-3 z-50"
       >
         {[
-          { icon: Instagram, href: "#", gradient: "from-pink-500 to-rose-500" },
-          { icon: Linkedin, href: "#", gradient: "from-blue-600 to-blue-500" },
-          { icon: Globe, href: "#", gradient: "from-green-500 to-emerald-500" },
+          { icon: Instagram, href: "https://www.instagram.com/rsetiedc/", label: "Instagram" },
+          { icon: Linkedin, href: "https://www.linkedin.com/company/rset-iedc/?originalSubdomain=in", label: "LinkedIn" },
+          { icon: Facebook, href: "https://www.facebook.com/iedc.rset/", label: "Facebook" },
+          { icon: Twitter, href: "https://x.com/rset_iedc", label: "Twitter/X" },
         ].map((social, index) => (
           <motion.a
             key={index}
             href={social.href}
-            whileHover={{ scale: 1.15, rotate: 5 }}
-            whileTap={{ scale: 0.9 }}
-            className={cn(
-              "p-4 rounded-2xl backdrop-blur-xl border border-white/10 shadow-2xl",
-              "bg-gradient-to-br",
-              social.gradient
-            )}
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.1, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+            className="p-3 rounded-xl bg-black/40 backdrop-blur-xl border border-primary/20 hover:border-primary/50 hover:bg-primary/10 transition-all shadow-lg hover:shadow-primary/20"
+            aria-label={social.label}
           >
-            <social.icon className="w-6 h-6 text-white" />
+            <social.icon className="w-5 h-5 text-primary" />
           </motion.a>
         ))}
       </motion.div>
@@ -1285,12 +1218,11 @@ const AstraX = () => {
       <footer className="relative py-16 border-t border-white/5">
         <div className="container max-w-[1200px] px-6 mx-auto text-center">
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 1 }}
           >
             <p className="text-base text-muted-foreground mb-6">
-              Organized by Department of AI & DS, RSET
+              Organized by Articon × IEDC
             </p>
             <p className="text-sm text-muted-foreground/60">
               © ASTRAX 2026 • Articon × IEDC × IIC
