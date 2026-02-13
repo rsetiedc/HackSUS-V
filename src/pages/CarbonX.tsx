@@ -1000,46 +1000,44 @@ const CarbonX = () => {
         {/* History */}
         <section id="history" className="relative py-20 md:py-28 scroll-mt-24">
           <div className="container max-w-[1100px] px-6">
-            <SectionHeading
-              eyebrow="HISTORY"
-              title={
-                <>
-                  From <span className="text-primary">VEGATHON</span> to{" "}
-                  <span className="font-mokoto">CARBONX</span>.
-                </>
-              }
-              description="A hardware hackathon lineage focused on indigenous tech and deep systems learning."
-            />
+          <SectionHeading
+            eyebrow="HISTORY"
+            title={
+              <>
+                From <span className="text-primary">VEGATHON</span> to{" "}
+                <span className="font-mokoto">CARBONX</span>
+              </>
+            }
+            description="A hardware hackathon lineage focused on indigenous tech and deep systems learning."
+          />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 items-stretch">
-              {[
-                {
-                  year: "2022",
-                  title: "VEGATHON",
-                  body:
-                    "National-level hardware hackathon centered around the VEGA Processor, built with CDAC.",
-                },
-                {
-                  year: "After",
-                  title: "CARBON → CARBONX",
-                  body:
-                    "Rebranded to strengthen continuity, with CARBONX as the competitive hackathon format.",
-                },
-              ].map((t, idx) => (
-                <motion.div
-                  key={t.title}
-                  initial={{ opacity: 0, y: 18 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-80px 0px -20% 0px" }}
-                  transition={{ duration: 0.55, ease: "easeOut", delay: idx * 0.04 }}
-                  className="h-full"
-                >
-                  <GlassCard className="p-7 md:p-8 h-full">
-                    <div className="flex items-baseline justify-between gap-4">
-                      <div className="font-mono text-xs tracking-[0.38em] text-muted-foreground">
-                        {t.year}
-                      </div>
-                      <div className="h-px flex-1 bg-border/60" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 items-stretch">
+            {[
+              {
+                year: "2022",
+                title: "VEGATHON",
+                body:
+                  "National-level hardware hackathon centered around the VEGA Processor, built with CDAC.",
+              },
+              {
+                year: "After",
+                title: "VEGATHON → CARBONX",
+                body:
+                  "Evolved from VEGATHON into CARBONX to continue the hardware-first legacy under a stronger long-term identity.",
+              },
+            ].map((t, idx) => (
+              <motion.div
+                key={t.title}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px 0px -20% 0px" }}
+                transition={{ duration: 0.55, ease: "easeOut", delay: idx * 0.04 }}
+                className="h-full"
+              >
+                <GlassCard className="p-7 md:p-8 h-full">
+                  <div className="flex items-baseline justify-between gap-4">
+                    <div className="font-mono text-xs tracking-[0.38em] text-muted-foreground">
+                      {t.year}
                     </div>
                     <div className="mt-3 font-display text-xl tracking-wide">
                       {t.title}
