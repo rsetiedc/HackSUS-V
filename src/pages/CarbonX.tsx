@@ -1039,15 +1039,17 @@ const CarbonX = () => {
                     <div className="font-mono text-xs tracking-[0.38em] text-muted-foreground">
                       {t.year}
                     </div>
-                    <div className="mt-3 font-display text-xl tracking-wide">
-                      {t.title}
-                    </div>
-                    <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-                      {t.body}
-                    </p>
-                  </GlassCard>
-                </motion.div>
-              ))}
+                    <div className="h-px flex-1 bg-border/60" />
+                  </div>
+                  <div className="mt-3 font-display text-xl tracking-wide">
+                    {t.title}
+                  </div>
+                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                    {t.body}
+                  </p>
+                </GlassCard>
+              </motion.div>
+            ))}
             </div>
           </div>
         </section>
