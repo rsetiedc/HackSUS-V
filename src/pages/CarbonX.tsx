@@ -430,7 +430,7 @@ const CarbonX = () => {
     [],
   );
   const activeId = useActiveSection(sectionIds);
-  const particleColors = useMemo(() => ["#ffffff"], []);
+  const particleColors = useMemo(() => ["#FFFFFF"], []);
   const particleTuning = useParticleTuning();
   const [magnetDisabled, setMagnetDisabled] = useState(true);
   const [isMobileTracks, setIsMobileTracks] = useState(false);
@@ -621,7 +621,8 @@ const CarbonX = () => {
           deviceOrientationFactor={2.4}
           particleHoverFactor={particleTuning.particleHoverFactor}
           hoverMode="window"
-          alphaParticles={true}
+          pauseOnScroll={true}
+          alphaParticles={false}
           disableRotation={false}
           pixelRatio={particleTuning.pixelRatio}
           maxFps={particleTuning.maxFps}
