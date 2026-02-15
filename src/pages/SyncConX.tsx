@@ -151,7 +151,7 @@ const SyncConX = () => {
                             {
                                 name: "Amy Reni Varghese",
                                 role: "Event Coordinator",
-                                phone: "+91 XXXXX XXXXX",
+                                phone: "+91 62388 87116",
                                 phoneLink: "+91XXXXXXXXXX",
                                 email: "u2302012@rajagiri.edu.in",
                             },
