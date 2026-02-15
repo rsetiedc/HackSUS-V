@@ -135,6 +135,64 @@ const SyncConX = () => {
                     </div>
                 </div>
             </main>
+
+            {/* Contact Section */}
+            <section className="pb-16">
+                <div className="container px-6 mx-auto">
+                    <div className="mb-12 text-center">
+                        <span className="font-mono text-sm text-primary tracking-[0.3em]">// CONTACTS</span>
+                        <h2 className="font-display text-3xl md:text-4xl text-foreground mt-4">
+                            Get in Touch
+                        </h2>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+                        {[
+                            {
+                                name: "Amy Reni Varghese",
+                                role: "Event Coordinator",
+                                phone: "+91 XXXXX XXXXX",
+                                phoneLink: "+91XXXXXXXXXX",
+                                email: "u2302012@rajagiri.edu.in",
+                            },
+                            {
+                                name: "Varnika B",
+                                role: "Event Coordinator",
+                                phone: "+91 79949 08780",
+                                phoneLink: "+91XXXXXXXXXX",
+                                email: "varnikabofficial@gmail.com",
+                            },
+                        ].map((contact, i) => (
+                            <div
+                                key={i}
+                                className="bg-card border border-border p-8 rounded-xl"
+                            >
+                                <p className="text-primary font-semibold text-sm mb-1">{contact.role}</p>
+                                <h3 className="font-display text-2xl text-foreground mb-5">
+                                    {contact.name}
+                                </h3>
+                                <div className="space-y-3 text-muted-foreground">
+                                    <a
+                                        href={`tel:${contact.phoneLink}`}
+                                        className="flex gap-3 hover:text-primary transition-colors"
+                                    >
+                                        <span className="text-primary">•</span>
+                                        <span>{contact.phone}</span>
+                                    </a>
+                                    <a
+                                        href={`mailto:${contact.email}`}
+                                        className="flex gap-3 hover:text-primary transition-colors break-all"
+                                    >
+                                        <span className="text-primary">•</span>
+                                        <span>{contact.email}</span>
+                                    </a>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
             <Footer />
         </div>
     );

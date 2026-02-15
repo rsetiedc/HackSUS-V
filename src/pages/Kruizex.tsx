@@ -357,6 +357,72 @@ const Kruizex = () => {
                             ))}
                         </div>
                     </motion.div>
+
+                    {/* Contact Section */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        className="mb-24"
+                    >
+                        <div className="flex items-center gap-3 mb-10 justify-center">
+                            <div className="h-px w-12 bg-blue-500/50"></div>
+                            <h2 className="font-display text-4xl uppercase tracking-widest text-center">Contact</h2>
+                            <div className="h-px w-12 bg-blue-500/50"></div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+                            {[
+                                {
+                                    name: "Joshua Faithson Roy",
+                                    role: "Event Coordinator",
+                                    phone: "+91 99952 22119",
+                                    phoneLink: "+91XXXXXXXXXX",
+                                    email: "u2301119@rajagiri.edu.in",
+                                },
+                                {
+                                    name: "Justin Joven",
+                                    role: "Event Coordinator",
+                                    phone: "+91 74285 19729",
+                                    phoneLink: "+91XXXXXXXXXX",
+                                    email: "justinjovenm@gmail.com",
+                                },
+                            ].map((contact, i) => (
+                                <motion.div
+                                    key={i}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: i * 0.15 }}
+                                    whileHover={{ y: -5 }}
+                                    className="p-6 bg-white/[0.02] border border-white/5 rounded-2xl hover:bg-blue-500/[0.03] hover:border-blue-500/20 transition-all duration-500"
+                                >
+                                    <p className="text-xs font-mono text-blue-400 uppercase tracking-wider mb-3">
+                                        // {contact.role}
+                                    </p>
+                                    <h3 className="font-display text-2xl tracking-tight text-foreground mb-5">
+                                        {contact.name}
+                                    </h3>
+                                    <div className="space-y-3">
+                                        <a
+                                            href={`tel:${contact.phoneLink}`}
+                                            className="flex items-center gap-3 text-sm text-muted-foreground hover:text-blue-400 transition-colors group"
+                                        >
+                                            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 group-hover:scale-125 transition-transform" />
+                                            {contact.phone}
+                                        </a>
+                                        <a
+                                            href={`mailto:${contact.email}`}
+                                            className="flex items-center gap-3 text-sm text-muted-foreground hover:text-blue-400 transition-colors group break-all"
+                                        >
+                                            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 group-hover:scale-125 transition-transform" />
+                                            {contact.email}
+                                        </a>
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </motion.div>
                 </div>
             </main>
 

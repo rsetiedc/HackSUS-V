@@ -474,6 +474,83 @@ const UnmuteX = () => {
                 </div>
             </main>
 
+            {/* Contact Section */}
+            <section className="relative z-10 pb-32 px-6">
+                <div className="container mx-auto max-w-4xl">
+                    <div className="flex items-center gap-4 justify-center mb-12">
+                        <div className="h-px w-16 bg-gradient-to-r from-transparent to-white/20" />
+                        <div className="flex items-center gap-3 bg-charcoal/40 backdrop-blur-md border border-white/5 rounded-full px-5 py-2">
+                            <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                            <span className="font-mono text-[10px] text-primary tracking-[0.4em] uppercase">Contact Frequency</span>
+                        </div>
+                        <div className="h-px w-16 bg-gradient-to-l from-transparent to-white/20" />
+                    </div>
+
+                    <h2 className="font-display text-5xl md:text-6xl text-center mb-16 tracking-wider">
+                        Get in Touch
+                    </h2>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {[
+                            {
+                                name: "Alen George Scaria",
+                                role: "// Event Coordinator",
+                                phone: "+91 85908 85208",
+                                phoneLink: "+91XXXXXXXXXX",
+                                email: "alengscaria@gmail.com",
+                            },
+                            {
+                                name: "Rishi Krishna",
+                                role: "// Event Coordinator",
+                                phone: "+91 7904 48102",
+                                phoneLink: "+91XXXXXXXXXX",
+                                email: "bss10a04rishi@gmail.com",
+                            },
+                        ].map((contact, i) => (
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: i * 0.15 }}
+                                whileHover={{ y: -4 }}
+                                className="bg-charcoal/40 backdrop-blur-md border border-white/5 rounded-2xl p-8 relative overflow-hidden group hover:border-primary/20 transition-all duration-500"
+                            >
+                                <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                                <div className="flex items-center gap-3 mb-5">
+                                    <div className="w-2 h-2 rounded-full bg-scanline-green" />
+                                    <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-[0.3em]">
+                                        {contact.role}
+                                    </span>
+                                </div>
+
+                                <h3 className="font-display text-3xl text-white tracking-wider mb-6">
+                                    {contact.name}
+                                </h3>
+
+                                <div className="space-y-3">
+                                    <a
+                                        href={`tel:${contact.phoneLink}`}
+                                        className="flex items-center gap-3 text-sm text-muted-foreground hover:text-primary transition-colors group/link"
+                                    >
+                                        <Volume2 size={14} className="text-primary/50 group-hover/link:text-primary transition-colors" />
+                                        <span className="font-mono text-sm">{contact.phone}</span>
+                                    </a>
+                                    <a
+                                        href={`mailto:${contact.email}`}
+                                        className="flex items-center gap-3 text-sm text-muted-foreground hover:text-primary transition-colors group/link break-all"
+                                    >
+                                        <Music size={14} className="text-primary/50 group-hover/link:text-primary transition-colors flex-shrink-0" />
+                                        <span className="font-mono text-sm">{contact.email}</span>
+                                    </a>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
             <NowPlayingBar />
             <Footer />
         </div>

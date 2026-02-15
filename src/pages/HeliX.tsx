@@ -284,6 +284,96 @@ const HeliX = () => {
                         </aside>
                     </div>
                 </div>
+
+                {/* Contacts */}
+                <motion.div
+                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, y: 40 }}
+                    viewport={{ once: true }}
+                    className="mb-32"
+                >
+                    <div className="max-w-4xl mx-auto relative px-12 py-10">
+                        {/* Technical Corners */}
+                        <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-primary/40" />
+                        <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-primary/40" />
+                        <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-primary/40" />
+                        <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-primary/40" />
+
+                        <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+
+                        <motion.span
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }}
+                            className="font-mono text-[10px] text-primary/60 tracking-[0.3em] uppercase block mb-8 text-center"
+                        >
+                            [ CONTACT_INTERFACE ]
+                        </motion.span>
+
+                        <h2 className="font-display text-5xl md:text-6xl text-white font-bold text-center tracking-wider mb-16 uppercase">
+                            Get in Touch
+                        </h2>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            {[
+                                {
+                                    name: "Zishan",
+                                    role: "Event Coordinator",
+                                    phone: "+91 80785 40523",
+                                    phoneLink: "+91XXXXXXXXXX",
+                                    email: "u2308046@rajagiri.edu.in"
+                                },
+                                {
+                                    name: "Sheba Reji",
+                                    role: "Event Coordinator",
+                                    phone: "+91 98468 78510",
+                                    phoneLink: "+91XXXXXXXXXX",
+                                    email: "shebarej2003@gmail.com"
+                                },
+                            ].map((contact, i) => (
+                                <motion.div
+                                    key={i}
+                                    whileHover={{ x: 6 }}
+                                    className="bg-card/30 backdrop-blur-xl border border-white/5 p-8 rounded-[1.5rem] relative group hover:border-primary/20 transition-all duration-500"
+                                >
+                                    <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-primary/30" />
+                                    <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-primary/30" />
+
+                                    <span className="font-mono text-[10px] text-primary/50 tracking-[0.2em] uppercase block mb-4">
+                                        [ // {contact.role} ]
+                                    </span>
+
+                                    <h3 className="font-display text-3xl text-white tracking-wide uppercase mb-6">
+                                        {contact.name}
+                                    </h3>
+
+                                    <div className="space-y-4">
+                                        <a
+                                            href={`tel:${contact.phoneLink}`}
+                                            className="flex items-center gap-4 group/link"
+                                        >
+                                            <span className="w-6 h-[1px] bg-primary/30 group-hover/link:w-10 transition-all" />
+                                            <span className="text-muted-foreground group-hover/link:text-primary transition-colors font-mono text-sm">
+                                                {contact.phone}
+                                            </span>
+                                        </a>
+                                        <a
+                                            href={`mailto:${contact.email}`}
+                                            className="flex items-center gap-4 group/link"
+                                        >
+                                            <span className="w-6 h-[1px] bg-primary/30 group-hover/link:w-10 transition-all" />
+                                            <span className="text-muted-foreground group-hover/link:text-primary transition-colors font-mono text-sm break-all">
+                                                {contact.email}
+                                            </span>
+                                        </a>
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
+
+                        <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+                    </div>
+                </motion.div>
             </main>
             <div className="relative z-50">
                 <Footer />

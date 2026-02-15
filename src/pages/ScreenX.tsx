@@ -122,15 +122,21 @@ const ScreenX = () => {
 
             {/* ═══════════════════ FILM REEL CAROUSELS ═══════════════════ */}
             <section className="relative py-12 md:py-20 overflow-hidden">
+                {/* Fade to black overlay */}
+                <div className="absolute inset-0 pointer-events-none z-0"
+                    style={{
+                        background: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 30%, rgba(0,0,0,0.95) 60%, black 100%)",
+                    }}
+                />
                 {/* Section heading */}
-                <div className="container px-6 mx-auto mb-12">
+                <div className="container px-6 mx-auto mb-12 relative z-10">
                     <h2 className="font-copperplate text-2xl md:text-4xl text-foreground tracking-wider text-center">
                         The Production Pipeline
                     </h2>
                     <div className="w-24 h-[2px] bg-primary mx-auto mt-4" />
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2 relative z-10">
                     {/* Film Strip Row 1 */}
                     <div className="film-strip">
                         <motion.div
@@ -184,7 +190,7 @@ const ScreenX = () => {
             </section>
 
             {/* ═══════════════════ CONTENT SECTIONS ═══════════════════ */}
-            <main className="pb-16 md:pb-24">
+            <main className="pb-16 md:pb-24 bg-black relative z-20">
                 <div className="container px-4 md:px-6 mx-auto">
                     {/* Back button */}
                     <Link
@@ -288,6 +294,78 @@ const ScreenX = () => {
                     </div>
                 </div>
             </main>
+
+            {/* ═══════════════════ CONTACTS ═══════════════════ */}
+            <section className="relative bg-black z-20 py-20 md:py-28">
+                <div className="container px-4 md:px-6 mx-auto">
+                    <div className="mb-14 text-center">
+                        <span className="font-mono text-xs text-primary/60 tracking-[0.5em] uppercase">// Contacts</span>
+                        <h2 className="font-copperplate text-3xl md:text-5xl text-foreground tracking-wider mt-4">
+                            Get in Touch
+                        </h2>
+                        <div className="w-24 h-[2px] bg-primary mx-auto mt-4" />
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+                        {[
+                            {
+                                name: "Nevin George",
+                                role: "Event Coordinator",
+                                phone: "+91 90372 47134",
+                                phoneLink: "+91XXXXXXXXXX",
+                                email: "contact1@example.com",
+                            },
+                            {
+                                name: "Alan Isaac",
+                                role: "Event Coordinator",
+                                phone: "+91 89219 32074",
+                                phoneLink: "+91XXXXXXXXXX",
+                                email: "alanx659@gmail.com",
+                            },
+                        ].map((contact, i) => (
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: "-50px" }}
+                                transition={{ duration: 0.6, delay: i * 0.15 }}
+                                className="relative bg-black border border-primary/20 p-8 md:p-10"
+                            >
+                                <div className="absolute top-0 left-0 w-1 h-full bg-primary" />
+
+                                <span className="font-copperplate text-[10px] tracking-widest text-primary/50 uppercase block mb-4">
+                                    {contact.role}
+                                </span>
+
+                                <h3 className="font-copperplate text-2xl md:text-3xl text-foreground tracking-wider mb-6">
+                                    {contact.name}
+                                </h3>
+
+                                <div className="space-y-3 font-body">
+                                    <a
+                                        href={`tel:${contact.phoneLink}`}
+                                        className="flex items-start gap-3 group"
+                                    >
+                                        <span className="mt-1.5 h-2 w-2 rounded-full bg-primary flex-shrink-0" />
+                                        <span className="text-muted-foreground group-hover:text-primary transition-colors text-sm">
+                                            {contact.phone}
+                                        </span>
+                                    </a>
+                                    <a
+                                        href={`mailto:${contact.email}`}
+                                        className="flex items-start gap-3 group"
+                                    >
+                                        <span className="mt-1.5 h-2 w-2 rounded-full bg-primary flex-shrink-0" />
+                                        <span className="text-muted-foreground group-hover:text-primary transition-colors text-sm break-all">
+                                            {contact.email}
+                                        </span>
+                                    </a>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+            </section>
 
             <Footer />
         </div>

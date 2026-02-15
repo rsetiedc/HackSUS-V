@@ -96,8 +96,10 @@ const FilmStrip = ({
 
 const FilmReelBackground = ({ images = [
     "/images/inception.jfif",
+    "/images/aadu2.webp",
     "/images/trumanShow.webp",
     "/images/bangaloreDays.webp"
+
 ] }: FilmReelBackgroundProps) => {
     const { scrollY } = useScroll();
 
