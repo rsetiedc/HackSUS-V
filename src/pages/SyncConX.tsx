@@ -267,13 +267,12 @@ const SyncConX = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1.3, duration: 0.7 }}
-                            className="mt-12 max-w-3xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4"
+                            className="mt-12 max-w-3xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-4"
                         >
                             {[
                                 { label: "Duration", value: "42h", icon: Activity },
                                 { label: "Team Size", value: "4-6", icon: Cpu },
                                 { label: "Domains", value: "IoT", icon: Radio },
-                                { label: "Resolution", value: "16-bit", icon: Gauge },
                             ].map((stat, i) => (
                                 <SpotlightCard
                                     key={i}
