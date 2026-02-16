@@ -253,6 +253,30 @@
 
   /* Mid-band feature removed */
 
+  /* Clean variant: keeps the animated slicing pseudo-elements but removes
+     the heavy text-stroke / text-shadow / drop-shadow from the main text.
+     Use as: class="glitch-text glitch-text--clean" */
+  .glitch-text--clean {
+    -webkit-text-stroke: 0;
+    text-shadow: none;
+    filter: none;
+  }
+
+  .glitch-text--clean::before,
+  .glitch-text--clean::after {
+    -webkit-text-stroke: 0;
+    filter: none;
+    opacity: 0.7;
+  }
+
+  .glitch-text--clean::before {
+    color: var(--color-dark-red, #ff312e);
+  }
+
+  .glitch-text--clean::after {
+    color: var(--color-light-red, #ff6b6b);
+  }
+
   /* Accent helper for the red-outlined inner span */
   .glitch-text .accent {
     color: var(--color-white);
@@ -1039,7 +1063,9 @@
 @media (prefers-reduced-motion: reduce) {
 
   .glitch::before,
-  .glitch::after {
+  .glitch::after,
+  .glitch-text::before,
+  .glitch-text::after {
     animation: none;
   }
 

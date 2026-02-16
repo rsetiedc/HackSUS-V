@@ -14,32 +14,27 @@ const getMousePos = (e, container) => {
   return { x: e.clientX, y: e.clientY };
 };
 
-const Crosshair = ({ color = 'white', containerRef = null }) => {
-  const cursorRef = useRef(null);
-  const lineHorizontalRef = useRef(null);
-  const lineVerticalRef = useRef(null);
-  const filterXRef = useRef(null);
-  const filterYRef = useRef(null);
+const Crosshair = ({ color = 'white', containerRef = null, size = 28, gap = 6 }) => {
+  const crosshairRef = useRef(null);
+  const filterRef = useRef(null);
 
   let mouse = { x: 0, y: 0 };
 
   useEffect(() => {
+    const el = crosshairRef.current;
+    if (!el) return;
+
     const handleMouseMove = ev => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
       mouse = getMousePos(ev, containerRef?.current);
 
       if (containerRef?.current) {
         const bounds = containerRef.current.getBoundingClientRect();
-        if (
+        const outside =
           ev.clientX < bounds.left ||
           ev.clientX > bounds.right ||
           ev.clientY < bounds.top ||
-          ev.clientY > bounds.bottom
-        ) {
-          gsap.to([lineHorizontalRef.current, lineVerticalRef.current], { opacity: 0 });
-        } else {
-          gsap.to([lineHorizontalRef.current, lineVerticalRef.current], { opacity: 1 });
-        }
+          ev.clientY > bounds.bottom;
+        gsap.to(el, { opacity: outside ? 0 : 1, duration: 0.3 });
       }
     };
 
@@ -51,24 +46,16 @@ const Crosshair = ({ color = 'white', containerRef = null }) => {
       ty: { previous: 0, current: 0, amt: 0.15 }
     };
 
-    gsap.set([lineHorizontalRef.current, lineVerticalRef.current], { opacity: 0 });
+    gsap.set(el, { opacity: 0 });
 
-    const onMouseMove = () => {
+    const onFirstMove = () => {
       renderedStyles.tx.previous = renderedStyles.tx.current = mouse.x;
       renderedStyles.ty.previous = renderedStyles.ty.current = mouse.y;
-
-      gsap.to([lineHorizontalRef.current, lineVerticalRef.current], {
-        duration: 0.9,
-        ease: 'Power3.easeOut',
-        opacity: 1
-      });
-
+      gsap.to(el, { duration: 0.9, ease: 'Power3.easeOut', opacity: 1 });
       requestAnimationFrame(render);
-
-      target.removeEventListener('mousemove', onMouseMove);
+      target.removeEventListener('mousemove', onFirstMove);
     };
-
-    target.addEventListener('mousemove', onMouseMove);
+    target.addEventListener('mousemove', onFirstMove);
 
     const primitiveValues = { turbulence: 0 };
 
@@ -76,19 +63,15 @@ const Crosshair = ({ color = 'white', containerRef = null }) => {
       .timeline({
         paused: true,
         onStart: () => {
-          lineHorizontalRef.current.style.filter = `url(#filter-noise-x)`;
-          lineVerticalRef.current.style.filter = `url(#filter-noise-y)`;
+          el.style.filter = `url(#filter-noise-crosshair)`;
         },
         onUpdate: () => {
-          if (filterXRef.current && filterYRef.current) {
-            filterXRef.current.setAttribute('baseFrequency', primitiveValues.turbulence);
-            filterYRef.current.setAttribute('baseFrequency', primitiveValues.turbulence);
+          if (filterRef.current) {
+            filterRef.current.setAttribute('baseFrequency', primitiveValues.turbulence);
           }
         },
         onComplete: () => {
-          if (lineHorizontalRef.current && lineVerticalRef.current) {
-            lineHorizontalRef.current.style.filter = lineVerticalRef.current.style.filter = 'none';
-          }
+          el.style.filter = 'none';
         }
       })
       .to(primitiveValues, {
@@ -113,15 +96,17 @@ const Crosshair = ({ color = 'white', containerRef = null }) => {
         );
       }
 
-      if (lineHorizontalRef.current && lineHorizontalRef.current) {
-        gsap.set(lineVerticalRef.current, { x: renderedStyles.tx.previous });
-        gsap.set(lineHorizontalRef.current, { y: renderedStyles.ty.previous });
-      }
+      gsap.set(el, {
+        x: renderedStyles.tx.previous,
+        y: renderedStyles.ty.previous
+      });
 
       requestAnimationFrame(render);
     };
 
-    const links = containerRef?.current ? containerRef.current.querySelectorAll('a') : document.querySelectorAll('a');
+    const links = containerRef?.current
+      ? containerRef.current.querySelectorAll('a')
+      : document.querySelectorAll('a');
 
     links.forEach(link => {
       link.addEventListener('mouseenter', enter);
@@ -130,18 +115,18 @@ const Crosshair = ({ color = 'white', containerRef = null }) => {
 
     return () => {
       target.removeEventListener('mousemove', handleMouseMove);
-      target.removeEventListener('mousemove', onMouseMove);
+      target.removeEventListener('mousemove', onFirstMove);
       links.forEach(link => {
         link.removeEventListener('mouseenter', enter);
         link.removeEventListener('mouseleave', leave);
       });
     };
-  }, [containerRef]);
+  }, [containerRef, size, gap]);
+
+  const arm = (size - gap) / 2;
 
   return (
     <div
-      ref={cursorRef}
-      className="cursor"
       style={{
         position: containerRef ? 'absolute' : 'fixed',
         top: 0,
@@ -149,45 +134,82 @@ const Crosshair = ({ color = 'white', containerRef = null }) => {
         width: '100%',
         height: '100%',
         pointerEvents: 'none',
-        zIndex: 10000
+        zIndex: 10000,
+        overflow: 'hidden'
       }}
     >
-      <svg style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%' }}>
+      {/* SVG filter for noise distortion */}
+      <svg style={{ position: 'absolute', width: 0, height: 0 }}>
         <defs>
-          <filter id="filter-noise-x">
-            <feTurbulence type="fractalNoise" baseFrequency="0.000001" numOctaves="1" ref={filterXRef} />
-            <feDisplacementMap in="SourceGraphic" scale="40" />
-          </filter>
-          <filter id="filter-noise-y">
-            <feTurbulence type="fractalNoise" baseFrequency="0.000001" numOctaves="1" ref={filterYRef} />
+          <filter id="filter-noise-crosshair">
+            <feTurbulence type="fractalNoise" baseFrequency="0.000001" numOctaves="1" ref={filterRef} />
             <feDisplacementMap in="SourceGraphic" scale="40" />
           </filter>
         </defs>
       </svg>
+
+      {/* Crosshair element */}
       <div
-        ref={lineHorizontalRef}
+        ref={crosshairRef}
         style={{
           position: 'absolute',
-          width: '100%',
-          height: '1px',
-          background: color,
+          top: -size / 2,
+          left: -size / 2,
+          width: size,
+          height: size,
           pointerEvents: 'none',
-          transform: 'translateY(50%)',
           opacity: 0
         }}
-      ></div>
-      <div
-        ref={lineVerticalRef}
-        style={{
-          position: 'absolute',
-          height: '100%',
-          width: '1px',
-          background: color,
-          pointerEvents: 'none',
-          transform: 'translateX(50%)',
-          opacity: 0
-        }}
-      ></div>
+      >
+        {/* Top arm */}
+        <div
+          style={{
+            position: 'absolute',
+            left: '50%',
+            top: 0,
+            width: 1,
+            height: arm,
+            background: color,
+            transform: 'translateX(-50%)'
+          }}
+        />
+        {/* Bottom arm */}
+        <div
+          style={{
+            position: 'absolute',
+            left: '50%',
+            bottom: 0,
+            width: 1,
+            height: arm,
+            background: color,
+            transform: 'translateX(-50%)'
+          }}
+        />
+        {/* Left arm */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: 0,
+            height: 1,
+            width: arm,
+            background: color,
+            transform: 'translateY(-50%)'
+          }}
+        />
+        {/* Right arm */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '50%',
+            right: 0,
+            height: 1,
+            width: arm,
+            background: color,
+            transform: 'translateY(-50%)'
+          }}
+        />
+      </div>
     </div>
   );
 };
