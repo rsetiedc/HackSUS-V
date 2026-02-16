@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ChevronDown, Info, FileText, Layers, Mail, MapPin, Calendar } from "lucide-react";
 import { FloatingDock } from "@/components/ui/floating-dock";
+import HackSUSTitle from "@/components/HackSUSTitle";
 
 const HeroSection = () => {
   const dockItems = [
@@ -55,22 +56,14 @@ const HeroSection = () => {
       <div className="container relative z-10 px-6 text-center translate-y-[-2.5em] sm:translate-y-[-5em]">
         {/* Main title */}
         <h1
-          className="font-BrittanicBold text-6xl sm:text-7xl md:text-7xl lg:text-[6.5rem] text-foreground leading-none tracking-wider mb-0 animate-fade-in select-none flex justify-center items-end items-baseline gap-2 w-full"
-          style={{ animationDelay: "0.4s", textShadow: "4px 6px 10px rgba(255, 49, 46, 0.9), 4px 6px 10px rgba(255, 49, 46, 0.9)" }}
+          className="font-BrittanicBold text-6xl sm:text-7xl md:text-7xl lg:text-[6.5rem] leading-none mb-0 animate-fade-in select-none flex justify-center w-full"
+          style={{ animationDelay: "0.4s" }}
         >
-          <img
-            src="/hacksus_logo.svg"
-            alt="H"
-            className="h-[2em] w-auto object-contain translate-y-[0.3em]"
-            style={{ filter: "drop-shadow(4px 6px 10px rgba(255, 49, 46, 0.5))" }}
-          />
-          <span className="translate-x-[-0.4em]">
-            ackS'US
-          </span>
+          <HackSUSTitle />
         </h1>
 
         {/* Edition image */}
-        <div className="relative mb-4 -mt-8 animate-fade-in" style={{ animationDelay: "0.2s" }}>
+        <div className="relative mb-4 -mt-4 animate-fade-in" style={{ animationDelay: "0.2s" }}>
           <img
             src="/images/EditionV-Ribbon.webp"
             alt="Edition V"
