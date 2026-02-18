@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Play, Info, Download, Music, Zap, Layers, Trophy, Users, Clock, Volume2 } from "lucide-react";
-import { motion, useAnimation } from "framer-motion";
+import { ArrowLeft, Play, Info, Download, Music, Zap, Layers, Trophy, Users, Clock, Volume2, ChevronDown, ChevronUp, X } from "lucide-react";
+import { motion, useAnimation, AnimatePresence, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -62,6 +62,28 @@ const RevolvingHeader = () => {
 };
 
 const NowPlayingBar = () => {
+    const { scrollYProgress } = useScroll();
+    const smoothProgress = useSpring(scrollYProgress, {
+        stiffness: 100,
+        damping: 30,
+        restDelta: 0.001
+    });
+
+    const progressBarWidth = useTransform(smoothProgress, [0, 1], ["0%", "100%"]);
+
+    // Calculate display time based on 42 minutes total
+    const [currentTime, setCurrentTime] = useState("0:00");
+
+    useEffect(() => {
+        return smoothProgress.on("change", (latest) => {
+            const totalSeconds = 42 * 60;
+            const currentSeconds = Math.floor(latest * totalSeconds);
+            const mins = Math.floor(currentSeconds / 60);
+            const secs = currentSeconds % 60;
+            setCurrentTime(`${mins}:${secs.toString().padStart(2, '0')}`);
+        });
+    }, [smoothProgress]);
+
     return (
         <motion.div
             initial={{ y: 100 }}
@@ -94,12 +116,11 @@ const NowPlayingBar = () => {
                     <button className="text-muted-foreground hover:text-white transition-colors hidden sm:block"><Zap size={16} /></button>
                 </div>
                 <div className="w-24 xs:w-32 sm:w-full max-w-md flex items-center gap-2">
-                    <span className="text-[8px] md:text-[10px] font-mono text-muted-foreground">0:42</span>
+                    <span className="text-[8px] md:text-[10px] font-mono text-muted-foreground w-8 text-right">{currentTime}</span>
                     <div className="h-1 flex-1 bg-white/10 rounded-full overflow-hidden relative group cursor-pointer">
                         <motion.div
                             className="absolute inset-y-0 left-0 bg-white group-hover:bg-primary transition-colors"
-                            animate={{ width: ["10%", "95%"] }}
-                            transition={{ duration: 42, repeat: Infinity, ease: "linear" }}
+                            style={{ width: progressBarWidth }}
                         />
                     </div>
                     <span className="text-[8px] md:text-[10px] font-mono text-muted-foreground">42:00</span>
@@ -115,6 +136,202 @@ const NowPlayingBar = () => {
                 </div>
             </div>
         </motion.div>
+    );
+};
+
+const ProblemStatementRow = ({ ps, isActive, isDimmed, onClick }: { ps: any, isActive: boolean, isDimmed: boolean, onClick: () => void }) => {
+    return (
+        <div
+            className={`border-b border-white/5 last:border-0 transition-all duration-500 ${isDimmed ? 'opacity-30 blur-[1px]' : 'opacity-100'} ${isActive ? 'bg-white/10' : 'hover:bg-white/5'}`}
+        >
+            <button
+                onClick={onClick}
+                className="w-full text-left px-6 py-8 flex items-start gap-6 group"
+            >
+                <span className="font-mono text-sm text-muted-foreground pt-1.5 opacity-50 group-hover:opacity-100 transition-opacity">[{ps.id}]</span>
+                <div className="flex-1">
+                    <div className="flex items-center justify-between gap-4 mb-2">
+                        <h3 className="text-xl md:text-2xl font-display font-bold text-white group-hover:text-primary transition-colors uppercase tracking-tight text-balance">
+                            {ps.title}
+                        </h3>
+                        <div className="text-muted-foreground group-hover:text-primary transition-colors">
+                            <Music size={20} className={isActive ? 'text-primary animate-pulse' : ''} />
+                        </div>
+                    </div>
+                    <p className="text-sm md:text-base text-muted-foreground leading-relaxed opacity-80 group-hover:opacity-100 transition-opacity">
+                        {ps.oneLiner}
+                    </p>
+                </div>
+            </button>
+        </div>
+    );
+};
+
+const VinylSleeveDetail = ({ ps, isOpen, onClose }: { ps: any, isOpen: boolean, onClose: () => void }) => {
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isOpen]);
+
+    if (!ps) return null;
+
+    return (
+        <AnimatePresence>
+            {isOpen && (
+                <>
+                    {/* Backdrop */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={onClose}
+                        className="fixed inset-0 bg-black/60 backdrop-blur-2xl z-[2000]"
+                    />
+
+                    {/* Sleeve Panel - Dark Theme */}
+                    <motion.div
+                        initial={{ x: "100%", opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        exit={{ x: "100%", opacity: 0 }}
+                        transition={{ duration: 0.6, ease: [0.32, 0, 0.67, 0] }}
+                        className="fixed top-0 right-0 h-full w-full md:w-[65%] lg:w-[55%] bg-[#080808] z-[2001] shadow-[-20px_0_100px_rgba(0,0,0,0.8)] flex flex-col pt-20 px-8 md:px-16 border-l border-white/5"
+                    >
+                        {/* Close Button */}
+                        <motion.button
+                            whileHover={{ scale: 1.1, rotate: 90 }}
+                            whileTap={{ scale: 0.9 }}
+                            onClick={onClose}
+                            className="absolute top-8 left-8 p-3 rounded-full bg-white/5 hover:bg-white/10 transition-colors text-white/50 hover:text-white"
+                        >
+                            <X size={24} />
+                        </motion.button>
+
+                        {/* The Vinyl - Sliding Out & Spinning */}
+                        <div className="absolute top-1/2 -translate-y-1/2 right-0 w-[400px] h-[400px] md:w-[750px] md:h-[750px] pointer-events-none hidden sm:block overflow-visible">
+                            <motion.div
+                                initial={{ x: "100%" }}
+                                animate={{ x: "45%" }}
+                                exit={{ x: "120%" }}
+                                transition={{
+                                    type: "spring",
+                                    stiffness: 100,
+                                    damping: 20,
+                                    duration: 0.8
+                                }}
+                                className="w-full h-full relative"
+                            >
+                                <motion.div
+                                    className="w-full h-full rounded-full relative"
+                                    animate={{ rotate: 360 }}
+                                    transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                                    style={{
+                                        background: 'repeating-radial-gradient(circle, #1a1a1a 0, #1a1a1a 1px, #050505 2px, #050505 4px)',
+                                        boxShadow: 'inset 0 0 100px rgba(0,0,0,1), 0 0 50px rgba(0,0,0,0.5)'
+                                    }}
+                                >
+                                    {/* Inner Red Label */}
+                                    <div className="absolute inset-[35%] rounded-full bg-primary flex flex-col items-center justify-center border-[8px] border-black/40 shadow-[inset_0_0_20px_rgba(0,0,0,0.5)]">
+                                        <span className="text-[10px] md:text-sm font-display text-white/90 tracking-tighter uppercase font-black">UNMUTEX</span>
+                                        <div className="w-12 h-px bg-black/20 my-2" />
+                                        <span className="text-[8px] font-mono text-black/50 font-bold">SIDE X</span>
+
+                                        {/* Spindle Hole */}
+                                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 md:w-8 h-4 md:h-8 rounded-full bg-black border-2 border-white/10 shadow-[inset_0_4px_8px_rgba(0,0,0,1)]" />
+                                    </div>
+
+                                    {/* Diffraction Sweep */}
+                                    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent rotate-45 opacity-30" />
+                                </motion.div>
+                            </motion.div>
+                        </div>
+
+                        {/* Content Area - Fixed Layout - NO SCROLLBAR */}
+                        <div className="relative z-10 flex-1 overflow-y-auto pr-4 text-white pb-32 scrollbar-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                            <motion.div
+                                initial={{ y: 30, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                transition={{ delay: 0.4, duration: 0.8 }}
+                            >
+                                <div className="flex items-center gap-3 mb-6">
+                                    <span className="px-3 py-1 bg-primary/10 border border-primary/20 rounded-full font-mono text-[10px] text-primary font-bold tracking-widest uppercase">Problem Record {ps.id}</span>
+                                    <div className="h-px w-20 bg-white/10" />
+                                </div>
+
+                                <h2 className="text-4xl md:text-7xl font-display font-extrabold text-white/95 leading-[1.05] mb-10 uppercase tracking-tight text-balance">
+                                    {ps.title}
+                                </h2>
+
+                                <div className="space-y-12 max-w-2xl">
+                                    <section className="relative">
+                                        <div className="absolute -left-6 top-1 bottom-1 w-[2px] bg-primary/30" />
+                                        <h4 className="font-mono text-[10px] text-muted-foreground uppercase tracking-[0.4em] font-bold mb-4">Context</h4>
+                                        <p className="text-base md:text-lg text-white/80 leading-relaxed font-body">
+                                            {ps.description}
+                                        </p>
+                                    </section>
+
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                                        <section>
+                                            <h4 className="font-mono text-[10px] text-muted-foreground uppercase tracking-[0.4em] font-bold mb-5 flex items-center gap-2">
+                                                <Zap size={14} className="text-primary" />
+                                                <span>Inputs</span>
+                                            </h4>
+                                            <ul className="space-y-4">
+                                                {ps.inputs?.map((input: string, i: number) => (
+                                                    <li key={i} className="flex items-start gap-4 text-sm text-white/60 font-mono group/item">
+                                                        <span className="text-primary/40 group-hover/item:text-primary transition-colors">0{i + 1}</span>
+                                                        <span className="border-b border-white/5 pb-1 flex-1 group-hover/item:text-white transition-colors">{input}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </section>
+
+                                        <section>
+                                            <h4 className="font-mono text-[10px] text-muted-foreground uppercase tracking-[0.4em] font-bold mb-5 flex items-center gap-2">
+                                                <Trophy size={14} className="text-scanline-green" />
+                                                <span>Outputs</span>
+                                            </h4>
+                                            <ul className="space-y-4">
+                                                {ps.outputs?.map((output: string, i: number) => (
+                                                    <li key={i} className="flex items-start gap-4 text-sm text-white/60 font-mono group/item text-balance">
+                                                        <span className="text-scanline-green/40 group-hover/item:text-scanline-green transition-colors">0{i + 1}</span>
+                                                        <span className="border-b border-white/5 pb-1 flex-1 group-hover/item:text-white transition-colors">{output}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </section>
+                                    </div>
+
+                                    <section className="p-8 bg-white/[0.02] rounded-2xl border border-white/5 backdrop-blur-sm">
+                                        <div className="flex items-center gap-3 mb-4">
+                                            <Info size={16} className="text-primary" />
+                                            <h4 className="font-mono text-[10px] text-muted-foreground uppercase tracking-[0.4em] font-bold">Constraints / Notes</h4>
+                                        </div>
+                                        <p className="text-sm md:text-base text-white/50 leading-relaxed font-body italic">
+                                            {ps.constraints}
+                                        </p>
+                                    </section>
+
+                                    <button
+                                        onClick={onClose}
+                                        className="w-full py-6 border border-white/10 rounded-xl font-mono text-xs tracking-[0.4em] uppercase hover:bg-white/5 hover:border-white/20 transition-all flex items-center justify-center gap-3 group"
+                                    >
+                                        <X size={16} className="text-primary transition-transform group-hover:rotate-90" />
+                                        <span>Close Record</span>
+                                    </button>
+                                </div>
+                            </motion.div>
+                        </div>
+                    </motion.div>
+                </>
+            )}
+        </AnimatePresence>
     );
 };
 
@@ -172,6 +389,7 @@ const PartnerBranding = ({ className = "", variant = "small" }: { className?: st
 };
 
 const UnmuteX = () => {
+    const [activeProblemId, setActiveProblemId] = useState<string | null>(null);
     const [isPlayerReady, setIsPlayerReady] = useState(false);
     const embedControllerRef = useRef<any>(null);
 
@@ -386,42 +604,53 @@ const UnmuteX = () => {
                         {/* Tracklist Main */}
                         <div className="lg:col-span-8">
                             <div className="mb-12">
-                                <h2 className="text-4xl font-display uppercase tracking-tight mb-8 flex items-center gap-3">
-                                    <Layers className="text-primary" />
-                                    <span>Tracklist Details</span>
+                                <h2 className="text-4xl font-display uppercase tracking-tight mb-8 flex items-center gap-3 text-primary">
+                                    <Layers />
+                                    <span>Interactive Problem Records</span>
                                 </h2>
 
                                 <div className="space-y-1">
                                     <div className="grid grid-cols-12 px-4 py-2 text-[10px] font-mono text-muted-foreground uppercase tracking-widest border-b border-white/5 mb-4">
                                         <div className="col-span-1">#</div>
-                                        <div className="col-span-8">Title</div>
-                                        <div className="col-span-3 text-right"><Clock size={12} className="inline mr-1" /> Duration</div>
+                                        <div className="col-span-11">Problem Statement</div>
                                     </div>
 
                                     {[
-                                        { id: "01", title: "AI-Augmented Workflows", sub: "Intelligent ideation and arrangement tools", dur: "12:00" },
-                                        { id: "02", title: "Adaptive Audio Systems", sub: "Real-time responsive music environments", dur: "08:30" },
-                                        { id: "03", title: "Intelligent Mixing Hub", sub: "Automated feedback and sonic enhancement", dur: "10:15" },
-                                        { id: "04", title: "Sonic Education Module", sub: "New ways to learn music production", dur: "06:45" },
-                                        { id: "05", title: "Interactive Media Synth", sub: "Gaming and film audio integration", dur: "04:30" }
-                                    ].map((track, i) => (
-                                        <motion.div
+                                        {
+                                            id: "01",
+                                            title: "Scene-to-Scoring Assistant",
+                                            oneLiner: "Design a system that translates scene emotions and intensity into structured music-scoring guidance and a simple MIDI motif.",
+                                            description: "Film composers often spend significant time deciding tempo, tonal center, and thematic direction before actual composition begins. This challenge focuses on accelerating those early creative decisions—not generating full music, but providing clear, structured musical guidance.",
+                                            inputs: ["Primary emotion", "Intensity (1-10)", "Musical style", "Scene duration"],
+                                            outputs: ["Suggested tempo range", "Tonal center", "Basic harmonic progression", "4-bar MIDI motif"],
+                                            constraints: "Rule-based or lightweight ML approaches are acceptable. MIDI output is sufficient; audio generation is not required."
+                                        },
+                                        {
+                                            id: "02",
+                                            title: "Loudness Compliance Agent",
+                                            oneLiner: "Build an AI agent that analyses audio loudness and clearly explains compliance with industry delivery standards.",
+                                            description: "In music, film, OTT, and broadcast workflows, loudness compliance is critical. Participants will build an AI agent that analyses audio loudness metrics to ensure delivery perfection.",
+                                            inputs: ["LUFS (Intergrated/Short-term)", "True Peak levels", "Dynamic range"],
+                                            outputs: ["Loudness timeline visualisation", "Non-compliant segment flags", "Indicated delivery targets"],
+                                            constraints: "The agent must only analyse and explain—it must not process or modify the audio."
+                                        },
+                                        {
+                                            id: "03",
+                                            title: "Dialogue–Music Conflict Detection Agent",
+                                            oneLiner: "Create an AI agent that detects and explains when background music masks dialogue clarity.",
+                                            description: "Participants will build an AI agent that analyses dialogue and music stems to identify frequency overlap and masking, ensuring maximum dialogue intelligibility.",
+                                            inputs: ["Dialogue stems", "Music background stems", "Frequency balance"],
+                                            outputs: ["Frequency overlap maps", "Intelligibility warning zones", "Timeline conflict visualisation"],
+                                            constraints: "The focus is on detection and explanation, not automatic correction."
+                                        }
+                                    ].map((ps, i) => (
+                                        <ProblemStatementRow
                                             key={i}
-                                            className="grid grid-cols-12 items-center px-4 py-3 rounded-md hover:bg-white/5 transition-colors group cursor-pointer"
-                                            whileHover={{ x: 5 }}
-                                        >
-                                            <div className="col-span-1 font-mono text-sm text-muted-foreground group-hover:text-primary transition-colors">
-                                                <span className="group-hover:hidden">{track.id}</span>
-                                                <Play size={14} className="hidden group-hover:block fill-primary" />
-                                            </div>
-                                            <div className="col-span-8">
-                                                <h4 className="text-sm font-medium text-white group-hover:text-primary transition-colors">{track.title}</h4>
-                                                <p className="text-xs text-muted-foreground">{track.sub}</p>
-                                            </div>
-                                            <div className="col-span-3 text-right font-mono text-xs text-muted-foreground">
-                                                {track.dur}
-                                            </div>
-                                        </motion.div>
+                                            ps={ps}
+                                            isActive={activeProblemId === ps.id}
+                                            isDimmed={activeProblemId !== null && activeProblemId !== ps.id}
+                                            onClick={() => setActiveProblemId(ps.id)}
+                                        />
                                     ))}
                                 </div>
                             </div>
@@ -552,6 +781,18 @@ const UnmuteX = () => {
             </section>
 
             <NowPlayingBar />
+
+            {/* The Highly Layered Vinyl Sleeve Pop-out */}
+            <VinylSleeveDetail
+                isOpen={activeProblemId !== null}
+                onClose={() => setActiveProblemId(null)}
+                ps={[
+                    { id: "01", title: "Scene-to-Scoring Assistant", description: "Film composers often spend significant time deciding tempo, tonal center, and thematic direction before actual composition begins. This challenge focuses on accelerating those early creative decisions—not generating full music, but providing clear, structured musical guidance.", inputs: ["Primary emotion", "Intensity (1-10)", "Musical style", "Scene duration"], outputs: ["Suggested tempo range", "Tonal center", "Basic harmonic progression", "4-bar MIDI motif"], constraints: "Rule-based or lightweight ML approaches are acceptable. MIDI output is sufficient; audio generation is not required." },
+                    { id: "02", title: "Loudness Compliance Agent", description: "In music, film, OTT, and broadcast workflows, loudness compliance is critical. Participants will build an AI agent that analyses audio loudness metrics to ensure delivery perfection.", inputs: ["LUFS (Intergrated/Short-term)", "True Peak levels", "Dynamic range"], outputs: ["Loudness timeline visualisation", "Non-compliant segment flags", "Indicated delivery targets"], constraints: "The agent must only analyse and explain—it must not process or modify the audio." },
+                    { id: "03", title: "Dialogue–Music Conflict Detection Agent", description: "Participants will build an AI agent that analyses dialogue and music stems to identify frequency overlap and masking, ensuring maximum dialogue intelligibility.", inputs: ["Dialogue stems", "Music background stems", "Frequency balance"], outputs: ["Frequency overlap maps", "Intelligibility warning zones", "Timeline conflict visualisation"], constraints: "The focus is on detection and explanation, not automatic correction." }
+                ].find(p => p.id === activeProblemId)}
+            />
+
             <Footer />
         </div>
     );
