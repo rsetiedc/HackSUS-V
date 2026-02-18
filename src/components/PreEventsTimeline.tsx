@@ -27,7 +27,7 @@ const PreEventsTimeline = () => {
             id: 3,
             date: "Feb 19, 2026",
             title: "KRUIZE X",
-            description: "An onboard Ideathon in Kochi Water Metro. Shortlisting teams now!",
+            description: "An onboard Ideathon in Kochi Water Metro",
             icon: <Ship className="w-5 h-5 text-primary" />,
             align: "left",
             highlight: true,
@@ -115,7 +115,7 @@ const PreEventsTimeline = () => {
                                         {event.description}
                                         {event.link && (
                                             <Link to={event.link} className="block mt-4 text-primary font-mono text-sm underline underline-offset-4 hover:text-primary/80 transition-all uppercase tracking-widest">
-                                                Learn More & Register //
+                                               // Learn More
                                             </Link>
                                         )}
                                     </p>
