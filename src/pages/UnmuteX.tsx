@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Play, Info, Download, Music, Zap, Layers, Trophy, Users, Clock, Volume2, ChevronDown, ChevronUp, X } from "lucide-react";
+import { ArrowLeft, Play, Pause, SkipBack, SkipForward, Info, Download, Music, Zap, Layers, Trophy, Users, Clock, Volume2, ChevronDown, ChevronUp, X } from "lucide-react";
 import { motion, useAnimation, AnimatePresence, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -61,7 +61,15 @@ const RevolvingHeader = () => {
     );
 };
 
-const NowPlayingBar = () => {
+const NowPlayingBar = ({
+    isPlaying,
+    setIsPlaying,
+    handleSkip
+}: {
+    isPlaying: boolean,
+    setIsPlaying: (playing: boolean) => void,
+    handleSkip: (direction: 'next' | 'prev') => void
+}) => {
     const { scrollYProgress } = useScroll();
     const smoothProgress = useSpring(scrollYProgress, {
         stiffness: 100,
@@ -111,9 +119,14 @@ const NowPlayingBar = () => {
 
             <div className="flex flex-col items-center gap-1 md:gap-2 w-auto md:w-1/3 flex-shrink-0">
                 <div className="flex items-center gap-4 md:gap-6">
-                    <button className="text-muted-foreground hover:text-white transition-colors hidden sm:block"><Clock size={16} /></button>
-                    <button className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white flex items-center justify-center text-black hover:scale-105 transition-transform"><Play size={16} fill="black" /></button>
-                    <button className="text-muted-foreground hover:text-white transition-colors hidden sm:block"><Zap size={16} /></button>
+                    <button className="text-muted-foreground hover:text-white transition-colors hidden sm:block" onClick={() => handleSkip('prev')}><SkipBack size={16} /></button>
+                    <button
+                        className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white flex items-center justify-center text-black hover:scale-105 transition-transform"
+                        onClick={() => setIsPlaying(!isPlaying)}
+                    >
+                        {isPlaying ? <Pause size={18} fill="black" /> : <Play size={18} fill="black" />}
+                    </button>
+                    <button className="text-muted-foreground hover:text-white transition-colors hidden sm:block" onClick={() => handleSkip('next')}><SkipForward size={16} /></button>
                 </div>
                 <div className="w-24 xs:w-32 sm:w-full max-w-md flex items-center gap-2">
                     <span className="text-[8px] md:text-[10px] font-mono text-muted-foreground w-8 text-right">{currentTime}</span>
@@ -161,6 +174,9 @@ const ProblemStatementRow = ({ ps, isActive, isDimmed, onClick }: { ps: any, isA
                     <p className="text-sm md:text-base text-muted-foreground leading-relaxed opacity-80 group-hover:opacity-100 transition-opacity">
                         {ps.oneLiner}
                     </p>
+                    <div className="mt-3 flex items-center gap-1.5 opacity-40">
+                        <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-primary">Click for more details</span>
+                    </div>
                 </div>
             </button>
         </div>
@@ -237,9 +253,11 @@ const VinylSleeveDetail = ({ ps, isOpen, onClose }: { ps: any, isOpen: boolean, 
                                 >
                                     {/* Inner Red Label */}
                                     <div className="absolute inset-[35%] rounded-full bg-primary flex flex-col items-center justify-center border-[8px] border-black/40 shadow-[inset_0_0_20px_rgba(0,0,0,0.5)]">
-                                        <span className="text-[10px] md:text-sm font-display text-white/90 tracking-tighter uppercase font-black">UNMUTEX</span>
-                                        <div className="w-12 h-px bg-black/20 my-2" />
-                                        <span className="text-[8px] font-mono text-black/50 font-bold">SIDE X</span>
+                                        <img
+                                            src="/images/jakes-bejoy-logo.PNG"
+                                            alt="MINDSCORE"
+                                            className="w-full h-full object-contain opacity-100 drop-shadow-[0_0_20px_rgba(var(--primary),0.3)] scale-80"
+                                        />
 
                                         {/* Spindle Hole */}
                                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 md:w-8 h-4 md:h-8 rounded-full bg-black border-2 border-white/10 shadow-[inset_0_4px_8px_rgba(0,0,0,1)]" />
@@ -391,7 +409,63 @@ const PartnerBranding = ({ className = "", variant = "small" }: { className?: st
 const UnmuteX = () => {
     const [activeProblemId, setActiveProblemId] = useState<string | null>(null);
     const [isPlayerReady, setIsPlayerReady] = useState(false);
+    const [isPlaying, setIsPlaying] = useState(false);
     const embedControllerRef = useRef<any>(null);
+
+    const sections = ['hero', 'tracklist', 'about', 'contact'];
+
+    // Auto-scroll logic - Liquid Smooth
+    useEffect(() => {
+        let rafId: number;
+        const scroll = () => {
+            if (isPlaying) {
+                window.scrollBy(0, 1.5); // Adjust speed here for that "buttery" feel
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 5) {
+                    setIsPlaying(false);
+                    return;
+                }
+                rafId = requestAnimationFrame(scroll);
+            }
+        };
+
+        if (isPlaying) {
+            rafId = requestAnimationFrame(scroll);
+        }
+
+        return () => {
+            if (rafId) cancelAnimationFrame(rafId);
+        };
+    }, [isPlaying]);
+
+    const handleSkip = (direction: 'next' | 'prev') => {
+        const scrollPos = window.scrollY;
+
+        // Find section positions
+        const sectionPositions = sections.map(id => {
+            const el = document.getElementById(id);
+            if (!el) return 0;
+            return el.getBoundingClientRect().top + window.scrollY - 100;
+        });
+
+        let targetIndex;
+        if (direction === 'next') {
+            targetIndex = sectionPositions.findIndex(pos => pos > scrollPos + 20);
+            if (targetIndex === -1) targetIndex = sectionPositions.length - 1;
+        } else {
+            const reversedPositions = [...sectionPositions].reverse();
+            const revIndex = reversedPositions.findIndex(pos => pos < scrollPos - 20);
+            targetIndex = revIndex === -1 ? 0 : (sectionPositions.length - 1 - revIndex);
+        }
+
+        const targetId = sections[targetIndex];
+        const element = document.getElementById(targetId);
+        if (element) {
+            window.scrollTo({
+                top: sectionPositions[targetIndex],
+                behavior: 'smooth'
+            });
+        }
+    };
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -780,7 +854,11 @@ const UnmuteX = () => {
                 </div>
             </section>
 
-            <NowPlayingBar />
+            <NowPlayingBar
+                isPlaying={isPlaying}
+                setIsPlaying={setIsPlaying}
+                handleSkip={handleSkip}
+            />
 
             {/* The Highly Layered Vinyl Sleeve Pop-out */}
             <VinylSleeveDetail
