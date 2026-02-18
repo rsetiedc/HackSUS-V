@@ -25,6 +25,6 @@ dist-ssr
 
 
 AGENTS.md
-docs/*
-!docs/Astrax_Problem_Statements/
-!docs/Astrax_Problem_Statements/**
+# docs/*
+# !docs/Astrax_Problem_Statements/
+# !docs/Astrax_Problem_Statements/**
