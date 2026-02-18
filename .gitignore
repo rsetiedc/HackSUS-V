@@ -25,6 +25,10 @@ dist-ssr
 
 
 AGENTS.md
+<<<<<<< Updated upstream
 # docs/*
 # !docs/Astrax_Problem_Statements/
 # !docs/Astrax_Problem_Statements/**
+=======
+docs/*
+>>>>>>> Stashed changes
