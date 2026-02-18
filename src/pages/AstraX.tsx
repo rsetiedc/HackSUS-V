@@ -479,28 +479,28 @@ const AstraX = () => {
     {
       number: "01",
       title: "AI-Powered Interview Intelligence Agent for Real-Time Hiring Validation",
-      pdfPath: "/Astrax_Problem_Statements/Title1.pdf",
+      pdfPath: "/docs/Astrax_Problem_Statements/Title1.pdf",
       gradient: "from-primary to-red-600",
       glowColor: "rgba(255,49,46,0.3)",
     },
     {
       number: "02",
       title: "AI-Driven Real-Time Maritime Voyage Risk Intelligence for Marine Insurance",
-      pdfPath: "/Astrax_Problem_Statements/Title2.pdf",
+      pdfPath: "/docs/Astrax_Problem_Statements/Title2.pdf",
       gradient: "from-blue-500 to-cyan-500",
       glowColor: "rgba(59,130,246,0.3)",
     },
     {
       number: "03",
       title: "AI-Driven Mission-to-Procurement Automation Platform",
-      pdfPath: "/Astrax_Problem_Statements/Title3.pdf",
+      pdfPath: "/docs/Astrax_Problem_Statements/Title3.pdf",
       gradient: "from-orange-500 to-amber-500",
       glowColor: "rgba(249,115,22,0.3)",
     },
     {
       number: "04",
       title: "AI-Powered Swimming Pool Detection for Home Insurance Underwriting & Claims Intelligence",
-      pdfPath: "/Astrax_Problem_Statements/Title4.pdf",
+      pdfPath: "/docs/Astrax_Problem_Statements/Title4.pdf",
       gradient: "from-purple-500 to-pink-500",
       glowColor: "rgba(168,85,247,0.3)",
     },
@@ -924,284 +924,284 @@ const AstraX = () => {
           </div>
 
           {/* ==================== PROBLEM STATEMENTS (REPLACED BADGE SECTION) ==================== */}
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
             className="mt-12"
           >
             <HolographicCard delay={0.2} colorTheme="mixed">
+              {/* Header */}
+          <div className="flex items-center gap-4 mb-8">
+            <div className="p-3 rounded-xl bg-gradient-to-br from-primary/20 to-blue-500/10 border border-primary/20">
+              <FileText className="w-6 h-6 text-primary" />
+            </div>
+            <div>
+              <h3 className="font-display text-2xl md:text-3xl text-foreground">Problem Statements</h3>
+              <p className="text-sm text-muted-foreground mt-1">Click any statement to view the full PDF</p>
+            </div>
+          </div>
 
-              <div className="flex items-center gap-4 mb-8">
-                <div className="p-3 rounded-xl bg-gradient-to-br from-primary/20 to-blue-500/10 border border-primary/20">
-                  <FileText className="w-6 h-6 text-primary" />
+          {/* Problem Statement Cards */}
+          <div className="grid gap-4">
+            {problemStatements.map((ps, index) => (
+              <motion.a
+                key={ps.number}
+                href={ps.pdfPath}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.4, delay: 0.1 * index }}
+                whileHover={{ x: 6, scale: 1.01 }}
+                whileTap={{ scale: 0.99 }}
+                className="group flex items-center gap-4 md:gap-6 p-4 md:p-5 rounded-xl border border-white/10 bg-white/5 hover:bg-white/8 hover:border-white/20 transition-all duration-300 cursor-pointer"
+                style={{
+                  boxShadow: "0 0 0 0 transparent",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = `0 4px 30px ${ps.glowColor}`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = "0 0 0 0 transparent";
+                }}
+              >
+                {/* Number badge */}
+                <div className={cn(
+                  "flex-shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br flex items-center justify-center font-mono font-bold text-white text-sm shadow-lg",
+                  ps.gradient
+                )}>
+                  {ps.number}
                 </div>
-                <div>
-                  <h3 className="font-display text-2xl md:text-3xl text-foreground">Problem Statements</h3>
-                  <p className="text-sm text-muted-foreground mt-1">Click any statement to view the full PDF</p>
-                </div>
-              </div>
 
-
-              <div className="grid gap-4">
-                {problemStatements.map((ps, index) => (
-                  <motion.a
-                    key={ps.number}
-                    href={ps.pdfPath}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.4, delay: 0.1 * index }}
-                    whileHover={{ x: 6, scale: 1.01 }}
-                    whileTap={{ scale: 0.99 }}
-                    className="group flex items-center gap-4 md:gap-6 p-4 md:p-5 rounded-xl border border-white/10 bg-white/5 hover:bg-white/8 hover:border-white/20 transition-all duration-300 cursor-pointer"
-                    style={{
-                      boxShadow: "0 0 0 0 transparent",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.boxShadow = `0 4px 30px ${ps.glowColor}`;
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.boxShadow = "0 0 0 0 transparent";
-                    }}
-                  >
-
-                    <div className={cn(
-                      "flex-shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br flex items-center justify-center font-mono font-bold text-white text-sm shadow-lg",
-                      ps.gradient
-                    )}>
-                      {ps.number}
-                    </div>
-
-
-                    <p className="flex-1 text-sm md:text-base text-muted-foreground group-hover:text-foreground transition-colors duration-300 leading-relaxed">
-                      {ps.title}
-                    </p>
-
-
-                    <div className="flex-shrink-0 flex items-center gap-1.5 text-muted-foreground/50 group-hover:text-primary transition-colors duration-300">
-                      <span className="hidden md:block text-xs font-mono tracking-wider opacity-0 group-hover:opacity-100 transition-opacity">VIEW PDF</span>
-                      <ExternalLink className="w-4 h-4 md:w-5 md:h-5" />
-                    </div>
-                  </motion.a>
-                ))}
-              </div>
-
-
-              <div className="mt-6 pt-5 border-t border-white/10 flex items-center gap-2">
-                <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                <p className="text-xs font-mono text-muted-foreground/60 tracking-wider">
-                  4 PROBLEM STATEMENTS AVAILABLE · CLICK TO OPEN PDF
+                {/* Title */}
+                <p className="flex-1 text-sm md:text-base text-muted-foreground group-hover:text-foreground transition-colors duration-300 leading-relaxed">
+                  {ps.title}
                 </p>
-              </div>
-            </HolographicCard>
-          </motion.div>
-        </div>
-      </section>
 
-      {/* ==================== CONTACTS ==================== */}
-      <section id="contacts" className="relative py-16 md:py-20 scroll-mt-24">
-        <div className="container max-w-[1200px] px-6 mx-auto">
-          <SectionHeading
-            eyebrow="CONTACTS"
-            title={
-              <>
-                Get in <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-500">Touch</span>
-              </>
-            }
-            description="Have questions? Reach out to our core team for support and guidance."
-          />
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                name: "Shone Kuncheria",
-                role: "Event Coordinator",
-                email: "shone.kuncheria@gmail.com",
-                phone: "+91 94973 03875",
-                phoneLink: "+919497303875",
-                colorTheme: "red",
-              },
-              {
-                name: "Giribala Arun",
-                role: "Event Coordinator",
-                email: "u2203099@rajagiri.edu.in",
-                phone: "+91 89216 24767",
-                phoneLink: "+918921624767",
-                colorTheme: "blue",
-              },
-              {
-                name: "Shwetha Prabhakaran",
-                role: "General Support",
-                email: "U2301197@rajagiri.edu.in",
-                phone: "+91 90747 80066",
-                phoneLink: "+919074780066",
-                colorTheme: "mixed",
-              },
-            ].map((contact, index) => (
-              <HolographicCard key={contact.name} delay={index * 0.1} colorTheme={contact.colorTheme}>
-                <div className="font-mono text-xs tracking-[0.4em] text-primary/80 uppercase mb-4">
-                  {contact.role}
+                {/* Arrow icon */}
+                <div className="flex-shrink-0 flex items-center gap-1.5 text-muted-foreground/50 group-hover:text-primary transition-colors duration-300">
+                  <span className="hidden md:block text-xs font-mono tracking-wider opacity-0 group-hover:opacity-100 transition-opacity">VIEW PDF</span>
+                  <ExternalLink className="w-4 h-4 md:w-5 md:h-5" />
                 </div>
-
-                <div className="font-display text-3xl mb-8 text-foreground">
-                  {contact.name}
-                </div>
-
-                <div className="space-y-4">
-                  <motion.a
-                    href={`mailto:${contact.email}`}
-                    whileHover={{ scale: 1.02, x: 4 }}
-                    className="block p-4 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-primary/30 transition-all group"
-                  >
-                    <div className="text-xs text-muted-foreground mb-2">Email</div>
-                    <div className="text-sm text-foreground/90 group-hover:text-primary transition-colors break-all">
-                      {contact.email}
-                    </div>
-                  </motion.a>
-
-                  <motion.a
-                    href={`tel:${contact.phoneLink}`}
-                    whileHover={{ scale: 1.02, x: 4 }}
-                    className="block p-4 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-primary/30 transition-all group"
-                  >
-                    <div className="text-xs text-muted-foreground mb-2">Phone</div>
-                    <div className="text-sm text-foreground/90 group-hover:text-primary transition-colors">
-                      {contact.phone}
-                    </div>
-                  </motion.a>
-                </div>
-              </HolographicCard>
+              </motion.a>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* ==================== REGISTER CTA ==================== */}
-      <section className="relative py-20 border-t border-white/5">
-        <div className="container max-w-[1200px] px-6 mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="relative overflow-hidden rounded-3xl border-2 border-primary/40 bg-black/60 backdrop-blur-xl px-8 py-14 md:py-20 text-center"
-          >
-            {/* Background glow */}
-            <motion.div
-              className="absolute inset-0 -z-10"
-              animate={{ opacity: [0.3, 0.55, 0.3] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              style={{ background: "radial-gradient(ellipse at center, rgba(255,49,46,0.25) 0%, transparent 70%)" }}
-            />
-            {/* Top edge accent line */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent" />
-
-            <p className="font-mono text-xs tracking-[0.5em] text-primary/70 uppercase mb-5">
-              // Limited Spots Available
+          {/* Footer note */}
+          <div className="mt-6 pt-5 border-t border-white/10 flex items-center gap-2">
+            <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+            <p className="text-xs font-mono text-muted-foreground/60 tracking-wider">
+              4 PROBLEM STATEMENTS AVAILABLE · CLICK TO OPEN PDF
             </p>
-            <h2 className="font-display text-4xl md:text-6xl text-white font-bold tracking-wide mb-4">
-              Ready to Build?
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-10">
-              42 hours. ₹50,000 in prizes. Join the brightest minds building AI-powered software.
-            </p>
-
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
-              <Button
-                onClick={() => window.open("https://konfhub.com/checkout/hacksus-edition-5?ticketId=74891", "_blank")}
-                className="h-14 px-12 text-base font-display tracking-[0.2em] bg-primary hover:bg-primary/90 text-white shadow-[0_0_40px_rgba(255,49,46,0.4)] hover:shadow-[0_0_60px_rgba(255,49,46,0.6)] transition-all duration-300"
-              >
-                REGISTER NOW
-              </Button>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ==================== PARTNERS ==================== */}
-      <section className="relative py-28 border-t border-white/5">
-        <div className="container max-w-[1200px] px-6 mx-auto">
-          <motion.div
-            initial={{ opacity: 1, y: 0 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            <HolographicCard colorTheme="mixed">
-              <p className="mb-10 font-mono text-sm tracking-[0.4em] text-primary/80 uppercase text-center">
-                Presented Partners
-              </p>
-
-              <LogoLoop
-                logos={partnerLogos}
-                speed={52}
-                gap={24}
-                pauseOnHover={false}
-                fadeOut={false}
-                className="mb-10"
-              />
-
-              <div className="text-center">
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Button
-                    onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                    className="bg-primary hover:bg-primary/90 text-white px-8 py-6 text-base shadow-[0_10px_30px_rgba(255,49,46,0.3)] hover:shadow-[0_14px_42px_rgba(255,49,46,0.4)]"
-                  >
-                    <ArrowUp className="w-5 h-5 mr-2" />
-                    Back To Top
-                  </Button>
-                </motion.div>
-              </div>
-            </HolographicCard>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ==================== SOCIAL FLOAT ==================== */}
-      <motion.div
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 2 }}
-        className="fixed bottom-8 right-8 flex flex-col gap-3 z-50"
-      >
-        {[
-          { icon: Instagram, href: "https://www.instagram.com/rsetiedc/", label: "Instagram" },
-          { icon: Linkedin, href: "https://www.linkedin.com/company/rset-iedc/?originalSubdomain=in", label: "LinkedIn" },
-          { icon: Facebook, href: "https://www.facebook.com/iedc.rset/", label: "Facebook" },
-          { icon: Twitter, href: "https://x.com/rset_iedc", label: "Twitter/X" },
-        ].map((social, index) => (
-          <motion.a
-            key={index}
-            href={social.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.1, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-            className="p-3 rounded-xl bg-black/40 backdrop-blur-xl border border-primary/20 hover:border-primary/50 hover:bg-primary/10 transition-all shadow-lg hover:shadow-primary/20"
-            aria-label={social.label}
-          >
-            <social.icon className="w-5 h-5 text-primary" />
-          </motion.a>
-        ))}
+          </div>
+        </HolographicCard>
       </motion.div>
+    </div>
+      </section > */}
 
-      {/* ==================== FOOTER ==================== */}
-      <footer className="relative py-16 border-t border-white/5">
-        <div className="container max-w-[1200px] px-6 mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 1 }}
-            animate={{ opacity: 1 }}
-          >
-            <p className="text-base text-muted-foreground mb-6">
-              Organized by Articon × IEDC
-            </p>
-            <p className="text-sm text-muted-foreground/60">
-              © ASTRAX 2026 • Articon × IEDC × IIC
-            </p>
+{/* ==================== CONTACTS ==================== */ }
+<section id="contacts" className="relative py-16 md:py-20 scroll-mt-24">
+  <div className="container max-w-[1200px] px-6 mx-auto">
+    <SectionHeading
+      eyebrow="CONTACTS"
+      title={
+        <>
+          Get in <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-500">Touch</span>
+        </>
+      }
+      description="Have questions? Reach out to our core team for support and guidance."
+    />
+
+    <div className="grid md:grid-cols-3 gap-8">
+      {[
+        {
+          name: "Shone Kuncheria",
+          role: "Event Coordinator",
+          email: "shone.kuncheria@gmail.com",
+          phone: "+91 94973 03875",
+          phoneLink: "+919497303875",
+          colorTheme: "red",
+        },
+        {
+          name: "Giribala Arun",
+          role: "Event Coordinator",
+          email: "u2203099@rajagiri.edu.in",
+          phone: "+91 89216 24767",
+          phoneLink: "+918921624767",
+          colorTheme: "blue",
+        },
+        {
+          name: "Shwetha Prabhakaran",
+          role: "General Support",
+          email: "U2301197@rajagiri.edu.in",
+          phone: "+91 90747 80066",
+          phoneLink: "+919074780066",
+          colorTheme: "mixed",
+        },
+      ].map((contact, index) => (
+        <HolographicCard key={contact.name} delay={index * 0.1} colorTheme={contact.colorTheme}>
+          <div className="font-mono text-xs tracking-[0.4em] text-primary/80 uppercase mb-4">
+            {contact.role}
+          </div>
+
+          <div className="font-display text-3xl mb-8 text-foreground">
+            {contact.name}
+          </div>
+
+          <div className="space-y-4">
+            <motion.a
+              href={`mailto:${contact.email}`}
+              whileHover={{ scale: 1.02, x: 4 }}
+              className="block p-4 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-primary/30 transition-all group"
+            >
+              <div className="text-xs text-muted-foreground mb-2">Email</div>
+              <div className="text-sm text-foreground/90 group-hover:text-primary transition-colors break-all">
+                {contact.email}
+              </div>
+            </motion.a>
+
+            <motion.a
+              href={`tel:${contact.phoneLink}`}
+              whileHover={{ scale: 1.02, x: 4 }}
+              className="block p-4 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-primary/30 transition-all group"
+            >
+              <div className="text-xs text-muted-foreground mb-2">Phone</div>
+              <div className="text-sm text-foreground/90 group-hover:text-primary transition-colors">
+                {contact.phone}
+              </div>
+            </motion.a>
+          </div>
+        </HolographicCard>
+      ))}
+    </div>
+  </div>
+</section>
+
+{/* ==================== REGISTER CTA ==================== */ }
+<section className="relative py-20 border-t border-white/5">
+  <div className="container max-w-[1200px] px-6 mx-auto">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.7 }}
+      className="relative overflow-hidden rounded-3xl border-2 border-primary/40 bg-black/60 backdrop-blur-xl px-8 py-14 md:py-20 text-center"
+    >
+      {/* Background glow */}
+      <motion.div
+        className="absolute inset-0 -z-10"
+        animate={{ opacity: [0.3, 0.55, 0.3] }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+        style={{ background: "radial-gradient(ellipse at center, rgba(255,49,46,0.25) 0%, transparent 70%)" }}
+      />
+      {/* Top edge accent line */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent" />
+
+      <p className="font-mono text-xs tracking-[0.5em] text-primary/70 uppercase mb-5">
+              // Limited Spots Available
+      </p>
+      <h2 className="font-display text-4xl md:text-6xl text-white font-bold tracking-wide mb-4">
+        Ready to Build?
+      </h2>
+      <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-10">
+        42 hours. ₹50,000 in prizes. Join the brightest minds building AI-powered software.
+      </p>
+
+      <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
+        <Button
+          onClick={() => window.open("https://konfhub.com/checkout/hacksus-edition-5?ticketId=74891", "_blank")}
+          className="h-14 px-12 text-base font-display tracking-[0.2em] bg-primary hover:bg-primary/90 text-white shadow-[0_0_40px_rgba(255,49,46,0.4)] hover:shadow-[0_0_60px_rgba(255,49,46,0.6)] transition-all duration-300"
+        >
+          REGISTER NOW
+        </Button>
+      </motion.div>
+    </motion.div>
+  </div>
+</section>
+
+{/* ==================== PARTNERS ==================== */ }
+<section className="relative py-28 border-t border-white/5">
+  <div className="container max-w-[1200px] px-6 mx-auto">
+    <motion.div
+      initial={{ opacity: 1, y: 0 }}
+      animate={{ opacity: 1, y: 0 }}
+    >
+      <HolographicCard colorTheme="mixed">
+        <p className="mb-10 font-mono text-sm tracking-[0.4em] text-primary/80 uppercase text-center">
+          Presented Partners
+        </p>
+
+        <LogoLoop
+          logos={partnerLogos}
+          speed={52}
+          gap={24}
+          pauseOnHover={false}
+          fadeOut={false}
+          className="mb-10"
+        />
+
+        <div className="text-center">
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Button
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="bg-primary hover:bg-primary/90 text-white px-8 py-6 text-base shadow-[0_10px_30px_rgba(255,49,46,0.3)] hover:shadow-[0_14px_42px_rgba(255,49,46,0.4)]"
+            >
+              <ArrowUp className="w-5 h-5 mr-2" />
+              Back To Top
+            </Button>
           </motion.div>
         </div>
-      </footer>
-    </div>
+      </HolographicCard>
+    </motion.div>
+  </div>
+</section>
+
+{/* ==================== SOCIAL FLOAT ==================== */ }
+<motion.div
+  initial={{ opacity: 0, x: 20 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ delay: 2 }}
+  className="fixed bottom-8 right-8 flex flex-col gap-3 z-50"
+>
+  {[
+    { icon: Instagram, href: "https://www.instagram.com/rsetiedc/", label: "Instagram" },
+    { icon: Linkedin, href: "https://www.linkedin.com/company/rset-iedc/?originalSubdomain=in", label: "LinkedIn" },
+    { icon: Facebook, href: "https://www.facebook.com/iedc.rset/", label: "Facebook" },
+    { icon: Twitter, href: "https://x.com/rset_iedc", label: "Twitter/X" },
+  ].map((social, index) => (
+    <motion.a
+      key={index}
+      href={social.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      whileHover={{ scale: 1.1, y: -2 }}
+      whileTap={{ scale: 0.95 }}
+      className="p-3 rounded-xl bg-black/40 backdrop-blur-xl border border-primary/20 hover:border-primary/50 hover:bg-primary/10 transition-all shadow-lg hover:shadow-primary/20"
+      aria-label={social.label}
+    >
+      <social.icon className="w-5 h-5 text-primary" />
+    </motion.a>
+  ))}
+</motion.div>
+
+{/* ==================== FOOTER ==================== */ }
+<footer className="relative py-16 border-t border-white/5">
+  <div className="container max-w-[1200px] px-6 mx-auto text-center">
+    <motion.div
+      initial={{ opacity: 1 }}
+      animate={{ opacity: 1 }}
+    >
+      <p className="text-base text-muted-foreground mb-6">
+        Organized by Articon × IEDC
+      </p>
+      <p className="text-sm text-muted-foreground/60">
+        © ASTRAX 2026 • Articon × IEDC × IIC
+      </p>
+    </motion.div>
+  </div>
+</footer>
+    </div >
   );
 };
 
