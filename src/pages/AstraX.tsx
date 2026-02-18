@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowUp, Instagram, Linkedin, Facebook, Twitter, Zap, Brain, Cpu, Sparkles, Code, Database, Network, Menu } from "lucide-react";
+import { ArrowUp, Instagram, Linkedin, Facebook, Twitter, Zap, Brain, Cpu, Sparkles, Code, Database, Network, Menu, FileText, ExternalLink } from "lucide-react";
 
 import LogoLoop from "@/components/LogoLoop";
 import ResponsiveParticles from "@/components/ResponsiveParticles";
@@ -31,8 +31,7 @@ function NeuralNetwork() {
     };
     setCanvasSize();
 
-    // Reduced node count for performance
-    const nodeCount = 30; // Reduced from 50
+    const nodeCount = 30;
     nodesRef.current = Array.from({ length: nodeCount }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
@@ -51,9 +50,7 @@ function NeuralNetwork() {
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Update and draw nodes
       nodesRef.current.forEach((node, i) => {
-        // Mouse interaction
         const dx = mouseRef.current.x - node.x;
         const dy = mouseRef.current.y - node.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
@@ -63,21 +60,17 @@ function NeuralNetwork() {
           node.y -= dy * 0.01;
         }
 
-        // Auto movement
         node.x += node.vx;
         node.y += node.vy;
 
-        // Bounce off edges
         if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
         if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
 
-        // Draw node
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
         ctx.fillStyle = 'rgba(255, 49, 46, 0.6)';
         ctx.fill();
 
-        // Draw connections
         nodesRef.current.slice(i + 1).forEach((otherNode) => {
           const dx = otherNode.x - node.x;
           const dy = otherNode.y - node.y;
@@ -218,7 +211,7 @@ function HolographicCard({ className, children, delay = 0, colorTheme = "red" })
         }}
       />
 
-      {/* Content - reduced blur for performance */}
+      {/* Content */}
       <div className="relative backdrop-blur-md rounded-2xl p-1">
         <div className="relative z-10 p-8">
           {children}
@@ -228,7 +221,7 @@ function HolographicCard({ className, children, delay = 0, colorTheme = "red" })
   );
 }
 
-// ==================== SECTION HEADING WITH PARTICLE BURST ====================
+// ==================== SECTION HEADING ====================
 function SectionHeading({ eyebrow, title, description }) {
   return (
     <motion.div
@@ -237,7 +230,6 @@ function SectionHeading({ eyebrow, title, description }) {
       transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
       className="mb-16 md:mb-20 text-center relative"
     >
-      {/* Decorative particles - simplified */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-8 w-32 h-32 bg-gradient-radial from-primary/20 via-blue-500/10 to-transparent rounded-full blur-xl opacity-60" />
 
       <span className="inline-block font-mono text-sm text-primary tracking-[0.4em] uppercase mb-6 relative">
@@ -257,7 +249,7 @@ function SectionHeading({ eyebrow, title, description }) {
   );
 }
 
-// ==================== NAVBAR WITH LIQUID INDICATOR ====================
+// ==================== NAVBAR ====================
 function AstraXNavbar({ activeId, items, onNavigate }) {
   const linksWrapRef = useRef(null);
   const linkRefs = useRef({});
@@ -309,7 +301,6 @@ function AstraXNavbar({ activeId, items, onNavigate }) {
     <header className="astrax-header fixed top-0 left-0 right-0 z-50 bg-black/70 backdrop-blur-xl border-b border-white/5">
       <div className="container max-w-[1200px] mx-auto px-6 h-20 flex items-center justify-between">
         <div className="flex items-center gap-4">
-          {/* Hacks'us Logo */}
           <motion.a
             href="/"
             whileHover={{ scale: 1.05 }}
@@ -323,10 +314,8 @@ function AstraXNavbar({ activeId, items, onNavigate }) {
             />
           </motion.a>
 
-          {/* Separator */}
           <div className="h-8 w-px bg-white/10" />
 
-          {/* ASTRAX Logo */}
           <motion.a
             href="#top"
             onClick={(e) => {
@@ -348,7 +337,6 @@ function AstraXNavbar({ activeId, items, onNavigate }) {
         </div>
 
         <div ref={linksWrapRef} className="hidden md:flex items-center gap-10 relative">
-          {/* Liquid morphing indicator */}
           <motion.div
             className="absolute -bottom-3 h-1 rounded-full origin-left"
             style={{
@@ -468,17 +456,14 @@ const AstraX = () => {
   const sectionIds = useMemo(() => ["about", "contacts"], []);
   const activeId = useActiveSection(sectionIds);
 
-  // Logo animation state - bouncy slide-in effect
   const [logoStep, setLogoStep] = useState(0);
   const [animationKey, setAnimationKey] = useState(0);
   const letters = ["A", "S", "T", "R", "A", "X"];
   const [showYear, setShowYear] = useState(false);
 
-  // Particle configuration
   const particleColors = useMemo(() => ["#ffffff"], []);
   const particleTuning = useParticleTuning();
 
-  // Partner logos - WEBP FORMAT
   const partnerLogos = useMemo(
     () => [
       { node: <img src="/images/rset_iedc.PNG" alt="IEDC" className="h-16 w-auto object-contain opacity-90" />, ariaLabel: "IEDC" },
@@ -489,7 +474,38 @@ const AstraX = () => {
     []
   );
 
-  // Logo animation with bouncy slide-in and looping
+  // Problem statements data
+  const problemStatements = useMemo(() => [
+    {
+      number: "01",
+      title: "AI-Powered Interview Intelligence Agent for Real-Time Hiring Validation",
+      pdfPath: "/docs/Astrax_Problem_Statements/Title1.pdf",
+      gradient: "from-primary to-red-600",
+      glowColor: "rgba(255,49,46,0.3)",
+    },
+    {
+      number: "02",
+      title: "AI-Driven Real-Time Maritime Voyage Risk Intelligence for Marine Insurance",
+      pdfPath: "/docs/Astrax_Problem_Statements/Title2.pdf",
+      gradient: "from-blue-500 to-cyan-500",
+      glowColor: "rgba(59,130,246,0.3)",
+    },
+    {
+      number: "03",
+      title: "AI-Driven Mission-to-Procurement Automation Platform",
+      pdfPath: "/docs/Astrax_Problem_Statements/Title3.pdf",
+      gradient: "from-orange-500 to-amber-500",
+      glowColor: "rgba(249,115,22,0.3)",
+    },
+    {
+      number: "04",
+      title: "AI-Powered Swimming Pool Detection for Home Insurance Underwriting & Claims Intelligence",
+      pdfPath: "/docs/Astrax_Problem_Statements/Title4.pdf",
+      gradient: "from-purple-500 to-pink-500",
+      glowColor: "rgba(168,85,247,0.3)",
+    },
+  ], []);
+
   useEffect(() => {
     if (logoStep < letters.length) {
       const timer = setTimeout(() => {
@@ -543,12 +559,10 @@ const AstraX = () => {
 
   return (
     <div id="top" className="relative min-h-screen bg-black text-foreground overflow-x-hidden">
-      {/* ==================== LAYERED BACKGROUND (OPTIMIZED) ==================== */}
+      {/* ==================== LAYERED BACKGROUND ==================== */}
       <div className="fixed inset-0 -z-0 overflow-hidden">
-        {/* Deep gradient base */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-900 via-black to-black" />
 
-        {/* Subtle gradient orbs - STATIC for performance */}
         <div
           className="absolute top-0 -left-1/4 w-[600px] h-[600px] rounded-full blur-[120px] opacity-8"
           style={{
@@ -593,12 +607,12 @@ const AstraX = () => {
             Department of Artificial Intelligence & Data Science, RSET
           </motion.p>
 
-          {/* Organizers - BIGGER, CYAN COLOR, MORE VISIBLE */}
+          {/* Organizers */}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-            className="flex items-center justify-center gap-5 mb-20 relative"
+            className="flex items-center justify-center gap-5 mb-6 relative"
           >
             <div className="absolute inset-0 blur-3xl opacity-50 bg-[radial-gradient(circle,rgba(34,211,238,0.3)_0%,transparent_50%)]" />
             <span className="relative font-display text-2xl md:text-3xl tracking-[0.25em] text-cyan-400 font-bold drop-shadow-[0_0_20px_rgba(34,211,238,0.6)]">ARTICON</span>
@@ -608,9 +622,8 @@ const AstraX = () => {
             <span className="relative font-display text-2xl md:text-3xl tracking-[0.25em] text-cyan-400 font-bold drop-shadow-[0_0_20px_rgba(34,211,238,0.6)]">IIC</span>
           </motion.div>
 
-          {/* Logo Animation - Bouncy slide-in with RED theme */}
-          <div className="h-[240px] flex items-center justify-center relative mb-16" key={animationKey}>
-            {/* Glowing background - static for performance */}
+          {/* Logo Animation */}
+          <div className="min-h-[160px] flex items-center justify-center relative py-4 mb-4" key={animationKey}>
             <div
               className="absolute inset-0 blur-[80px] -z-10 opacity-40"
               style={{
@@ -647,23 +660,21 @@ const AstraX = () => {
                 initial={{ scale: 0.85, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                className="flex items-baseline gap-5"
+                className="relative flex items-baseline md:-mr-32"
               >
                 <motion.h1
                   className="font-mokoto text-6xl md:text-9xl text-primary"
-                  style={{
-                    filter: "drop-shadow(0 0 60px rgba(255,49,46,0.5))",
-                  }}
+                  style={{ filter: "drop-shadow(0 0 60px rgba(255,49,46,0.5))" }}
                 >
                   ASTRAX
                 </motion.h1>
 
                 {showYear && (
                   <motion.span
-                    initial={{ opacity: 0, x: -30 }}
+                    initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.6, type: "spring", stiffness: 200 }}
-                    className="font-display text-6xl md:text-7xl text-primary/60 font-light"
+                    className="font-display text-4xl md:text-6xl text-primary/60 font-light ml-4"
                   >
                     2026
                   </motion.span>
@@ -672,125 +683,141 @@ const AstraX = () => {
             )}
           </div>
 
-          {/* Tagline */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1 }}
-            className="text-3xl md:text-4xl text-muted-foreground font-light tracking-wide mb-10"
-          >
-            Designing Software That <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-500">Thinks</span>.
-          </motion.p>
-
-          {/* Prize Pool */}
+          {/* ==================== COMMUNITY PARTNERS ==================== */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 1.1, type: "spring", stiffness: 200 }}
-            className="relative inline-block mb-16"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+            className="flex flex-col items-center gap-3 mb-8"
           >
-            {/* Glow backdrop */}
-            <motion.div
-              className="absolute inset-0 rounded-2xl blur-2xl -z-10"
-              animate={{
-                opacity: [0.4, 0.7, 0.4],
-              }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              style={{
-                background: "linear-gradient(135deg, rgba(255,49,46,0.3), rgba(59,130,246,0.3))",
-              }}
-            />
-
-            <div className="relative px-14 md:px-20 py-8 md:py-10 rounded-3xl border border-primary/30 bg-black/60 backdrop-blur-xl overflow-hidden">
-              {/* Animated gradient border overlay */}
-              <motion.div
-                className="absolute inset-0 rounded-3xl opacity-30"
-                animate={{
-                  background: [
-                    "linear-gradient(0deg, rgba(255,49,46,0.2) 0%, transparent 50%, rgba(59,130,246,0.2) 100%)",
-                    "linear-gradient(180deg, rgba(255,49,46,0.2) 0%, transparent 50%, rgba(59,130,246,0.2) 100%)",
-                    "linear-gradient(0deg, rgba(255,49,46,0.2) 0%, transparent 50%, rgba(59,130,246,0.2) 100%)",
-                  ],
-                }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              />
-
-              {/* Neural dots decoration */}
-              <div className="absolute top-3 left-4 flex gap-2">
-                <div className="w-2 h-2 rounded-full bg-primary/50" />
-                <div className="w-2 h-2 rounded-full bg-blue-500/50" />
-                <div className="w-2 h-2 rounded-full bg-orange-500/50" />
-              </div>
-
-              <p className="font-mono text-sm md:text-base tracking-[0.4em] text-muted-foreground uppercase mb-3 relative">
-                Total Prize Pool
-              </p>
-
-              <motion.p
-                className="font-display text-6xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary via-white to-blue-500 relative"
-                animate={{
-                  textShadow: [
-                    "0 0 20px rgba(255,49,46,0.5), 0 0 40px rgba(59,130,246,0.3)",
-                    "0 0 30px rgba(255,49,46,0.7), 0 0 60px rgba(59,130,246,0.5)",
-                    "0 0 20px rgba(255,49,46,0.5), 0 0 40px rgba(59,130,246,0.3)",
-                  ],
-                }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-              >
-                ₹50,000
-              </motion.p>
+            <div className="flex items-center gap-4 w-full max-w-lg">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-white/20" />
+              <span className="font-mono text-[10px] md:text-[11px] tracking-[0.4em] text-white/35 uppercase whitespace-nowrap">
+                Community Partner
+              </span>
+              <div className="h-px flex-1 bg-gradient-to-l from-transparent to-white/20" />
             </div>
+            <img
+              src="/images/AWS_logo.png"
+              alt="Amazon Web Services"
+              className="h-20 md:h-28 w-auto object-contain"
+              style={{ filter: "brightness(1.3) contrast(1.1)" }}
+            />
           </motion.div>
 
-          {/* Quick Stats with holographic cards */}
+          {/* ==================== HERO LOWER: TWO COLUMN LAYOUT ==================== */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.2 }}
+            transition={{ duration: 0.9, delay: 1, ease: [0.25, 0.1, 0.25, 1] }}
+            className="grid md:grid-cols-2 gap-6 items-stretch max-w-5xl mx-auto"
           >
-            <HolographicCard className="max-w-5xl mx-auto" colorTheme="mixed">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+            {/* LEFT — Tagline + Prize Pool (dominant) */}
+            <div className="relative overflow-hidden rounded-2xl border-2 border-primary/50 bg-black/50 backdrop-blur-xl p-8 flex flex-col justify-between text-left">
+              {/* Pulsing red glow */}
+              <motion.div
+                className="absolute -inset-1 rounded-2xl blur-2xl -z-10"
+                animate={{ opacity: [0.3, 0.45, 0.3] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                style={{ background: "rgba(255,49,46,0.45)" }}
+              />
+              <div className="absolute top-0 left-0 w-32 h-32 rounded-tl-2xl"
+                style={{ background: "radial-gradient(circle at top left, rgba(255,49,46,0.3) 0%, transparent 70%)" }}
+              />
+
+              {/* Tagline */}
+              <div className="relative mb-6">
+                <p className="font-mono text-xs tracking-[0.4em] text-primary/80 uppercase mb-4">
+                  // Hackathon 2026
+                </p>
+                <p className="text-4xl md:text-5xl text-white font-bold leading-tight tracking-tight">
+                  Designing Software
+                  <br />
+                  That{" "}
+                  <span
+                    className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-400"
+                    style={{ filter: "drop-shadow(0 0 25px rgba(255,49,46,0.9))" }}
+                  >
+                    Thinks
+                  </span>
+                  <span className="text-white/25">.</span>
+                </p>
+              </div>
+
+              {/* Prize Pool */}
+              <div className="relative">
+                <p className="font-mono text-[11px] tracking-[0.45em] text-white/40 uppercase mb-1">
+                  Total Prize Pool
+                </p>
+                <motion.p
+                  className="font-display font-black leading-none"
+                  style={{
+                    fontSize: "clamp(4rem, 10vw, 6.5rem)",
+                    background: "linear-gradient(135deg, #ff312e 0%, #ff6b6b 50%, #ffffff 100%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                  }}
+                  animate={{
+                    filter: [
+                      "drop-shadow(0 0 20px rgba(255,49,46,0.6))",
+                      "drop-shadow(0 0 40px rgba(255,49,46,0.6))",
+                      "drop-shadow(0 0 20px rgba(255,49,46,0.6))",
+                    ],
+                  }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  ₹50,000
+                </motion.p>
+              </div>
+            </div>
+
+            {/* RIGHT — Stats Grid */}
+            <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-black/40 backdrop-blur-xl p-8">
+              <motion.div
+                className="absolute -bottom-10 -right-10 w-40 h-40 rounded-full blur-3xl pointer-events-none"
+                animate={{ opacity: [0.15, 0.3, 0.15] }}
+                transition={{ duration: 3, repeat: Infinity, delay: 1 }}
+                style={{ background: "rgba(59,130,246,0.4)" }}
+              />
+              <div className="relative grid grid-cols-2 gap-4 h-full">
                 {[
                   { icon: Zap, label: "Duration", value: "42 Hours", gradient: "from-primary to-red-500" },
-                  { icon: Brain, label: "Expected", value: "200+ Participants", gradient: "from-blue-500 to-purple-500" },
-                  { icon: Cpu, label: "Team Size", value: "4-6 Members", gradient: "from-orange-500 to-pink-500" },
+                  { icon: Brain, label: "Expected", value: "200+", sub: "Participants", gradient: "from-blue-500 to-purple-500" },
+                  { icon: Cpu, label: "Team Size", value: "4–6", sub: "Members", gradient: "from-orange-500 to-pink-500" },
                   { icon: Code, label: "Track", value: "Software", gradient: "from-green-500 to-emerald-500" },
-                ].map((stat, index) => (
+                ].map((stat) => (
                   <motion.div
                     key={stat.label}
-                    initial={{ opacity: 1, y: 0 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-center group"
+                    whileHover={{ scale: 1.04 }}
+                    className="flex flex-col gap-3 p-4 rounded-xl border border-white/8 bg-white/[0.03] hover:bg-white/[0.06] transition-all duration-300"
                   >
-                    <motion.div
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      className="inline-block mb-4"
-                    >
-                      <div className={cn(
-                        "w-14 h-14 rounded-2xl bg-gradient-to-br flex items-center justify-center",
-                        stat.gradient,
-                        "shadow-lg group-hover:shadow-2xl transition-shadow duration-300"
-                      )}>
-                        <stat.icon className="w-7 h-7 text-white" />
-                      </div>
-                    </motion.div>
-
-                    <div className="font-mono text-xs tracking-[0.4em] text-muted-foreground uppercase mb-3">
-                      {stat.label}
+                    <div className={cn(
+                      "w-10 h-10 rounded-xl bg-gradient-to-br flex items-center justify-center shadow-lg",
+                      stat.gradient
+                    )}>
+                      <stat.icon className="w-5 h-5 text-white" />
                     </div>
-
-                    <div className="font-display text-2xl md:text-3xl text-foreground font-semibold">
-                      {stat.value}
+                    <div>
+                      <div className="font-mono text-[10px] tracking-[0.3em] text-muted-foreground uppercase mb-1">
+                        {stat.label}
+                      </div>
+                      <div className="font-display text-2xl md:text-3xl text-foreground font-bold leading-tight">
+                        {stat.value}
+                      </div>
+                      {stat.sub && (
+                        <div className="text-xs text-muted-foreground/60 mt-0.5">{stat.sub}</div>
+                      )}
                     </div>
                   </motion.div>
                 ))}
               </div>
-            </HolographicCard>
+            </div>
           </motion.div>
         </div>
       </section>
 
-      {/* ==================== ABOUT (IMPROVED WRITEUP) ==================== */}
+      {/* ==================== ABOUT ==================== */}
       <section id="about" className="relative py-16 md:py-20 scroll-mt-24">
         <div className="container max-w-[1200px] px-6 mx-auto">
           <SectionHeading
@@ -804,7 +831,7 @@ const AstraX = () => {
           />
 
           <div className="grid md:grid-cols-2 gap-8 md:gap-10">
-            {/* Main description - IMPROVED WRITEUP */}
+            {/* Main description */}
             <HolographicCard delay={0} colorTheme="red">
               <div className="flex items-start gap-5 mb-6">
                 <motion.div
@@ -896,180 +923,82 @@ const AstraX = () => {
             </HolographicCard>
           </div>
 
-          {/* Key highlights with animated badges */}
+          {/* ==================== PROBLEM STATEMENTS (REPLACED BADGE SECTION) ==================== */}
           <motion.div
-            initial={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
             className="mt-12"
           >
             <HolographicCard delay={0.2} colorTheme="mixed">
-              <div className="flex flex-wrap justify-center gap-4">
-                {[
-                  { text: "AI/ML Engineering", color: "from-orange-500 to-pink-500" },
-                  { text: "Deep Learning", color: "from-orange-500 to-pink-500" },
-                  { text: "Natural Language Processing", color: "from-orange-500 to-pink-500" },
-                  { text: "Computer Vision", color: "from-orange-500 to-pink-500" },
-                  { text: "Intelligent Automation", color: "from-orange-500 to-pink-500" },
-                  { text: "Predictive Analytics", color: "from-orange-500 to-pink-500" },
-                  { text: "Neural Networks", color: "from-orange-500 to-pink-500" },
-                  { text: "LLM Applications", color: "from-orange-500 to-pink-500" },
-                ].map((tag, index) => (
-                  <motion.div
-                    key={tag.text}
-                    initial={{ opacity: 1, scale: 1 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    whileHover={{ scale: 1.1, y: -2 }}
+              {/* Header */}
+              <div className="flex items-center gap-4 mb-8">
+                <div className="p-3 rounded-xl bg-gradient-to-br from-primary/20 to-blue-500/10 border border-primary/20">
+                  <FileText className="w-6 h-6 text-primary" />
+                </div>
+                <div>
+                  <h3 className="font-display text-2xl md:text-3xl text-foreground">Problem Statements</h3>
+                  <p className="text-sm text-muted-foreground mt-1">Click any statement to view the full PDF</p>
+                </div>
+              </div>
+
+              {/* Problem Statement Cards */}
+              <div className="grid gap-4">
+                {problemStatements.map((ps, index) => (
+                  <motion.a
+                    key={ps.number}
+                    href={ps.pdfPath}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, delay: 0.1 * index }}
+                    whileHover={{ x: 6, scale: 1.01 }}
+                    whileTap={{ scale: 0.99 }}
+                    className="group flex items-center gap-4 md:gap-6 p-4 md:p-5 rounded-xl border border-white/10 bg-white/5 hover:bg-white/8 hover:border-white/20 transition-all duration-300 cursor-pointer"
+                    style={{
+                      boxShadow: "0 0 0 0 transparent",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.boxShadow = `0 4px 30px ${ps.glowColor}`;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.boxShadow = "0 0 0 0 transparent";
+                    }}
                   >
-                    <Badge
-                      variant="outline"
-                      className={cn(
-                        "px-4 py-2 text-sm font-medium border-none cursor-pointer transition-all duration-300",
-                        `bg-gradient-to-r ${tag.color} text-white shadow-lg hover:shadow-2xl`
-                      )}
-                    >
-                      {tag.text}
-                    </Badge>
-                  </motion.div>
+                    {/* Number badge */}
+                    <div className={cn(
+                      "flex-shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br flex items-center justify-center font-mono font-bold text-white text-sm shadow-lg",
+                      ps.gradient
+                    )}>
+                      {ps.number}
+                    </div>
+
+                    {/* Title */}
+                    <p className="flex-1 text-sm md:text-base text-muted-foreground group-hover:text-foreground transition-colors duration-300 leading-relaxed">
+                      {ps.title}
+                    </p>
+
+                    {/* Arrow icon */}
+                    <div className="flex-shrink-0 flex items-center gap-1.5 text-muted-foreground/50 group-hover:text-primary transition-colors duration-300">
+                      <span className="hidden md:block text-xs font-mono tracking-wider opacity-0 group-hover:opacity-100 transition-opacity">VIEW PDF</span>
+                      <ExternalLink className="w-4 h-4 md:w-5 md:h-5" />
+                    </div>
+                  </motion.a>
                 ))}
+              </div>
+
+              {/* Footer note */}
+              <div className="mt-6 pt-5 border-t border-white/10 flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                <p className="text-xs font-mono text-muted-foreground/60 tracking-wider">
+                  4 PROBLEM STATEMENTS AVAILABLE · CLICK TO OPEN PDF
+                </p>
               </div>
             </HolographicCard>
           </motion.div>
         </div>
       </section>
-
-      {/* ==================== PRIZES (KEPT COMMENTED) ==================== */}
-      {/*
-      <section id="prizes" className="relative py-28 md:py-36 scroll-mt-24">
-        <div className="container max-w-[1200px] px-6 mx-auto">
-          <SectionHeading
-            eyebrow="PRIZES"
-            title={
-              <>
-                Win <span className="text-primary">Big</span>. Build <span className="text-blue-500">Smart</span>.
-              </>
-            }
-            description="Cash prizes, certificates, and recognition for the best AI-powered solutions."
-          />
-
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
-            {[
-              {
-                place: "1st",
-                emoji: "🥇",
-                prize: "₹25,000",
-                gradient: "from-yellow-400 via-yellow-500 to-orange-500",
-                glow: "rgba(251, 191, 36, 0.4)"
-              },
-              {
-                place: "2nd",
-                emoji: "🥈",
-                prize: "₹15,000",
-                gradient: "from-gray-300 via-gray-400 to-gray-500",
-                glow: "rgba(156, 163, 175, 0.4)"
-              },
-              {
-                place: "3rd",
-                emoji: "🥉",
-                prize: "₹10,000",
-                gradient: "from-orange-400 via-orange-500 to-orange-600",
-                glow: "rgba(251, 146, 60, 0.4)"
-              },
-            ].map((tier, index) => (
-              <HolographicCard key={tier.place} delay={index * 0.1} colorTheme={index === 0 ? "red" : index === 1 ? "blue" : "mixed"}>
-                <div className="text-center py-4">
-                  <motion.div
-                    className="text-7xl mb-6"
-                    animate={{
-                      scale: [1, 1.1, 1],
-                      rotate: [0, -5, 5, 0],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      repeatDelay: 1,
-                    }}
-                  >
-                    {tier.emoji}
-                  </motion.div>
-
-                  <div className="font-display text-3xl mb-4 text-foreground">{tier.place} Place</div>
-
-                  <motion.div
-                    className={cn(
-                      "font-display text-4xl md:text-5xl font-bold bg-gradient-to-r bg-clip-text text-transparent mb-2",
-                      tier.gradient
-                    )}
-                    style={{
-                      filter: `drop-shadow(0 0 20px ${tier.glow})`,
-                    }}
-                  >
-                    {tier.prize}
-                  </motion.div>
-
-                  <div className="text-base text-muted-foreground">+ Certificate</div>
-                </div>
-              </HolographicCard>
-            ))}
-          </div>
-
-          {/* What participants get }
-          <HolographicCard colorTheme="mixed" delay={0.3}>
-            <h3 className="font-display text-3xl mb-10 text-center text-foreground">What You'll Receive</h3>
-
-            <div className="grid md:grid-cols-3 gap-10 text-center">
-              {[
-                {
-                  icon: Sparkles,
-                  text: "Goodies & Swag",
-                  desc: "Exclusive AstraX merchandise",
-                  gradient: "from-pink-500 to-rose-500"
-                },
-                {
-                  icon: Database,
-                  text: "Participation Certificate",
-                  desc: "Official recognition",
-                  gradient: "from-blue-500 to-cyan-500"
-                },
-                {
-                  icon: Zap,
-                  text: "Cash Prizes",
-                  desc: "For top performers",
-                  gradient: "from-orange-500 to-red-500"
-                },
-              ].map((item, index) => (
-                <motion.div
-                  key={item.text}
-                  initial={{ opacity: 1, y: 0 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  whileHover={{ y: -8 }}
-                  className="group cursor-pointer"
-                >
-                  <motion.div
-                    className={cn(
-                      "inline-flex p-5 rounded-3xl bg-gradient-to-br mb-6 shadow-xl",
-                      item.gradient,
-                      "group-hover:shadow-2xl transition-shadow duration-300"
-                    )}
-                    whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0] }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <item.icon className="w-10 h-10 text-white" />
-                  </motion.div>
-
-                  <div className="font-display text-xl mb-3 text-foreground">
-                    {item.text}
-                  </div>
-
-                  <div className="text-base text-muted-foreground">
-                    {item.desc}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </HolographicCard>
-        </div>
-      </section>
-      */}
 
       {/* ==================== CONTACTS ==================== */}
       <section id="contacts" className="relative py-16 md:py-20 scroll-mt-24">
@@ -1149,6 +1078,48 @@ const AstraX = () => {
         </div>
       </section>
 
+      {/* ==================== REGISTER CTA ==================== */}
+      <section className="relative py-20 border-t border-white/5">
+        <div className="container max-w-[1200px] px-6 mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="relative overflow-hidden rounded-3xl border-2 border-primary/40 bg-black/60 backdrop-blur-xl px-8 py-14 md:py-20 text-center"
+          >
+            {/* Background glow */}
+            <motion.div
+              className="absolute inset-0 -z-10"
+              animate={{ opacity: [0.3, 0.55, 0.3] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              style={{ background: "radial-gradient(ellipse at center, rgba(255,49,46,0.25) 0%, transparent 70%)" }}
+            />
+            {/* Top edge accent line */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent" />
+
+            <p className="font-mono text-xs tracking-[0.5em] text-primary/70 uppercase mb-5">
+              // Limited Spots Available
+            </p>
+            <h2 className="font-display text-4xl md:text-6xl text-white font-bold tracking-wide mb-4">
+              Ready to Build?
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-10">
+              42 hours. ₹50,000 in prizes. Join the brightest minds building AI-powered software.
+            </p>
+
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
+              <Button
+                onClick={() => window.open("https://konfhub.com/checkout/hacksus-edition-5?ticketId=74891", "_blank")}
+                className="h-14 px-12 text-base font-display tracking-[0.2em] bg-primary hover:bg-primary/90 text-white shadow-[0_0_40px_rgba(255,49,46,0.4)] hover:shadow-[0_0_60px_rgba(255,49,46,0.6)] transition-all duration-300"
+              >
+                REGISTER NOW
+              </Button>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* ==================== PARTNERS ==================== */}
       <section className="relative py-28 border-t border-white/5">
         <div className="container max-w-[1200px] px-6 mx-auto">
@@ -1186,7 +1157,7 @@ const AstraX = () => {
         </div>
       </section>
 
-      {/* ==================== SOCIAL FLOAT - UPDATED THEME MATCHING STYLES ==================== */}
+      {/* ==================== SOCIAL FLOAT ==================== */}
       <motion.div
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
