@@ -683,7 +683,7 @@ const AstraX = () => {
             )}
           </div>
 
-          {/* ==================== COMMUNITY PARTNERS ==================== */}
+{/* ==================== COMMUNITY PARTNERS ==================== */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -693,18 +693,31 @@ const AstraX = () => {
             <div className="flex items-center gap-4 w-full max-w-lg">
               <div className="h-px flex-1 bg-gradient-to-r from-transparent to-white/20" />
               <span className="font-mono text-[10px] md:text-[11px] tracking-[0.4em] text-white/35 uppercase whitespace-nowrap">
-                Community Partner
+                Community Partners
               </span>
               <div className="h-px flex-1 bg-gradient-to-l from-transparent to-white/20" />
             </div>
-            <img
-              src="/images/AWS_logo.png"
-              alt="Amazon Web Services"
-              className="h-20 md:h-28 w-auto object-contain"
-              style={{ filter: "brightness(1.3) contrast(1.1)" }}
-            />
+            <div className="flex items-center justify-center gap-8 md:gap-12">
+              <img
+                src="/images/AWS_logo.png"
+                alt="Amazon Web Services"
+                className="h-16 md:h-20 w-auto object-contain"
+                style={{ filter: "brightness(1.3) contrast(1.1)" }}
+              />
+              <div className="w-px h-10 bg-white/15" />
+              <div
+                className="flex items-center justify-center rounded-xl px-4 py-2"
+                style={{ background: "rgba(255, 255, 255, 0.14)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.1)" }}
+              >
+                <img
+                  src="/images/GDG_Cloud_Kochi_logo.png"
+                  alt="GDG Cloud Kochi"
+                  className="h-10 md:h-14 w-auto max-w-[150px] md:max-w-[190px] object-contain"
+                />
+              </div>
+            </div>
           </motion.div>
-
+          
           {/* ==================== HERO LOWER: TWO COLUMN LAYOUT ==================== */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
