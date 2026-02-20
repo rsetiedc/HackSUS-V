@@ -166,7 +166,7 @@ function useActiveSection(sectionIds) {
 }
 
 // ==================== HOLOGRAPHIC CARD (OPTIMIZED) ====================
-function HolographicCard({ className, children, delay = 0, colorTheme = "red" }) {
+function HolographicCard({ className = "", children, delay = 0, colorTheme = "red" }) {
   const cardRef = useRef(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
@@ -433,7 +433,7 @@ function AstraXNavbar({ activeId, items, onNavigate }) {
                   ))}
                 </nav>
 
-                <Button
+                {/* <Button
                   onClick={() => {
                     setMobileOpen(false);
                     window.open("https://konfhub.com/checkout/hacksus-edition-5?ticketId=74891", "_blank");
@@ -441,13 +441,72 @@ function AstraXNavbar({ activeId, items, onNavigate }) {
                   className="w-full h-12 bg-primary hover:bg-primary/90 text-white font-display text-sm tracking-wider shadow-[0_10px_30px_rgba(255,49,46,0.2)]"
                 >
                   REGISTER NOW
-                </Button>
+                </Button> */}
               </div>
             </SheetContent>
           </Sheet>
         </div>
       </div>
     </header>
+  );
+}
+
+// ==================== KONFHUB REGISTRATION ====================
+function KonfHubRegistration() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    // Ensure the script is only added once
+    containerRef.current.innerHTML = "";
+
+    const script = document.createElement("script");
+    script.src = "https://widget.konfhub.com/widget.js";
+    script.setAttribute("button_id", "btn_a4aeffd2c330");
+    script.async = true;
+
+    containerRef.current.appendChild(script);
+  }, []);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.9, duration: 0.8 }}
+      className="flex justify-center my-12"
+    >
+      <style>{`
+        .konfhub-widget-container .reg-button {
+          background-color: #ff312e !important;
+          color: white !important;
+          font-family: "Bebas Neue", sans-serif !important;
+          font-weight: 500 !important;
+          font-size: 1rem !important;
+          letter-spacing: 0.2em !important;
+          text-transform: uppercase !important;
+          padding: 0 3rem !important;
+          height: 3.5rem !important;
+          border-radius: 0.5rem !important;
+          box-shadow: 0 0 40px rgba(255, 49, 46, 0.4) !important;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+          border: none !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          cursor: pointer !important;
+        }
+        .konfhub-widget-container .reg-button:hover {
+          background-color: rgba(255, 49, 46, 0.9) !important;
+          box-shadow: 0 0 60px rgba(255, 49, 46, 0.6) !important;
+          transform: translateY(-2px) !important;
+        }
+        .konfhub-widget-container .reg-button img {
+          display: none !important;
+        }
+      `}</style>
+      <div ref={containerRef} className="konfhub-widget-container" />
+    </motion.div>
   );
 }
 
@@ -580,7 +639,6 @@ const AstraX = () => {
         <GraphNetwork
           gridSpacing={50}
           mouseRadius={300}
-          strength={0.8}
         />
       </div>
 
@@ -718,6 +776,9 @@ const AstraX = () => {
             </div>
           </motion.div>
           
+
+          <KonfHubRegistration />
+
           {/* ==================== HERO LOWER: TWO COLUMN LAYOUT ==================== */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -892,6 +953,10 @@ const AstraX = () => {
                   <span className="text-muted-foreground">×</span>
                   <div className="px-3 py-1.5 rounded-lg bg-cyan-400/10 border border-cyan-400/20">
                     <span className="text-sm font-mono text-cyan-400 tracking-wider">IEDC</span>
+                  </div>
+                  <span className="text-muted-foreground">×</span>
+                  <div className="px-3 py-1.5 rounded-lg bg-cyan-400/10 border border-cyan-400/20">
+                    <span className="text-sm font-mono text-cyan-400 tracking-wider">IIC</span>
                   </div>
                 </div>
               </div>
