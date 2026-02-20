@@ -31,7 +31,7 @@ const PreEventsTimeline = () => {
             icon: <Ship className="w-5 h-5 text-primary" />,
             align: "left",
             highlight: true,
-            link: "/kruizex"
+            link: ""
         },
         {
             id: 6,
@@ -113,11 +113,6 @@ const PreEventsTimeline = () => {
 
                                     <p className="text-muted-foreground">
                                         {event.description}
-                                        {event.link && (
-                                            <Link to={event.link} className="block mt-4 text-primary font-mono text-sm underline underline-offset-4 hover:text-primary/80 transition-all uppercase tracking-widest">
-                                               // Learn More
-                                            </Link>
-                                        )}
                                     </p>
                                 </div>
 
