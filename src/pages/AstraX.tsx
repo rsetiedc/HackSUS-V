@@ -388,11 +388,11 @@ function AstraXNavbar({ activeId, items, onNavigate }) {
             className="hidden md:flex items-center"
           >
             <img
-            src="/images/articon_logo.png"
-            alt="Articon"
-            className="h-14 w-auto object-contain"
-            style={{ filter: "brightness(0) saturate(100%) invert(17%) sepia(95%) saturate(7000%) hue-rotate(355deg) brightness(105%) contrast(115%)" }}
-          />
+              src="/images/articon_logo.png"
+              alt="Articon"
+              className="h-14 w-auto object-contain"
+              style={{ filter: "brightness(0) saturate(100%) invert(17%) sepia(95%) saturate(7000%) hue-rotate(355deg) brightness(105%) contrast(115%)" }}
+            />
           </motion.a>
 
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
@@ -748,7 +748,7 @@ const AstraX = () => {
             )}
           </div>
 
-{/* ==================== COMMUNITY PARTNERS ==================== */}
+          {/* ==================== COMMUNITY PARTNERS ==================== */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -779,7 +779,7 @@ const AstraX = () => {
               </div>
             </div>
           </motion.div>
-          
+
 
           <KonfHubRegistration />
 
@@ -1006,15 +1006,15 @@ const AstraX = () => {
           </div>
 
           {/* ==================== PROBLEM STATEMENTS (REPLACED BADGE SECTION) ==================== */}
-          {/* <motion.div
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
             className="mt-12"
-          > */}
-          {/* <HolographicCard delay={0.2} colorTheme="mixed"> */}
-          {/* Header */}
-          {/* <div className="flex items-center gap-4 mb-8">
+          >
+            <HolographicCard delay={0.2} colorTheme="mixed">
+              {/* Header */}
+              <div className="flex items-center gap-4 mb-8">
                 <div className="p-3 rounded-xl bg-gradient-to-br from-primary/20 to-blue-500/10 border border-primary/20">
                   <FileText className="w-6 h-6 text-primary" />
                 </div>
@@ -1022,10 +1022,10 @@ const AstraX = () => {
                   <h3 className="font-display text-2xl md:text-3xl text-foreground">Problem Statements</h3>
                   <p className="text-sm text-muted-foreground mt-1">Click any statement to view the full PDF</p>
                 </div>
-              </div> */}
+              </div>
 
-          {/* Problem Statement Cards */}
-          {/* <div className="grid gap-4">
+              {/* Problem Statement Cards */}
+              <div className="grid gap-4">
                 {problemStatements.map((ps, index) => (
                   <motion.a
                     key={ps.number}
@@ -1047,38 +1047,38 @@ const AstraX = () => {
                     onMouseLeave={(e) => {
                       e.currentTarget.style.boxShadow = "0 0 0 0 transparent";
                     }}
-                  > */}
-          {/* Number badge */}
-          {/* <div className={cn(
+                  >
+                    {/* Number badge */}
+                    <div className={cn(
                       "flex-shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br flex items-center justify-center font-mono font-bold text-white text-sm shadow-lg",
                       ps.gradient
                     )}>
                       {ps.number}
-                    </div> */}
+                    </div>
 
-          {/* Title */}
-          {/* <p className="flex-1 text-sm md:text-base text-muted-foreground group-hover:text-foreground transition-colors duration-300 leading-relaxed">
+                    {/* Title */}
+                    <p className="flex-1 text-sm md:text-base text-muted-foreground group-hover:text-foreground transition-colors duration-300 leading-relaxed">
                       {ps.title}
-                    </p> */}
+                    </p>
 
-          {/* Arrow icon */}
-          {/* <div className="flex-shrink-0 flex items-center gap-1.5 text-muted-foreground/50 group-hover:text-primary transition-colors duration-300">
+                    {/* Arrow icon */}
+                    <div className="flex-shrink-0 flex items-center gap-1.5 text-muted-foreground/50 group-hover:text-primary transition-colors duration-300">
                       <span className="hidden md:block text-xs font-mono tracking-wider opacity-0 group-hover:opacity-100 transition-opacity">VIEW PDF</span>
                       <ExternalLink className="w-4 h-4 md:w-5 md:h-5" />
                     </div>
                   </motion.a>
                 ))}
-              </div> */}
+              </div>
 
-          {/* Footer note */}
-          {/* <div className="mt-6 pt-5 border-t border-white/10 flex items-center gap-2">
+              {/* Footer note */}
+              <div className="mt-6 pt-5 border-t border-white/10 flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
                 <p className="text-xs font-mono text-muted-foreground/60 tracking-wider">
                   4 PROBLEM STATEMENTS AVAILABLE · CLICK TO OPEN PDF
                 </p>
               </div>
             </HolographicCard>
-          </motion.div> */}
+          </motion.div>
         </div>
       </section >
 

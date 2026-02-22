@@ -320,7 +320,7 @@ const ScreenX = () => {
                             </motion.section>
 
                             {/* Problem Statements */}
-                            {(() => {
+                            {/* {(() => {
                                 const problemStatements = [
                                     {
                                         title: "AI-Powered Storyboard Synthesis and Automation",
@@ -362,7 +362,7 @@ const ScreenX = () => {
                                         </div>
                                     </motion.section>
                                 );
-                            })()}
+                            })()} */}
                         </div>
 
                         {/* Sidebar */}
