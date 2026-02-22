@@ -379,14 +379,21 @@ function AstraXNavbar({ activeId, items, onNavigate }) {
         </div>
 
         <div className="flex items-center gap-3">
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button
-              onClick={() => window.open("https://konfhub.com/checkout/hacksus-edition-5?ticketId=74891", "_blank")}
-              className="hidden md:inline-flex h-10 px-6 bg-primary hover:bg-primary/90 text-white font-display text-sm tracking-wider transition-all duration-300 shadow-[0_10px_30px_rgba(255,49,46,0.2)] hover:shadow-[0_14px_42px_rgba(255,49,46,0.3)]"
-            >
-              REGISTER NOW
-            </Button>
-          </motion.div>
+          <motion.a
+            href="https://www.instagram.com/articon.rset/"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="hidden md:flex items-center"
+          >
+            <img
+            src="/images/articon_logo.png"
+            alt="Articon"
+            className="h-14 w-auto object-contain"
+            style={{ filter: "brightness(0) saturate(100%) invert(17%) sepia(95%) saturate(7000%) hue-rotate(355deg) brightness(105%) contrast(115%)" }}
+          />
+          </motion.a>
 
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>
@@ -749,11 +756,11 @@ const AstraX = () => {
             className="flex flex-col items-center gap-3 mb-8"
           >
             <div className="flex items-center gap-4 w-full max-w-lg">
-              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-white/20" />
-              <span className="font-mono text-[10px] md:text-[11px] tracking-[0.4em] text-white/35 uppercase whitespace-nowrap">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-400/40 to-amber-400/60" />
+              <span className="font-mono text-[12px] md:text-[13px] tracking-[0.5em] text-primary/90 uppercase whitespace-nowrap">
                 Community Partners
               </span>
-              <div className="h-px flex-1 bg-gradient-to-l from-transparent to-white/20" />
+              <div className="h-px flex-1 bg-gradient-to-l from-transparent via-amber-400/40 to-amber-400/60" />
             </div>
             <div className="flex items-center justify-center gap-8 md:gap-12">
               <img
@@ -763,10 +770,7 @@ const AstraX = () => {
                 style={{ filter: "brightness(1.3) contrast(1.1)" }}
               />
               <div className="w-px h-10 bg-white/15" />
-              <div
-                className="flex items-center justify-center rounded-xl px-4 py-2"
-                style={{ background: "rgba(255, 255, 255, 0.14)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.1)" }}
-              >
+              <div className="rounded-lg px-4 py-2" style={{ background: "rgba(255,255,255,0.92)", border: "1px solid rgba(255,49,46,0.7)", boxShadow: "0 0 10px rgba(255,49,46,0.2)" }}>
                 <img
                   src="/images/GDG_Cloud_Kochi_logo.png"
                   alt="GDG Cloud Kochi"
@@ -955,8 +959,8 @@ const AstraX = () => {
                     <span className="text-sm font-mono text-cyan-400 tracking-wider">IEDC</span>
                   </div>
                   <span className="text-muted-foreground">×</span>
-                  <div className="px-3 py-1.5 rounded-lg bg-cyan-400/10 border border-cyan-400/20">
-                    <span className="text-sm font-mono text-cyan-400 tracking-wider">IIC</span>
+                  <div className="px-3 py-1.5 rounded-lg bg-primary/10 border border-primary/20">
+                    <span className="text-sm font-mono text-primary tracking-wider">IIC</span>
                   </div>
                 </div>
               </div>
@@ -1153,48 +1157,6 @@ const AstraX = () => {
               </HolographicCard>
             ))}
           </div>
-        </div>
-      </section >
-
-      {/* ==================== REGISTER CTA ==================== */}
-      < section className="relative py-20 border-t border-white/5" >
-        <div className="container max-w-[1200px] px-6 mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="relative overflow-hidden rounded-3xl border-2 border-primary/40 bg-black/60 backdrop-blur-xl px-8 py-14 md:py-20 text-center"
-          >
-            {/* Background glow */}
-            <motion.div
-              className="absolute inset-0 -z-10"
-              animate={{ opacity: [0.3, 0.55, 0.3] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              style={{ background: "radial-gradient(ellipse at center, rgba(255,49,46,0.25) 0%, transparent 70%)" }}
-            />
-            {/* Top edge accent line */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent" />
-
-            <p className="font-mono text-xs tracking-[0.5em] text-primary/70 uppercase mb-5">
-              // Limited Spots Available
-            </p>
-            <h2 className="font-display text-4xl md:text-6xl text-white font-bold tracking-wide mb-4">
-              Ready to Build?
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-10">
-              42 hours. ₹50,000 in prizes. Join the brightest minds building AI-powered software.
-            </p>
-
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
-              <Button
-                onClick={() => window.open("https://konfhub.com/checkout/hacksus-edition-5?ticketId=74891", "_blank")}
-                className="h-14 px-12 text-base font-display tracking-[0.2em] bg-primary hover:bg-primary/90 text-white shadow-[0_0_40px_rgba(255,49,46,0.4)] hover:shadow-[0_0_60px_rgba(255,49,46,0.6)] transition-all duration-300"
-              >
-                REGISTER NOW
-              </Button>
-            </motion.div>
-          </motion.div>
         </div>
       </section >
 
