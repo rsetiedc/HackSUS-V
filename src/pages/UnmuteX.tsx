@@ -406,10 +406,71 @@ const PartnerBranding = ({ className = "", variant = "small" }: { className?: st
     );
 };
 
+// ==================== KONFHUB REGISTRATION ====================
+function KonfHubRegistration() {
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (!containerRef.current) return;
+
+        // Ensure the script is only added once
+        containerRef.current.innerHTML = "";
+
+        const script = document.createElement("script");
+        script.src = "https://widget.konfhub.com/widget.js";
+        script.setAttribute("button_id", "btn_0a61a84147fd");
+        script.async = true;
+
+        containerRef.current.appendChild(script);
+    }, []);
+
+    return (
+        <div className="flex justify-center flex-shrink-0">
+            <style>{`
+        .konfhub-widget-container .reg-button {
+          background-color: #ff312e !important;
+          color: white !important;
+          font-family: inherit !important;
+          font-weight: 700 !important;
+          font-size: 0.95rem !important;
+          padding: 0 2.5rem !important;
+          height: 3.5rem !important;
+          border-radius: 9999px !important;
+          box-shadow: 0 10px 20px rgba(255, 49, 46, 0.2) !important;
+          transition: all 0.3s ease !important;
+          border: none !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          cursor: pointer !important;
+          text-transform: uppercase !important;
+          letter-spacing: 0.05em !important;
+        }
+        .konfhub-widget-container .reg-button:hover {
+          background-color: rgba(255, 49, 46, 0.9) !important;
+          box-shadow: 0 15px 30px rgba(255, 49, 46, 0.4) !important;
+          transform: scale(1.05) !important;
+        }
+        .konfhub-widget-container .reg-button img {
+          display: none !important;
+        }
+        /* Adding a play icon approximation since we can't easily inject lucide into KonfHub's button DOM */
+        .konfhub-widget-container .reg-button::before {
+          content: '▶';
+          margin-right: 12px;
+          font-size: 14px;
+        }
+      `}</style>
+            <div ref={containerRef} className="konfhub-widget-container" />
+        </div>
+    );
+}
+
 const UnmuteX = () => {
     const [activeProblemId, setActiveProblemId] = useState<string | null>(null);
     const [isPlayerReady, setIsPlayerReady] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
+    const [isRegistrationActive, setIsRegistrationActive] = useState(false);
     const embedControllerRef = useRef<any>(null);
 
     const sections = ['hero', 'tracklist', 'about', 'contact'];
@@ -501,9 +562,22 @@ const UnmuteX = () => {
             IFrameAPI.createController(element, options, callback);
         };
 
+
+        // Detection for KonfHub Popup
+        const observer = new MutationObserver(() => {
+            const popup = document.querySelector(".konfhub-buttons-ifrm");
+            setIsRegistrationActive(!!popup);
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+
         return () => {
             // Cleanup if needed (though usually not necessary for global scripts)
             delete (window as any).onSpotifyIframeApiReady;
+            observer.disconnect();
         };
     }, []);
 
@@ -521,7 +595,7 @@ const UnmuteX = () => {
 
     return (
         <div className="min-h-screen bg-black text-foreground selection:bg-primary selection:text-primary-foreground overflow-x-hidden font-body flex flex-col relative">
-            <Navbar />
+            {!isRegistrationActive && <Navbar />}
 
             {/* New Revolving Record Header */}
             <RevolvingHeader />
@@ -649,15 +723,7 @@ const UnmuteX = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.6 }}
                             >
-                                <a
-                                    href="https://konfhub.com/hacksus-edition-5"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="h-14 px-10 bg-primary hover:bg-primary/90 text-white rounded-full flex items-center gap-3 font-bold transition-all hover:scale-105 shadow-lg shadow-primary/20"
-                                >
-                                    <Play size={18} fill="white" />
-                                    <span>START PRODUCTION</span>
-                                </a>
+                                <KonfHubRegistration />
 
                                 <motion.button
                                     onClick={handlePlayTrigger}
@@ -871,6 +937,7 @@ const UnmuteX = () => {
                 ].find(p => p.id === activeProblemId)}
             />
 
+            {!isRegistrationActive && <NowPlayingBar />}
             <Footer />
         </div>
     );

@@ -72,7 +72,7 @@ const Index = () => {
       </main>
 
       {/* KruizeX Event Pop-up */}
-      <Dialog open={isKruizeXOpen} onOpenChange={setIsKruizeXOpen}>
+      {/* <Dialog open={isKruizeXOpen} onOpenChange={setIsKruizeXOpen}>
         <DialogContent className="w-[90vw] max-w-md sm:max-w-lg mx-auto">
           <DialogHeader>
             <div className="flex items-center justify-center gap-4 mb-4">
@@ -86,17 +86,6 @@ const Index = () => {
             </DialogDescription>
           </DialogHeader>
 
-          {/* <div className="py-4 space-y-4">
-            <div className="bg-card border border-border p-4 rounded-lg">
-              <p className="text-sm font-semibold text-[#2563eb] mb-2">Event Details</p>
-              <ul className="text-sm text-muted-foreground space-y-2">
-                <li>• Exclusive Ideathon</li>
-                <li>• Pitch your ideas on the water</li>
-                <li>• Limited seats available</li>
-              </ul>
-            </div>
-          </div> */}
-
           <DialogFooter className="flex gap-3">
             <Button
               onClick={() => {
@@ -108,7 +97,7 @@ const Index = () => {
             </Button>
           </DialogFooter>
         </DialogContent >
-      </Dialog >
+      </Dialog > */}
     </>
   );
 };

@@ -1,10 +1,69 @@
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Film, Clapperboard, Palette, Music, Scissors, Sparkles, Camera, Mic, ChevronDown } from "lucide-react";
-import { motion, useScroll, useTransform } from "motion/react";
+import { ArrowLeft, Film, Clapperboard, Palette, Music, Scissors, Sparkles, Camera, Mic } from "lucide-react";
+import { motion } from "motion/react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FilmReelBackground from "@/components/FilmReelBackground";
+
+// ==================== KONFHUB REGISTRATION ====================
+function KonfHubRegistration() {
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (!containerRef.current) return;
+
+        // Ensure the script is only added once
+        containerRef.current.innerHTML = "";
+
+        const script = document.createElement("script");
+        script.src = "https://widget.konfhub.com/widget.js";
+        script.setAttribute("button_id", "btn_7a4b7706f247"); // Using main event ID as placeholder
+        script.async = true;
+
+        containerRef.current.appendChild(script);
+    }, []);
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="flex justify-center z-20 mt-8"
+        >
+            <style>{`
+        .konfhub-widget-container .reg-button {
+          background-color: #ff312e !important;
+          color: white !important;
+          font-family: copperplateBold !important;
+          font-weight: 700 !important;
+          font-size: 0.975rem !important;
+          padding: 0 3rem !important;
+          height: 3.5rem !important;
+          border-radius: 9999px !important;
+          box-shadow: 0 0 40px rgba(255, 49, 46, 0.4) !important;
+          transition: all 0.3s ease !important;
+          border: none !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          cursor: pointer !important;
+          text-transform: uppercase !important;
+          letter-spacing: 0.2em !important;
+        }
+        .konfhub-widget-container .reg-button:hover {
+          background-color: rgba(255, 49, 46, 0.9) !important;
+          box-shadow: 0 0 60px rgba(255, 49, 46, 0.6) !important;
+          transform: translateY(-2px) !important;
+        }
+        .konfhub-widget-container .reg-button img {
+          display: none !important;
+        }
+      `}</style>
+            <div ref={containerRef} className="konfhub-widget-container" />
+        </motion.div>
+    );
+}
 
 const ScreenX = () => {
     // Film reel data for scrolling rows
@@ -26,12 +85,26 @@ const ScreenX = () => {
         { icon: Palette, title: "Moodboard AI", desc: "Cinematic filters" },
     ];
 
+    const [isRegistrationActive, setIsRegistrationActive] = useState(false);
+
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, []);
 
-    const { scrollY } = useScroll();
-    const scrollIndicatorOpacity = useTransform(scrollY, [0, 150], [1, 0]);
+        // Detection for KonfHub Popup
+        const observer = new MutationObserver(() => {
+            const popup = document.querySelector(".konfhub-buttons-ifrm");
+            setIsRegistrationActive(!!popup);
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+
+        return () => {
+            observer.disconnect();
+        };
+    }, []);
 
     return (
         <div className="min-h-screen bg-black">
@@ -42,7 +115,7 @@ const ScreenX = () => {
                     background: "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.5) 100%)",
                 }}
             />
-            <Navbar />
+            {!isRegistrationActive && <Navbar />}
 
             {/* ═══════════════════ HERO ═══════════════════ */}
             <section className="relative h-screen flex flex-col items-center justify-center overflow-hidden">
@@ -108,16 +181,7 @@ const ScreenX = () => {
                     </p>
                 </motion.div>
 
-                {/* Scroll indicator */}
-                <motion.div
-                    className="absolute bottom-10 z-20 flex flex-col items-center gap-2 text-muted-foreground/50"
-                    style={{ opacity: scrollIndicatorOpacity }}
-                    animate={{ y: [0, 8, 0] }}
-                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                >
-                    <span className="text-xs font-mono tracking-widest uppercase">Scroll</span>
-                    <ChevronDown size={16} />
-                </motion.div>
+                <KonfHubRegistration />
             </section>
 
             {/* ═══════════════════ FILM REEL CAROUSELS ═══════════════════ */}
@@ -254,6 +318,51 @@ const ScreenX = () => {
                                     ))}
                                 </ul>
                             </motion.section>
+
+                            {/* Problem Statements */}
+                            {(() => {
+                                const problemStatements = [
+                                    {
+                                        title: "AI-Powered Storyboard Synthesis and Automation",
+                                        desc: "Currently multimedia content creation, manually design storyboards for films remains a labor-intensive bottleneck, prone to iterative revisions and creative silos. Leverage state-of-the-art generative AI models to architect an intelligent system that automates storyboard generation from high-level narrative inputs.",
+                                        pdf: "#",
+                                    }
+                                ];
+                                return (
+                                    <motion.section
+                                        className="relative bg-black border border-primary/20 p-8 md:p-10"
+                                        initial={{ opacity: 0, y: 30 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true, margin: "-50px" }}
+                                        transition={{ duration: 0.6, delay: 0.2 }}
+                                    >
+                                        <div className="absolute top-0 left-0 w-1 h-full bg-primary" />
+                                        <h2 className="font-copperplate text-2xl md:text-3xl text-foreground tracking-wider mb-5">
+                                            Problem Statements
+                                        </h2>
+                                        <div className="grid grid-cols-1 md:grid-cols-1 gap-8 mt-6">
+                                            {problemStatements.map((ps, i) => (
+                                                <motion.div
+                                                    key={i}
+                                                    className="relative bg-black border border-primary/10 p-6 md:p-8 flex flex-col h-full shadow-lg"
+                                                    initial={{ opacity: 0, y: 30 }}
+                                                    whileInView={{ opacity: 1, y: 0 }}
+                                                    viewport={{ once: true, margin: "-50px" }}
+                                                    transition={{ duration: 0.5, delay: i * 0.1 }}
+                                                >
+                                                    <div className="absolute top-0 left-0 w-1 h-full bg-primary/70" />
+                                                    <h3 className="font-copperplate text-xl text-foreground tracking-wider mb-3">
+                                                        {ps.title}
+                                                    </h3>
+                                                    <p className="font-body text-muted-foreground mb-6 flex-1">
+                                                        {ps.desc}
+                                                    </p>
+                                                </motion.div>
+                                            ))}
+                                        </div>
+                                    </motion.section>
+                                );
+                            })()}
                         </div>
 
                         {/* Sidebar */}

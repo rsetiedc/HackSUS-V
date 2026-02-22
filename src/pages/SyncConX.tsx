@@ -102,12 +102,88 @@ const VoltageReadout = ({ label, value }: { label: string; value: string }) => (
     </div>
 );
 
+// ==================== KONFHUB REGISTRATION ====================
+function KonfHubRegistration() {
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (!containerRef.current) return;
+
+        // Ensure the script is only added once
+        containerRef.current.innerHTML = "";
+
+        const script = document.createElement("script");
+        script.src = "https://widget.konfhub.com/widget.js";
+        script.setAttribute("button_id", "btn_8b9aed9a4bb3");
+        script.async = true;
+
+        containerRef.current.appendChild(script);
+    }, []);
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, duration: 0.8 }}
+            className="flex justify-center z-20 mt-10"
+        >
+            <style>{`
+        .konfhub-widget-container .reg-button {
+          background-color: #ff312e !important;
+          color: white !important;
+          font-family: inherit !important;
+          font-weight: 700 !important;
+          font-size: 1rem !important;
+          padding: 0 3rem !important;
+          height: 4rem !important;
+          border-radius: 1rem !important;
+          box-shadow: 0 0 40px rgba(255, 49, 46, 0.3) !important;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+          border: none !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          cursor: pointer !important;
+          text-transform: uppercase !important;
+          letter-spacing: 0.2em !important;
+        }
+        .konfhub-widget-container .reg-button:hover {
+          background-color: rgba(255, 49, 46, 0.9) !important;
+          box-shadow: 0 0 60px rgba(255, 49, 46, 0.5) !important;
+          transform: translateY(-2px) scale(1.02) !important;
+        }
+        .konfhub-widget-container .reg-button img {
+          display: none !important;
+        }
+      `}</style>
+            <div ref={containerRef} className="konfhub-widget-container" />
+        </motion.div>
+    );
+}
+
 const SyncConX = () => {
     const [hoveredSection, setHoveredSection] = useState<string | null>(null);
     const containerRef = useRef<HTMLDivElement>(null);
 
+    const [isRegistrationActive, setIsRegistrationActive] = useState(false);
+
     useEffect(() => {
         window.scrollTo(0, 0);
+
+        // Detection for KonfHub Popup
+        const observer = new MutationObserver(() => {
+            const popup = document.querySelector(".konfhub-buttons-ifrm");
+            setIsRegistrationActive(!!popup);
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+
+        return () => {
+            observer.disconnect();
+        };
     }, []);
 
     const fadeInUp = {
@@ -134,7 +210,7 @@ const SyncConX = () => {
             </div>
 
             <div className="relative z-50">
-                <Navbar />
+                {!isRegistrationActive && <Navbar />}
             </div>
 
             <main className="pt-32 pb-24 relative z-10">
@@ -192,7 +268,7 @@ const SyncConX = () => {
                                 initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
                                 animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
                                 transition={{ duration: 1.2, ease: "easeOut" }}
-                                className="font-display text-8xl md:text-[10rem] text-white font-bold leading-none mb-4 tracking-normal"
+                                className="font-display text-7xl md:text-[10rem] text-white font-bold leading-none mb-4 tracking-normal"
                             >
                                 SYNCCONX
                             </motion.h1>
@@ -214,6 +290,8 @@ const SyncConX = () => {
                                 <span className="text-primary font-medium">instrumentation systems</span> for smarter,
                                 more efficient workflows.
                             </motion.p>
+
+                            <KonfHubRegistration />
 
                             {/* Prize Pool */}
                             <motion.div
@@ -418,12 +496,12 @@ const SyncConX = () => {
                                             icon: Activity,
                                             id: "REQ_B",
                                         },
-                                        {
-                                            title: "Biomedical Instrumentation",
-                                            desc: "Instrumentation in Biomedical Technology",
-                                            icon: Cpu,
-                                            id: "REQ_C",
-                                        },
+                                        // {
+                                        //     title: "Biomedical Instrumentation",
+                                        //     desc: "Instrumentation in Biomedical Technology",
+                                        //     icon: Cpu,
+                                        //     id: "REQ_C",
+                                        // },
                                         {
                                             title: "Robot Telemetry",
                                             desc: "Robot telemetry (encoders/IMU), motor current sensing",
@@ -453,7 +531,7 @@ const SyncConX = () => {
                             <DimensionLine label="Ω: 4.7kΩ" orientation="horizontal" className="opacity-30" />
 
                             {/* Judging Criteria */}
-                            <motion.section
+                            {/* <motion.section
                                 whileInView={{ opacity: 1, y: 0 }}
                                 initial={{ opacity: 0, y: 40 }}
                                 viewport={{ once: true }}
@@ -509,7 +587,7 @@ const SyncConX = () => {
                                         </motion.div>
                                     ))}
                                 </div>
-                            </motion.section>
+                            </motion.section> */}
                         </div>
 
                         {/* Sidebar — Instrument Panel style */}
@@ -569,7 +647,7 @@ const SyncConX = () => {
                                 </div>
 
                                 <motion.a
-                                    whileHover={{ scale: 1.02, letterSpacing: "0.25em" }}
+                                    whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
                                     href="https://konfhub.com/hacksus-edition-5"
                                     target="_blank"

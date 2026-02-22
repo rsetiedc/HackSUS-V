@@ -3,6 +3,10 @@
     {
       "source": "/((?!.*\\..*).*)",
       "destination": "/index.html"
+    },
+    {
+      "source": "/docs/Astrax_Problem_Statements/:path",
+      "destination": "/docs/Astrax_Problem_Statements/:path"
     }
   ]
 }

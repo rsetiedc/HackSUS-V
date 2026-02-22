@@ -166,7 +166,7 @@ function useActiveSection(sectionIds) {
 }
 
 // ==================== HOLOGRAPHIC CARD (OPTIMIZED) ====================
-function HolographicCard({ className, children, delay = 0, colorTheme = "red" }) {
+function HolographicCard({ className = "", children, delay = 0, colorTheme = "red" }) {
   const cardRef = useRef(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
@@ -433,7 +433,7 @@ function AstraXNavbar({ activeId, items, onNavigate }) {
                   ))}
                 </nav>
 
-                <Button
+                {/* <Button
                   onClick={() => {
                     setMobileOpen(false);
                     window.open("https://konfhub.com/checkout/hacksus-edition-5?ticketId=74891", "_blank");
@@ -441,13 +441,72 @@ function AstraXNavbar({ activeId, items, onNavigate }) {
                   className="w-full h-12 bg-primary hover:bg-primary/90 text-white font-display text-sm tracking-wider shadow-[0_10px_30px_rgba(255,49,46,0.2)]"
                 >
                   REGISTER NOW
-                </Button>
+                </Button> */}
               </div>
             </SheetContent>
           </Sheet>
         </div>
       </div>
     </header>
+  );
+}
+
+// ==================== KONFHUB REGISTRATION ====================
+function KonfHubRegistration() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    // Ensure the script is only added once
+    containerRef.current.innerHTML = "";
+
+    const script = document.createElement("script");
+    script.src = "https://widget.konfhub.com/widget.js";
+    script.setAttribute("button_id", "btn_a4aeffd2c330");
+    script.async = true;
+
+    containerRef.current.appendChild(script);
+  }, []);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.9, duration: 0.8 }}
+      className="flex justify-center my-12"
+    >
+      <style>{`
+        .konfhub-widget-container .reg-button {
+          background-color: #ff312e !important;
+          color: white !important;
+          font-family: "Bebas Neue", sans-serif !important;
+          font-weight: 500 !important;
+          font-size: 1rem !important;
+          letter-spacing: 0.2em !important;
+          text-transform: uppercase !important;
+          padding: 0 3rem !important;
+          height: 3.5rem !important;
+          border-radius: 0.5rem !important;
+          box-shadow: 0 0 40px rgba(255, 49, 46, 0.4) !important;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+          border: none !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          cursor: pointer !important;
+        }
+        .konfhub-widget-container .reg-button:hover {
+          background-color: rgba(255, 49, 46, 0.9) !important;
+          box-shadow: 0 0 60px rgba(255, 49, 46, 0.6) !important;
+          transform: translateY(-2px) !important;
+        }
+        .konfhub-widget-container .reg-button img {
+          display: none !important;
+        }
+      `}</style>
+      <div ref={containerRef} className="konfhub-widget-container" />
+    </motion.div>
   );
 }
 
@@ -580,7 +639,6 @@ const AstraX = () => {
         <GraphNetwork
           gridSpacing={50}
           mouseRadius={300}
-          strength={0.8}
         />
       </div>
 
@@ -683,7 +741,7 @@ const AstraX = () => {
             )}
           </div>
 
-          {/* ==================== COMMUNITY PARTNERS ==================== */}
+{/* ==================== COMMUNITY PARTNERS ==================== */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -693,17 +751,33 @@ const AstraX = () => {
             <div className="flex items-center gap-4 w-full max-w-lg">
               <div className="h-px flex-1 bg-gradient-to-r from-transparent to-white/20" />
               <span className="font-mono text-[10px] md:text-[11px] tracking-[0.4em] text-white/35 uppercase whitespace-nowrap">
-                Community Partner
+                Community Partners
               </span>
               <div className="h-px flex-1 bg-gradient-to-l from-transparent to-white/20" />
             </div>
-            <img
-              src="/images/AWS_logo.png"
-              alt="Amazon Web Services"
-              className="h-20 md:h-28 w-auto object-contain"
-              style={{ filter: "brightness(1.3) contrast(1.1)" }}
-            />
+            <div className="flex items-center justify-center gap-8 md:gap-12">
+              <img
+                src="/images/AWS_logo.png"
+                alt="Amazon Web Services"
+                className="h-16 md:h-20 w-auto object-contain"
+                style={{ filter: "brightness(1.3) contrast(1.1)" }}
+              />
+              <div className="w-px h-10 bg-white/15" />
+              <div
+                className="flex items-center justify-center rounded-xl px-4 py-2"
+                style={{ background: "rgba(255, 255, 255, 0.14)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.1)" }}
+              >
+                <img
+                  src="/images/GDG_Cloud_Kochi_logo.png"
+                  alt="GDG Cloud Kochi"
+                  className="h-10 md:h-14 w-auto max-w-[150px] md:max-w-[190px] object-contain"
+                />
+              </div>
+            </div>
           </motion.div>
+          
+
+          <KonfHubRegistration />
 
           {/* ==================== HERO LOWER: TWO COLUMN LAYOUT ==================== */}
           <motion.div
@@ -880,6 +954,10 @@ const AstraX = () => {
                   <div className="px-3 py-1.5 rounded-lg bg-cyan-400/10 border border-cyan-400/20">
                     <span className="text-sm font-mono text-cyan-400 tracking-wider">IEDC</span>
                   </div>
+                  <span className="text-muted-foreground">×</span>
+                  <div className="px-3 py-1.5 rounded-lg bg-cyan-400/10 border border-cyan-400/20">
+                    <span className="text-sm font-mono text-cyan-400 tracking-wider">IIC</span>
+                  </div>
                 </div>
               </div>
             </HolographicCard>
@@ -924,15 +1002,15 @@ const AstraX = () => {
           </div>
 
           {/* ==================== PROBLEM STATEMENTS (REPLACED BADGE SECTION) ==================== */}
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
             className="mt-12"
-          >
-            <HolographicCard delay={0.2} colorTheme="mixed">
-              {/* Header */}
-              <div className="flex items-center gap-4 mb-8">
+          > */}
+          {/* <HolographicCard delay={0.2} colorTheme="mixed"> */}
+          {/* Header */}
+          {/* <div className="flex items-center gap-4 mb-8">
                 <div className="p-3 rounded-xl bg-gradient-to-br from-primary/20 to-blue-500/10 border border-primary/20">
                   <FileText className="w-6 h-6 text-primary" />
                 </div>
@@ -940,10 +1018,10 @@ const AstraX = () => {
                   <h3 className="font-display text-2xl md:text-3xl text-foreground">Problem Statements</h3>
                   <p className="text-sm text-muted-foreground mt-1">Click any statement to view the full PDF</p>
                 </div>
-              </div>
+              </div> */}
 
-              {/* Problem Statement Cards */}
-              <div className="grid gap-4">
+          {/* Problem Statement Cards */}
+          {/* <div className="grid gap-4">
                 {problemStatements.map((ps, index) => (
                   <motion.a
                     key={ps.number}
@@ -965,43 +1043,43 @@ const AstraX = () => {
                     onMouseLeave={(e) => {
                       e.currentTarget.style.boxShadow = "0 0 0 0 transparent";
                     }}
-                  >
-                    {/* Number badge */}
-                    <div className={cn(
+                  > */}
+          {/* Number badge */}
+          {/* <div className={cn(
                       "flex-shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br flex items-center justify-center font-mono font-bold text-white text-sm shadow-lg",
                       ps.gradient
                     )}>
                       {ps.number}
-                    </div>
+                    </div> */}
 
-                    {/* Title */}
-                    <p className="flex-1 text-sm md:text-base text-muted-foreground group-hover:text-foreground transition-colors duration-300 leading-relaxed">
+          {/* Title */}
+          {/* <p className="flex-1 text-sm md:text-base text-muted-foreground group-hover:text-foreground transition-colors duration-300 leading-relaxed">
                       {ps.title}
-                    </p>
+                    </p> */}
 
-                    {/* Arrow icon */}
-                    <div className="flex-shrink-0 flex items-center gap-1.5 text-muted-foreground/50 group-hover:text-primary transition-colors duration-300">
+          {/* Arrow icon */}
+          {/* <div className="flex-shrink-0 flex items-center gap-1.5 text-muted-foreground/50 group-hover:text-primary transition-colors duration-300">
                       <span className="hidden md:block text-xs font-mono tracking-wider opacity-0 group-hover:opacity-100 transition-opacity">VIEW PDF</span>
                       <ExternalLink className="w-4 h-4 md:w-5 md:h-5" />
                     </div>
                   </motion.a>
                 ))}
-              </div>
+              </div> */}
 
-              {/* Footer note */}
-              <div className="mt-6 pt-5 border-t border-white/10 flex items-center gap-2">
+          {/* Footer note */}
+          {/* <div className="mt-6 pt-5 border-t border-white/10 flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
                 <p className="text-xs font-mono text-muted-foreground/60 tracking-wider">
                   4 PROBLEM STATEMENTS AVAILABLE · CLICK TO OPEN PDF
                 </p>
               </div>
             </HolographicCard>
-          </motion.div>
+          </motion.div> */}
         </div>
-      </section>
+      </section >
 
       {/* ==================== CONTACTS ==================== */}
-      <section id="contacts" className="relative py-16 md:py-20 scroll-mt-24">
+      < section id="contacts" className="relative py-16 md:py-20 scroll-mt-24" >
         <div className="container max-w-[1200px] px-6 mx-auto">
           <SectionHeading
             eyebrow="CONTACTS"
@@ -1076,10 +1154,10 @@ const AstraX = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section >
 
       {/* ==================== REGISTER CTA ==================== */}
-      <section className="relative py-20 border-t border-white/5">
+      < section className="relative py-20 border-t border-white/5" >
         <div className="container max-w-[1200px] px-6 mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -1118,10 +1196,10 @@ const AstraX = () => {
             </motion.div>
           </motion.div>
         </div>
-      </section>
+      </section >
 
       {/* ==================== PARTNERS ==================== */}
-      <section className="relative py-28 border-t border-white/5">
+      < section className="relative py-28 border-t border-white/5" >
         <div className="container max-w-[1200px] px-6 mx-auto">
           <motion.div
             initial={{ opacity: 1, y: 0 }}
@@ -1155,38 +1233,40 @@ const AstraX = () => {
             </HolographicCard>
           </motion.div>
         </div>
-      </section>
+      </section >
 
       {/* ==================== SOCIAL FLOAT ==================== */}
-      <motion.div
+      < motion.div
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 2 }}
         className="fixed bottom-8 right-8 flex flex-col gap-3 z-50"
       >
-        {[
-          { icon: Instagram, href: "https://www.instagram.com/rsetiedc/", label: "Instagram" },
-          { icon: Linkedin, href: "https://www.linkedin.com/company/rset-iedc/?originalSubdomain=in", label: "LinkedIn" },
-          { icon: Facebook, href: "https://www.facebook.com/iedc.rset/", label: "Facebook" },
-          { icon: Twitter, href: "https://x.com/rset_iedc", label: "Twitter/X" },
-        ].map((social, index) => (
-          <motion.a
-            key={index}
-            href={social.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.1, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-            className="p-3 rounded-xl bg-black/40 backdrop-blur-xl border border-primary/20 hover:border-primary/50 hover:bg-primary/10 transition-all shadow-lg hover:shadow-primary/20"
-            aria-label={social.label}
-          >
-            <social.icon className="w-5 h-5 text-primary" />
-          </motion.a>
-        ))}
-      </motion.div>
+        {
+          [
+            { icon: Instagram, href: "https://www.instagram.com/rsetiedc/", label: "Instagram" },
+            { icon: Linkedin, href: "https://www.linkedin.com/company/rset-iedc/?originalSubdomain=in", label: "LinkedIn" },
+            { icon: Facebook, href: "https://www.facebook.com/iedc.rset/", label: "Facebook" },
+            { icon: Twitter, href: "https://x.com/rset_iedc", label: "Twitter/X" },
+          ].map((social, index) => (
+            <motion.a
+              key={index}
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.1, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              className="p-3 rounded-xl bg-black/40 backdrop-blur-xl border border-primary/20 hover:border-primary/50 hover:bg-primary/10 transition-all shadow-lg hover:shadow-primary/20"
+              aria-label={social.label}
+            >
+              <social.icon className="w-5 h-5 text-primary" />
+            </motion.a>
+          ))
+        }
+      </motion.div >
 
       {/* ==================== FOOTER ==================== */}
-      <footer className="relative py-16 border-t border-white/5">
+      < footer className="relative py-16 border-t border-white/5" >
         <div className="container max-w-[1200px] px-6 mx-auto text-center">
           <motion.div
             initial={{ opacity: 1 }}
@@ -1200,8 +1280,8 @@ const AstraX = () => {
             </p>
           </motion.div>
         </div>
-      </footer>
-    </div>
+      </footer >
+    </div >
   );
 };
 

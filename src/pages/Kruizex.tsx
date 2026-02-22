@@ -298,17 +298,17 @@ const Kruizex = () => {
                                 <div className="bg-black/90 backdrop-blur-2xl border border-white/10 p-8 md:p-10 rounded-[2.4rem] space-y-8">
                                     <div className="space-y-2">
                                         <h3 className="font-display text-4xl tracking-tight uppercase">Ready to board?</h3>
-                                        <p className="text-muted-foreground text-sm uppercase font-mono tracking-widest">// Registration Open</p>
+                                        <p className="text-muted-foreground text-sm uppercase font-mono tracking-widest">// Registration Closed</p>
                                     </div>
 
                                     <div className="space-y-4">
                                         <motion.a
                                             whileHover={{ scale: 1.02 }}
                                             whileTap={{ scale: 0.98 }}
-                                            href="https://konfhub.com/kruizex"
+                                            href="#"
                                             className="block w-full py-5 bg-blue-600 hover:bg-blue-500 text-white text-center font-display text-2xl tracking-[0.05em] uppercase rounded-2xl transition-all shadow-[0_0_30px_rgba(37,99,235,0.3)] hover:shadow-[0_0_50px_rgba(37,99,235,0.5)]"
                                         >
-                                            Register Now
+                                            Register Closed
                                         </motion.a>
                                     </div>
 
