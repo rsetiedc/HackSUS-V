@@ -5,6 +5,36 @@ import { motion, useAnimation, AnimatePresence, useScroll, useTransform, useSpri
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
+const PROBLEM_STATEMENTS = [
+    {
+        id: "01",
+        title: "Scene-to-Scoring Assistant",
+        oneLiner: "Design a system that translates scene emotions and intensity into structured music-scoring guidance and a simple MIDI motif.",
+        description: "Film composers often spend significant time deciding tempo, tonal center, and thematic direction before actual composition begins. This challenge focuses on accelerating those early creative decisions—not generating full music, but providing clear, structured musical guidance.",
+        inputs: ["Primary emotion", "Intensity (1-10)", "Musical style", "Scene duration"],
+        outputs: ["Suggested tempo range", "Tonal center", "Basic harmonic progression", "4-bar MIDI motif"],
+        constraints: "Rule-based or lightweight ML approaches are acceptable. MIDI output is sufficient; audio generation is not required."
+    },
+    {
+        id: "02",
+        title: "Loudness Compliance Agent",
+        oneLiner: "Build an AI agent that analyses audio loudness and clearly explains compliance with industry delivery standards.",
+        description: "In music, film, OTT, and broadcast workflows, loudness compliance is critical. Participants will build an AI agent that analyses audio loudness metrics to ensure delivery perfection.",
+        inputs: ["LUFS (Intergrated/Short-term)", "True Peak levels", "Dynamic range"],
+        outputs: ["Loudness timeline visualisation", "Non-compliant segment flags", "Indicated delivery targets"],
+        constraints: "The agent must only analyse and explain—it must not process or modify the audio."
+    },
+    {
+        id: "03",
+        title: "Dialogue-Music Conflict Detection Agent",
+        oneLiner: "Create an AI agent that detects and explains when background music masks dialogue clarity.",
+        description: "Participants will build an AI agent that analyses dialogue and music stems to identify frequency overlap and masking, ensuring maximum dialogue intelligibility.",
+        inputs: ["Dialogue stems", "Music background stems", "Frequency balance"],
+        outputs: ["Frequency overlap maps", "Intelligibility warning zones", "Timeline conflict visualisation"],
+        constraints: "The focus is on detection and explanation, not automatic correction."
+    }
+];
+
 const RevolvingHeader = () => {
     return (
         <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none">
@@ -164,7 +194,7 @@ const ProblemStatementRow = ({ ps, isActive, isDimmed, onClick }: { ps: any, isA
                 <span className="font-mono text-sm text-muted-foreground pt-1.5 opacity-50 group-hover:opacity-100 transition-opacity">[{ps.id}]</span>
                 <div className="flex-1">
                     <div className="flex items-center justify-between gap-4 mb-2">
-                        <h3 className="text-xl md:text-2xl font-display font-bold text-white group-hover:text-primary transition-colors uppercase tracking-tight text-balance">
+                        <h3 className="text-xl md:text-2xl font-display text-white group-hover:text-primary transition-colors tracking-widest uppercase">
                             {ps.title}
                         </h3>
                         <div className="text-muted-foreground group-hover:text-primary transition-colors">
@@ -755,35 +785,7 @@ const UnmuteX = () => {
                                         <div className="col-span-11">Problem Statement</div>
                                     </div>
 
-                                    {[
-                                        {
-                                            id: "01",
-                                            title: "Scene-to-Scoring Assistant",
-                                            oneLiner: "Design a system that translates scene emotions and intensity into structured music-scoring guidance and a simple MIDI motif.",
-                                            description: "Film composers often spend significant time deciding tempo, tonal center, and thematic direction before actual composition begins. This challenge focuses on accelerating those early creative decisions—not generating full music, but providing clear, structured musical guidance.",
-                                            inputs: ["Primary emotion", "Intensity (1-10)", "Musical style", "Scene duration"],
-                                            outputs: ["Suggested tempo range", "Tonal center", "Basic harmonic progression", "4-bar MIDI motif"],
-                                            constraints: "Rule-based or lightweight ML approaches are acceptable. MIDI output is sufficient; audio generation is not required."
-                                        },
-                                        {
-                                            id: "02",
-                                            title: "Loudness Compliance Agent",
-                                            oneLiner: "Build an AI agent that analyses audio loudness and clearly explains compliance with industry delivery standards.",
-                                            description: "In music, film, OTT, and broadcast workflows, loudness compliance is critical. Participants will build an AI agent that analyses audio loudness metrics to ensure delivery perfection.",
-                                            inputs: ["LUFS (Intergrated/Short-term)", "True Peak levels", "Dynamic range"],
-                                            outputs: ["Loudness timeline visualisation", "Non-compliant segment flags", "Indicated delivery targets"],
-                                            constraints: "The agent must only analyse and explain—it must not process or modify the audio."
-                                        },
-                                        {
-                                            id: "03",
-                                            title: "Dialogue–Music Conflict Detection Agent",
-                                            oneLiner: "Create an AI agent that detects and explains when background music masks dialogue clarity.",
-                                            description: "Participants will build an AI agent that analyses dialogue and music stems to identify frequency overlap and masking, ensuring maximum dialogue intelligibility.",
-                                            inputs: ["Dialogue stems", "Music background stems", "Frequency balance"],
-                                            outputs: ["Frequency overlap maps", "Intelligibility warning zones", "Timeline conflict visualisation"],
-                                            constraints: "The focus is on detection and explanation, not automatic correction."
-                                        }
-                                    ].map((ps, i) => (
+                                    {PROBLEM_STATEMENTS.map((ps, i) => (
                                         <ProblemStatementRow
                                             key={i}
                                             ps={ps}
@@ -926,11 +928,7 @@ const UnmuteX = () => {
             <VinylSleeveDetail
                 isOpen={activeProblemId !== null}
                 onClose={() => setActiveProblemId(null)}
-                ps={[
-                    { id: "01", title: "Scene-to-Scoring Assistant", description: "Film composers often spend significant time deciding tempo, tonal center, and thematic direction before actual composition begins. This challenge focuses on accelerating those early creative decisions—not generating full music, but providing clear, structured musical guidance.", inputs: ["Primary emotion", "Intensity (1-10)", "Musical style", "Scene duration"], outputs: ["Suggested tempo range", "Tonal center", "Basic harmonic progression", "4-bar MIDI motif"], constraints: "Rule-based or lightweight ML approaches are acceptable. MIDI output is sufficient; audio generation is not required." },
-                    { id: "02", title: "Loudness Compliance Agent", description: "In music, film, OTT, and broadcast workflows, loudness compliance is critical. Participants will build an AI agent that analyses audio loudness metrics to ensure delivery perfection.", inputs: ["LUFS (Intergrated/Short-term)", "True Peak levels", "Dynamic range"], outputs: ["Loudness timeline visualisation", "Non-compliant segment flags", "Indicated delivery targets"], constraints: "The agent must only analyse and explain—it must not process or modify the audio." },
-                    { id: "03", title: "Dialogue-Music Conflict Detection Agent", description: "Participants will build an AI agent that analyses dialogue and music stems to identify frequency overlap and masking, ensuring maximum dialogue intelligibility.", inputs: ["Dialogue stems", "Music background stems", "Frequency balance"], outputs: ["Frequency overlap maps", "Intelligibility warning zones", "Timeline conflict visualisation"], constraints: "The focus is on detection and explanation, not automatic correction." }
-                ].find(p => p.id === activeProblemId)}
+                ps={PROBLEM_STATEMENTS.find(p => p.id === activeProblemId)}
             />
 
             {!isRegistrationActive && (
