@@ -722,8 +722,8 @@ const CarbonX = () => {
                     durationMs={1400}
                     maxIterations={18}
                     numbersOnly={true}
-                    parentClassName="relative z-10 font-display text-[3.2rem] sm:text-[4rem] md:text-[5rem] leading-none tabular-nums tracking-widest text-transparent bg-clip-text bg-gradient-to-b from-white to-white/50 drop-shadow-[0_8px_32px_rgba(255,255,255,0.06)]"
-                    className="mix-blend-screen"
+                    parentClassName="relative z-10 font-display text-[3.2rem] sm:text-[4rem] md:text-[5rem] leading-none tabular-nums tracking-widest text-foreground drop-shadow-md"
+                    className=""
                     encryptedClassName="opacity-30"
                     aria-label={`Total prize pool ${carbonX.prizeAmount}`}
                   />
