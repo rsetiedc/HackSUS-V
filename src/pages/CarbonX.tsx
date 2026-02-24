@@ -702,14 +702,19 @@ const CarbonX = () => {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, ease: "easeOut", delay: 0.07 }}
-                className="landing-prize"
+                className="mt-1 md:mt-2 mb-8 md:mb-10 flex flex-col items-center justify-center relative z-10 w-full"
               >
-                <div className="landing-prize-panel px-5 py-4">
-                  <div className="landing-prize-label font-mono text-[10px] uppercase tracking-[0.56em] text-muted-foreground">
-                    <span className="landing-prize-rule" aria-hidden="true" />
-                    <span>Total prize pool</span>
-                    <span className="landing-prize-rule" aria-hidden="true" />
-                  </div>
+                <div className="flex items-center gap-4 mb-2">
+                  <span className="h-[1px] w-6 sm:w-12 bg-gradient-to-r from-transparent to-white/20 block" aria-hidden="true" />
+                  <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.6em] text-muted-foreground/80 font-semibold flex items-center gap-2">
+                    <span className="w-1 h-1 rounded-full bg-primary/60 blur-[0.5px]"></span>
+                    Total Prize Pool
+                    <span className="w-1 h-1 rounded-full bg-primary/60 blur-[0.5px]"></span>
+                  </span>
+                  <span className="h-[1px] w-6 sm:w-12 bg-gradient-to-l from-transparent to-white/20 block" aria-hidden="true" />
+                </div>
+                <div className="relative inline-flex items-center justify-center mt-1">
+                  <div className="absolute inset-0 bg-white/[0.03] blur-[40px] rounded-[100%] scale-[2]" />
                   <DecryptedText
                     text={carbonX.prizeAmount}
                     animateOn="view"
@@ -717,9 +722,9 @@ const CarbonX = () => {
                     durationMs={1400}
                     maxIterations={18}
                     numbersOnly={true}
-                    parentClassName="landing-prize-value font-display tabular-nums"
-                    className="text-foreground/95"
-                    encryptedClassName="text-foreground/95"
+                    parentClassName="relative z-10 font-display text-[4rem] sm:text-[5rem] md:text-[6rem] leading-none tabular-nums tracking-widest text-transparent bg-clip-text bg-gradient-to-b from-white to-white/50 drop-shadow-[0_8px_32px_rgba(255,255,255,0.06)]"
+                    className="mix-blend-screen"
+                    encryptedClassName="opacity-30"
                     aria-label={`Total prize pool ${carbonX.prizeAmount}`}
                   />
                 </div>
@@ -869,9 +874,8 @@ const CarbonX = () => {
 
               <motion.div
                 initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px 0px -20% 0px" }}
-                transition={{ duration: 0.55, ease: "easeOut" }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, ease: "easeOut", delay: 0.1 }}
                 className="w-full"
               >
                 <SpotlightCard
@@ -1022,56 +1026,56 @@ const CarbonX = () => {
         {/* History */}
         <section id="history" className="relative py-20 md:py-28 scroll-mt-24">
           <div className="container max-w-[1100px] px-6">
-          <SectionHeading
-            eyebrow="HISTORY"
-            title={
-              <>
-                From <span className="text-primary">VEGATHON</span> to{" "}
-                <span className="font-mokoto">CARBONX</span>
-              </>
-            }
-            description="A hardware hackathon lineage focused on indigenous tech and deep systems learning."
-          />
+            <SectionHeading
+              eyebrow="HISTORY"
+              title={
+                <>
+                  From <span className="text-primary">VEGATHON</span> to{" "}
+                  <span className="font-mokoto">CARBONX</span>
+                </>
+              }
+              description="A hardware hackathon lineage focused on indigenous tech and deep systems learning."
+            />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 items-stretch">
-            {[
-              {
-                year: "2022",
-                title: "VEGATHON",
-                body:
-                  "National-level hardware hackathon centered around the VEGA Processor, built with CDAC.",
-              },
-              {
-                year: "After",
-                title: "VEGATHON → CARBONX",
-                body:
-                  "Evolved from VEGATHON into CARBONX to continue the hardware-first legacy under a stronger long-term identity.",
-              },
-            ].map((t, idx) => (
-              <motion.div
-                key={t.title}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px 0px -20% 0px" }}
-                transition={{ duration: 0.55, ease: "easeOut", delay: idx * 0.04 }}
-                className="h-full"
-              >
-                <GlassCard className="p-7 md:p-8 h-full">
-                  <div className="flex items-baseline justify-between gap-4">
-                    <div className="font-mono text-xs tracking-[0.38em] text-muted-foreground">
-                      {t.year}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 items-stretch">
+              {[
+                {
+                  year: "2022",
+                  title: "VEGATHON",
+                  body:
+                    "National-level hardware hackathon centered around the VEGA Processor, built with CDAC.",
+                },
+                {
+                  year: "After",
+                  title: "VEGATHON → CARBONX",
+                  body:
+                    "Evolved from VEGATHON into CARBONX to continue the hardware-first legacy under a stronger long-term identity.",
+                },
+              ].map((t, idx) => (
+                <motion.div
+                  key={t.title}
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-80px 0px -20% 0px" }}
+                  transition={{ duration: 0.55, ease: "easeOut", delay: idx * 0.04 }}
+                  className="h-full"
+                >
+                  <GlassCard className="p-7 md:p-8 h-full">
+                    <div className="flex items-baseline justify-between gap-4">
+                      <div className="font-mono text-xs tracking-[0.38em] text-muted-foreground">
+                        {t.year}
+                      </div>
+                      <div className="h-px flex-1 bg-border/60" />
                     </div>
-                    <div className="h-px flex-1 bg-border/60" />
-                  </div>
-                  <div className="mt-3 font-display text-xl tracking-wide">
-                    {t.title}
-                  </div>
-                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-                    {t.body}
-                  </p>
-                </GlassCard>
-              </motion.div>
-            ))}
+                    <div className="mt-3 font-display text-xl tracking-wide">
+                      {t.title}
+                    </div>
+                    <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                      {t.body}
+                    </p>
+                  </GlassCard>
+                </motion.div>
+              ))}
             </div>
           </div>
         </section>
