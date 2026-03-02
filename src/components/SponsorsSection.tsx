@@ -195,8 +195,6 @@ function SponsorCard({
         sponsor.cardClassName || ""
       ].join(" ")}
       style={{
-        backdropFilter: !sponsor.cardClassName ? "blur(10px)" : undefined,
-        WebkitBackdropFilter: !sponsor.cardClassName ? "blur(10px)" : undefined,
         background: !sponsor.cardClassName ? "rgba(255, 255, 255, 0.06)" : undefined,
         borderRadius: "12px",
         minHeight: "140px",

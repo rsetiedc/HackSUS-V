@@ -154,8 +154,6 @@ function CollaboratorCard({
                 collaborator.cardClassName || ""
             ].join(" ")}
             style={{
-                backdropFilter: !collaborator.cardClassName ? "blur(10px)" : undefined,
-                WebkitBackdropFilter: !collaborator.cardClassName ? "blur(10px)" : undefined,
                 background: !collaborator.cardClassName ? "rgba(255, 255, 255, 0.06)" : undefined,
                 borderRadius: "12px",
                 minHeight: "140px",

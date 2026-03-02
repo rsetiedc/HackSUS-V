@@ -148,8 +148,6 @@ function LogoCard({
                 partner.cardClassName || ""
             ].join(" ")}
             style={{
-                backdropFilter: !partner.cardClassName ? "blur(10px)" : undefined,
-                WebkitBackdropFilter: !partner.cardClassName ? "blur(10px)" : undefined,
                 background: !partner.cardClassName ? "rgba(255, 255, 255, 0.06)" : undefined,
                 borderRadius: "12px",
                 minHeight: "140px",
