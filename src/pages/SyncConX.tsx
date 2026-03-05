@@ -324,7 +324,7 @@ const SyncConX = () => {
                                         transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
                                     >
                                         <DecryptedText
-                                            text="₹20,000"
+                                            text="₹30,000"
                                             numbersOnly
                                             animateOn="view"
                                             speed={30}
@@ -686,7 +686,7 @@ const SyncConX = () => {
 
                                 <div className="space-y-10">
                                     {[
-                                        { label: "Track Prize Pool", value: "₹20K", highlight: true },
+                                        { label: "Track Prize Pool", value: "₹30K", highlight: true },
                                         { label: "Squad Capacity", value: "4-6 members" },
                                         { label: "Timeframe", value: "42 hours" },
                                         { label: "Interface", value: "IoT" },
