@@ -1,9 +1,12 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Play, Pause, SkipBack, SkipForward, Info, Download, Music, Zap, Layers, Trophy, Users, Clock, Volume2, ChevronDown, ChevronUp, X, ExternalLink } from "lucide-react";
+import { ArrowLeft, Play, Pause, SkipBack, SkipForward, Info, Download, Music, Zap, Layers, Trophy, Users, Clock, Volume2, ChevronDown, ChevronUp, X, ExternalLink, Rocket } from "lucide-react";
 import { motion, useAnimation, AnimatePresence, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CountdownOverlay from "@/components/CountdownOverlay";
+import TrackElapsedTimer from "@/components/TrackElapsedTimer";
+import { useTrackTimer } from "@/hooks/useTrackTimer";
 
 const PROBLEM_STATEMENTS = [
     {
@@ -415,72 +418,39 @@ const PartnerBranding = ({ className = "", variant = "small" }: { className?: st
     );
 };
 
-// ==================== KONFHUB REGISTRATION ====================
-function KonfHubRegistration() {
-    const containerRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        if (!containerRef.current) return;
-
-        // Ensure the script is only added once
-        containerRef.current.innerHTML = "";
-
-        const script = document.createElement("script");
-        script.src = "https://widget.konfhub.com/widget.js";
-        script.setAttribute("button_id", "btn_0a61a84147fd");
-        script.async = true;
-
-        containerRef.current.appendChild(script);
-    }, []);
-
-    return (
-        <div className="flex justify-center flex-shrink-0">
-            <style>{`
-        .konfhub-widget-container .reg-button {
-          background-color: #ff312e !important;
-          color: white !important;
-          font-family: inherit !important;
-          font-weight: 700 !important;
-          font-size: 0.95rem !important;
-          padding: 0 2.5rem !important;
-          height: 3.5rem !important;
-          border-radius: 9999px !important;
-          box-shadow: 0 10px 20px rgba(255, 49, 46, 0.2) !important;
-          transition: all 0.3s ease !important;
-          border: none !important;
-          display: flex !important;
-          align-items: center !important;
-          justify-content: center !important;
-          cursor: pointer !important;
-          text-transform: uppercase !important;
-          letter-spacing: 0.05em !important;
-        }
-        .konfhub-widget-container .reg-button:hover {
-          background-color: rgba(255, 49, 46, 0.9) !important;
-          box-shadow: 0 15px 30px rgba(255, 49, 46, 0.4) !important;
-          transform: scale(1.05) !important;
-        }
-        .konfhub-widget-container .reg-button img {
-          display: none !important;
-        }
-        /* Adding a play icon approximation since we can't easily inject lucide into KonfHub's button DOM */
-        .konfhub-widget-container .reg-button::before {
-          content: '▶';
-          margin-right: 12px;
-          font-size: 14px;
-        }
-      `}</style>
-            <div ref={containerRef} className="konfhub-widget-container" />
-        </div>
-    );
-}
 
 const UnmuteX = () => {
     const [activeProblemId, setActiveProblemId] = useState<string | null>(null);
     const [isPlayerReady, setIsPlayerReady] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
     const [isRegistrationActive, setIsRegistrationActive] = useState(false);
+    const [countdownActive, setCountdownActive] = useState(false);
+    const { elapsed, startTimer, resetTimer, isStarted } = useTrackTimer("unmutex");
     const embedControllerRef = useRef<any>(null);
+
+    const handleCountdownComplete = useCallback(() => {
+        setCountdownActive(false);
+        startTimer();
+    }, [startTimer]);
+
+    const handleLaunch = useCallback(() => {
+        if (!isStarted) setCountdownActive(true);
+    }, [isStarted]);
+
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            // Reset shortcut: Ctrl + Alt + R (PC) or Cmd + Option + R (Mac)
+            if ((e.ctrlKey || e.metaKey) && e.altKey && e.key.toLowerCase() === "r") {
+                resetTimer();
+            }
+            // Launch shortcut: Ctrl + Alt + L (PC) or Cmd + Option + L (Mac)
+            if (!isStarted && (e.ctrlKey || e.metaKey) && e.altKey && e.key.toLowerCase() === "l") {
+                handleLaunch();
+            }
+        };
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [resetTimer, handleLaunch, isStarted]);
 
     const sections = ['hero', 'tracklist', 'about', 'contact'];
 
@@ -665,10 +635,24 @@ const UnmuteX = () => {
                         </motion.div>
 
                         <motion.h1
-                            className="font-display text-6xl sm:text-8xl md:text-9xl lg:text-[12rem] leading-[0.85] mb-4 mt-10"
+                            className="font-display text-6xl text-white sm:text-8xl md:text-9xl lg:text-[12rem] leading-[0.85] mb-4 mt-10"
                         >
                             UNMUTEX
                         </motion.h1>
+
+                        {/* Elapsed Timer */}
+                        {isStarted && (
+                            <TrackElapsedTimer
+                                elapsed={elapsed}
+                                fontClass="font-display"
+                                labelClass="font-mono text-[10px] text-primary/60 tracking-[0.4em] uppercase"
+                                boxClass="bg-charcoal/40 backdrop-blur-md rounded-2xl border border-white/5"
+                                numberClass="font-display text-3xl md:text-4xl text-primary"
+                                glowColor="rgba(255,49,46,0.1)"
+                                className="mt-6 mb-8"
+                            />
+                        )}
+
 
                         <div className="flex flex-col items-center gap-6 mb-12">
                             <div className="flex items-center gap-4">
@@ -732,7 +716,6 @@ const UnmuteX = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.6 }}
                             >
-                                <KonfHubRegistration />
 
                                 <motion.button
                                     onClick={handlePlayTrigger}
@@ -915,6 +898,14 @@ const UnmuteX = () => {
                 />
             )}
             <Footer />
+
+            {/* Countdown Overlay */}
+            <CountdownOverlay
+                isActive={countdownActive}
+                trackTitle="UNMUTEX"
+                fontClass="font-display"
+                onComplete={handleCountdownComplete}
+            />
         </div>
     );
 };

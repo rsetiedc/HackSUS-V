@@ -1,6 +1,6 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Cpu, Radio, Activity, Gauge, Zap, CircuitBoard } from "lucide-react";
+import { ArrowLeft, Cpu, Radio, Activity, Gauge, Zap, CircuitBoard, Rocket } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -8,6 +8,9 @@ import CircuitGrid from "@/components/CircuitGrid";
 import DimensionLine from "@/components/DimensionLine";
 import DecryptedText from "@/components/DecryptedText";
 import ShinyText from "@/components/ShinyText";
+import CountdownOverlay from "@/components/CountdownOverlay";
+import TrackElapsedTimer from "@/components/TrackElapsedTimer";
+import { useTrackTimer } from "@/hooks/useTrackTimer";
 import SpotlightCard from "@/components/SpotlightCard";
 import Crosshair from "@/components/Crosshair";
 
@@ -102,70 +105,38 @@ const VoltageReadout = ({ label, value }: { label: string; value: string }) => (
     </div>
 );
 
-// ==================== KONFHUB REGISTRATION ====================
-function KonfHubRegistration() {
-    const containerRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        if (!containerRef.current) return;
-
-        // Ensure the script is only added once
-        containerRef.current.innerHTML = "";
-
-        const script = document.createElement("script");
-        script.src = "https://widget.konfhub.com/widget.js";
-        script.setAttribute("button_id", "btn_8b9aed9a4bb3");
-        script.async = true;
-
-        containerRef.current.appendChild(script);
-    }, []);
-
-    return (
-        <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.8 }}
-            className="flex justify-center z-20 mt-10"
-        >
-            <style>{`
-        .konfhub-widget-container .reg-button {
-          background-color: #ff312e !important;
-          color: white !important;
-          font-family: inherit !important;
-          font-weight: 700 !important;
-          font-size: 1rem !important;
-          padding: 0 3rem !important;
-          height: 4rem !important;
-          border-radius: 1rem !important;
-          box-shadow: 0 0 40px rgba(255, 49, 46, 0.3) !important;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-          border: none !important;
-          display: flex !important;
-          align-items: center !important;
-          justify-content: center !important;
-          cursor: pointer !important;
-          text-transform: uppercase !important;
-          letter-spacing: 0.2em !important;
-        }
-        .konfhub-widget-container .reg-button:hover {
-          background-color: rgba(255, 49, 46, 0.9) !important;
-          box-shadow: 0 0 60px rgba(255, 49, 46, 0.5) !important;
-          transform: translateY(-2px) scale(1.02) !important;
-        }
-        .konfhub-widget-container .reg-button img {
-          display: none !important;
-        }
-      `}</style>
-            <div ref={containerRef} className="konfhub-widget-container" />
-        </motion.div>
-    );
-}
 
 const SyncConX = () => {
     const [hoveredSection, setHoveredSection] = useState<string | null>(null);
     const containerRef = useRef<HTMLDivElement>(null);
 
     const [isRegistrationActive, setIsRegistrationActive] = useState(false);
+    const [countdownActive, setCountdownActive] = useState(false);
+    const { elapsed, startTimer, resetTimer, isStarted } = useTrackTimer("syncconx");
+
+    const handleLaunch = useCallback(() => {
+        if (!isStarted) setCountdownActive(true);
+    }, [isStarted]);
+
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            // Reset shortcut: Ctrl + Alt + R (PC) or Cmd + Option + R (Mac)
+            if ((e.ctrlKey || e.metaKey) && e.altKey && e.key.toLowerCase() === "r") {
+                resetTimer();
+            }
+            // Launch shortcut: Ctrl + Alt + L (PC) or Cmd + Option + L (Mac)
+            if (!isStarted && (e.ctrlKey || e.metaKey) && e.altKey && e.key.toLowerCase() === "l") {
+                handleLaunch();
+            }
+        };
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [resetTimer, handleLaunch, isStarted]);
+
+    const handleCountdownComplete = useCallback(() => {
+        setCountdownActive(false);
+        startTimer();
+    }, [startTimer]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -273,6 +244,19 @@ const SyncConX = () => {
                                 SYNCCONX
                             </motion.h1>
 
+                            {/* Elapsed Timer */}
+                            {isStarted && (
+                                <TrackElapsedTimer
+                                    elapsed={elapsed}
+                                    fontClass="font-mono"
+                                    labelClass="font-mono text-[10px] text-primary/60 tracking-[0.3em] uppercase"
+                                    boxClass="rounded-[1rem] border border-primary/20 bg-card/20 backdrop-blur-xl"
+                                    numberClass="font-display text-3xl md:text-4xl text-primary"
+                                    glowColor="rgba(255,49,46,0.1)"
+                                    className="mt-8"
+                                />
+                            )}
+
                             {/* Gradient line */}
                             <motion.div
                                 initial={{ width: 0 }}
@@ -291,7 +275,6 @@ const SyncConX = () => {
                                 more efficient workflows.
                             </motion.p>
 
-                            <KonfHubRegistration />
 
                             {/* Prize Pool */}
                             <motion.div
@@ -831,6 +814,14 @@ const SyncConX = () => {
             <div className="relative z-50">
                 <Footer />
             </div>
+
+            {/* Countdown Overlay */}
+            <CountdownOverlay
+                isActive={countdownActive}
+                trackTitle="SYNCCONX"
+                fontClass="font-display"
+                onComplete={handleCountdownComplete}
+            />
         </div>
     );
 };

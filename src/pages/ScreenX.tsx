@@ -1,71 +1,42 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Film, Clapperboard, Palette, Music, Scissors, Sparkles, Camera, Mic, ScrollText, Layout, Video, Layers, Sparkle } from "lucide-react";
+import { ArrowLeft, Film, Clapperboard, Palette, Music, Scissors, Sparkles, Camera, Mic, ScrollText, Layout, Video, Layers, Sparkle, Rocket } from "lucide-react";
 import { motion } from "motion/react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FilmReelBackground from "@/components/FilmReelBackground";
-
-// ==================== KONFHUB REGISTRATION ====================
-function KonfHubRegistration() {
-    const containerRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        if (!containerRef.current) return;
-
-        // Ensure the script is only added once
-        containerRef.current.innerHTML = "";
-
-        const script = document.createElement("script");
-        script.src = "https://widget.konfhub.com/widget.js";
-        script.setAttribute("button_id", "btn_7a4b7706f247"); // Using main event ID as placeholder
-        script.async = true;
-
-        containerRef.current.appendChild(script);
-    }, []);
-
-    return (
-        <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="flex justify-center z-20 mt-8"
-        >
-            <style>{`
-        .konfhub-widget-container .reg-button {
-          background-color: #ff312e !important;
-          color: white !important;
-          font-family: copperplateBold !important;
-          font-weight: 700 !important;
-          font-size: 0.975rem !important;
-          padding: 0 3rem !important;
-          height: 3.5rem !important;
-          border-radius: 9999px !important;
-          box-shadow: 0 0 40px rgba(255, 49, 46, 0.4) !important;
-          transition: all 0.3s ease !important;
-          border: none !important;
-          display: flex !important;
-          align-items: center !important;
-          justify-content: center !important;
-          cursor: pointer !important;
-          text-transform: uppercase !important;
-          letter-spacing: 0.2em !important;
-        }
-        .konfhub-widget-container .reg-button:hover {
-          background-color: rgba(255, 49, 46, 0.9) !important;
-          box-shadow: 0 0 60px rgba(255, 49, 46, 0.6) !important;
-          transform: translateY(-2px) !important;
-        }
-        .konfhub-widget-container .reg-button img {
-          display: none !important;
-        }
-      `}</style>
-            <div ref={containerRef} className="konfhub-widget-container" />
-        </motion.div>
-    );
-}
+import CountdownOverlay from "@/components/CountdownOverlay";
+import TrackElapsedTimer from "@/components/TrackElapsedTimer";
+import { useTrackTimer } from "@/hooks/useTrackTimer";
 
 const ScreenX = () => {
+    const [countdownActive, setCountdownActive] = useState(false);
+    const { elapsed, startTimer, resetTimer, isStarted } = useTrackTimer("screenx");
+
+    const handleCountdownComplete = useCallback(() => {
+        setCountdownActive(false);
+        startTimer();
+    }, [startTimer]);
+
+    const handleLaunch = useCallback(() => {
+        if (!isStarted) setCountdownActive(true);
+    }, [isStarted]);
+
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            // Reset shortcut: Ctrl + Alt + R (PC) or Cmd + Option + R (Mac)
+            if ((e.ctrlKey || e.metaKey) && e.altKey && e.key.toLowerCase() === "r") {
+                resetTimer();
+            }
+            // Launch shortcut: Ctrl + Alt + L (PC) or Cmd + Option + L (Mac)
+            if (!isStarted && (e.ctrlKey || e.metaKey) && e.altKey && e.key.toLowerCase() === "l") {
+                handleLaunch();
+            }
+        };
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [resetTimer, handleLaunch, isStarted]);
+
     // Film reel data for scrolling rows
     const filmReelRow1 = [
         { icon: Film, title: "Scriptwriting", desc: "AI-powered story generation" },
@@ -118,7 +89,7 @@ const ScreenX = () => {
             {!isRegistrationActive && <Navbar />}
 
             {/* ═══════════════════ HERO ═══════════════════ */}
-            <section className="relative h-screen flex flex-col items-center justify-center overflow-hidden">
+            <section className="relative min-h-screen flex flex-col items-center pt-32 md:pt-40 pb-20 overflow-hidden">
 
 
                 {/* Track label */}
@@ -156,6 +127,21 @@ const ScreenX = () => {
                     Where AI meets the art of filmmaking
                 </motion.p>
 
+                {/* Elapsed Timer */}
+                {isStarted && (
+                    <div className="z-20">
+                        <TrackElapsedTimer
+                            elapsed={elapsed}
+                            fontClass="font-copperplate"
+                            labelClass="font-copperplate text-[10px] text-primary/60 tracking-[0.4em] uppercase"
+                            boxClass="border border-primary/20 bg-black"
+                            numberClass="font-copperplate text-3xl md:text-4xl text-primary"
+                            glowColor="rgba(255,49,46,0.1)"
+                            className="mt-8"
+                        />
+                    </div>
+                )}
+
                 {/* Prize Pool Badge */}
                 <motion.div
                     className="border border-primary rounded-tl-3xl rounded-br-3xl px-10 md:px-16 py-6 md:py-10 mt-12 z-20"
@@ -181,7 +167,6 @@ const ScreenX = () => {
                     </p>
                 </motion.div>
 
-                <KonfHubRegistration />
             </section>
 
             {/* ═══════════════════ FILM REEL CAROUSELS ═══════════════════ */}
@@ -407,14 +392,6 @@ const ScreenX = () => {
                                         </div>
                                     ))}
                                 </div>
-                                <a
-                                    href="https://konfhub.com/hacksus-edition-5"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="block w-full mt-8 bg-primary text-black font-copperplate tracking-widest text-center py-3 px-6 hover:bg-[#ff312e]/90 transition-colors uppercase text-sm"
-                                >
-                                    Register Team
-                                </a>
                             </motion.div>
                         </div>
                     </div>
@@ -469,7 +446,7 @@ const ScreenX = () => {
 
                                 <div className="space-y-3 font-body">
                                     <a
-                                        href={`tel:${contact.phoneLink}`}
+                                        href={`tel:${contact.phoneLink} `}
                                         className="flex items-start gap-3 group"
                                     >
                                         <span className="mt-1.5 h-2 w-2 rounded-full bg-primary flex-shrink-0" />
@@ -478,7 +455,7 @@ const ScreenX = () => {
                                         </span>
                                     </a>
                                     <a
-                                        href={`mailto:${contact.email}`}
+                                        href={`mailto:${contact.email} `}
                                         className="flex items-start gap-3 group"
                                     >
                                         <span className="mt-1.5 h-2 w-2 rounded-full bg-primary flex-shrink-0" />
@@ -494,6 +471,14 @@ const ScreenX = () => {
             </section>
 
             <Footer />
+
+            {/* Countdown Overlay */}
+            <CountdownOverlay
+                isActive={countdownActive}
+                trackTitle="SCREENX"
+                fontClass="font-copperplate"
+                onComplete={handleCountdownComplete}
+            />
         </div>
     );
 };

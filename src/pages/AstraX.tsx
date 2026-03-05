@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowUp, Instagram, Linkedin, Facebook, Twitter, Zap, Brain, Cpu, Sparkles, Code, Database, Network, Menu, FileText, ExternalLink } from "lucide-react";
+import { ArrowUp, Instagram, Linkedin, Facebook, Twitter, Zap, Brain, Cpu, Sparkles, Code, Database, Network, Menu, FileText, ExternalLink, Rocket } from "lucide-react";
 
 import LogoLoop from "@/components/LogoLoop";
 import ResponsiveParticles from "@/components/ResponsiveParticles";
@@ -11,6 +11,10 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { useParticleTuning } from "@/hooks/useParticlesQuality";
 import GraphNetwork from "@/components/GraphNetwork";
+import CountdownOverlay from "@/components/CountdownOverlay";
+import TrackElapsedTimer from "@/components/TrackElapsedTimer";
+import { useTrackTimer } from "@/hooks/useTrackTimer";
+import AstraTerminal from "@/components/AstraTerminal";
 
 
 // ==================== NEURAL NETWORK BACKGROUND (OPTIMIZED) ====================
@@ -458,65 +462,6 @@ function AstraXNavbar({ activeId, items, onNavigate }) {
   );
 }
 
-// ==================== KONFHUB REGISTRATION ====================
-function KonfHubRegistration() {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    // Ensure the script is only added once
-    containerRef.current.innerHTML = "";
-
-    const script = document.createElement("script");
-    script.src = "https://widget.konfhub.com/widget.js";
-    script.setAttribute("button_id", "btn_a4aeffd2c330");
-    script.async = true;
-
-    containerRef.current.appendChild(script);
-  }, []);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.9, duration: 0.8 }}
-      className="flex justify-center my-12"
-    >
-      <style>{`
-        .konfhub-widget-container .reg-button {
-          background-color: #ff312e !important;
-          color: white !important;
-          font-family: "Bebas Neue", sans-serif !important;
-          font-weight: 500 !important;
-          font-size: 1rem !important;
-          letter-spacing: 0.2em !important;
-          text-transform: uppercase !important;
-          padding: 0 3rem !important;
-          height: 3.5rem !important;
-          border-radius: 0.5rem !important;
-          box-shadow: 0 0 40px rgba(255, 49, 46, 0.4) !important;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-          border: none !important;
-          display: flex !important;
-          align-items: center !important;
-          justify-content: center !important;
-          cursor: pointer !important;
-        }
-        .konfhub-widget-container .reg-button:hover {
-          background-color: rgba(255, 49, 46, 0.9) !important;
-          box-shadow: 0 0 60px rgba(255, 49, 46, 0.6) !important;
-          transform: translateY(-2px) !important;
-        }
-        .konfhub-widget-container .reg-button img {
-          display: none !important;
-        }
-      `}</style>
-      <div ref={containerRef} className="konfhub-widget-container" />
-    </motion.div>
-  );
-}
-
 // ==================== MAIN COMPONENT ====================
 const AstraX = () => {
   const sectionIds = useMemo(() => ["about", "contacts"], []);
@@ -524,7 +469,39 @@ const AstraX = () => {
 
   const [logoStep, setLogoStep] = useState(0);
   const [animationKey, setAnimationKey] = useState(0);
-  const letters = ["A", "S", "T", "R", "A", "X"];
+  const [countdownActive, setCountdownActive] = useState(false);
+  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
+  const { elapsed, startTimer, resetTimer, isStarted } = useTrackTimer("astrax");
+  const letters = useMemo(() => "ASTRAX".split(""), []);
+
+  const handleCountdownComplete = useCallback(() => {
+    setCountdownActive(false);
+    startTimer();
+  }, [startTimer]);
+
+  const handleTerminalComplete = useCallback(() => {
+    setIsTerminalOpen(false);
+    setCountdownActive(true);
+  }, []);
+
+  const handleLaunch = useCallback(() => {
+    if (!isStarted) setIsTerminalOpen(true);
+  }, [isStarted]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Reset shortcut: Ctrl + Alt + R (PC) or Cmd + Option + R (Mac)
+      if ((e.ctrlKey || e.metaKey) && e.altKey && e.key.toLowerCase() === "r") {
+        resetTimer();
+      }
+      // Launch shortcut: Ctrl + Alt + L (PC) or Cmd + Option + L (Mac)
+      if (!isStarted && (e.ctrlKey || e.metaKey) && e.altKey && e.key.toLowerCase() === "l") {
+        handleLaunch();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [resetTimer, handleLaunch, isStarted]);
 
   const particleColors = useMemo(() => ["#ffffff"], []);
   const particleTuning = useParticleTuning();
@@ -591,18 +568,18 @@ const AstraX = () => {
     },
   ], []);
 
-    useEffect(() => {
-      if (logoStep < letters.length) {
-        const timer = setTimeout(() => setLogoStep((prev) => prev + 1), 120);
-        return () => clearTimeout(timer);
-      } else {
-        const timer = setTimeout(() => {
-          setLogoStep(0);
-          setAnimationKey(prev => prev + 1);
-        }, 12000);
-        return () => clearTimeout(timer);
-      }
-    }, [logoStep, letters.length, animationKey]);
+  useEffect(() => {
+    if (logoStep < letters.length) {
+      const timer = setTimeout(() => setLogoStep((prev) => prev + 1), 120);
+      return () => clearTimeout(timer);
+    } else {
+      const timer = setTimeout(() => {
+        setLogoStep(0);
+        setAnimationKey(prev => prev + 1);
+      }, 12000);
+      return () => clearTimeout(timer);
+    }
+  }, [logoStep, letters.length, animationKey]);
 
   const getNavOffset = useCallback(() => {
     const header = document.querySelector(".astrax-header");
@@ -698,34 +675,47 @@ const AstraX = () => {
             <span className="relative font-display text-2xl md:text-3xl tracking-[0.25em] text-cyan-400 font-bold drop-shadow-[0_0_20px_rgba(34,211,238,0.6)]">IIC RSET</span>
           </motion.div>
 
-{/* Logo Animation */}
-<div className="min-h-[160px] flex items-center justify-center relative py-4 mb-4" key={animationKey}>
-  <div
-    className="absolute inset-0 blur-[80px] -z-10 opacity-40"
-    style={{ background: "radial-gradient(circle, rgba(255,49,46,0.4) 0%, transparent 70%)" }}
-  />
-  <div className="flex items-center justify-center">
-    {letters.map((letter, index) => (
-      <motion.span
-        key={`${animationKey}-${index}`}
-        initial={{ opacity: 0, y: 40, filter: "blur(12px)" }}
-        animate={
-          logoStep > index
-            ? { opacity: 1, y: 0, filter: "blur(0px)" }
-            : { opacity: 0, y: 40, filter: "blur(12px)" }
-        }
-        transition={{
-          duration: 0.55,
-          ease: [0.16, 1, 0.3, 1],
-        }}
-        className="font-mokoto text-6xl md:text-9xl font-bold text-primary"
-        style={{ filter: "drop-shadow(0 0 40px rgba(255,49,46,0.6))" }}
-      >
-        {letter}
-      </motion.span>
-    ))}
-  </div>
-</div>
+          {/* Logo Animation */}
+          <div className="min-h-[160px] flex items-center justify-center relative py-4 mb-4" key={animationKey}>
+            <div
+              className="absolute inset-0 blur-[80px] -z-10 opacity-40"
+              style={{ background: "radial-gradient(circle, rgba(255,49,46,0.4) 0%, transparent 70%)" }}
+            />
+            <div className="flex items-center justify-center">
+              {letters.map((letter, index) => (
+                <motion.span
+                  key={`${animationKey}-${index}`}
+                  initial={{ opacity: 0, y: 40, filter: "blur(12px)" }}
+                  animate={
+                    logoStep > index
+                      ? { opacity: 1, y: 0, filter: "blur(0px)" }
+                      : { opacity: 0, y: 40, filter: "blur(12px)" }
+                  }
+                  transition={{
+                    duration: 0.55,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  className="font-mokoto text-6xl md:text-9xl font-bold text-primary"
+                  style={{ filter: "drop-shadow(0 0 40px rgba(255,49,46,0.6))" }}
+                >
+                  {letter}
+                </motion.span>
+              ))}
+            </div>
+          </div>
+
+          {/* Elapsed Timer */}
+          {isStarted && (
+            <TrackElapsedTimer
+              elapsed={elapsed}
+              fontClass="font-display"
+              labelClass="font-display text-xs text-primary/60 tracking-[0.3em] uppercase"
+              boxClass="rounded-xl border border-white/10 bg-white/5"
+              numberClass="font-mokoto text-3xl md:text-4xl text-primary"
+              glowColor="rgba(255,49,46,0.1)"
+              className="mt-8 mb-8" // Use mt-* or mb-* to move the timer upwards or downwards
+            />
+          )}
 
           {/* ==================== COMMUNITY PARTNERS ==================== */}
           <motion.div
@@ -762,7 +752,6 @@ const AstraX = () => {
             </div>
           </motion.div>
 
-          <KonfHubRegistration />
 
           {/* ==================== SPONSORS SECTION ==================== */}
           <motion.div
@@ -789,7 +778,7 @@ const AstraX = () => {
                 src="/images/ylogxLogo.png"
                 alt="YlogX"
                 className="h-20 md:h-24 w-auto object-contain opacity-90"
-              />          
+              />
               <div className="w-px h-10 bg-white/15 hidden sm:block" />
               <img
                 src="/images/zendt.PNG"
@@ -990,41 +979,41 @@ const AstraX = () => {
 
             {/* Focus areas */}
             <HolographicCard delay={0.1} colorTheme="blue">
-            <h3 className="font-display text-2xl mb-6 bg-gradient-to-r from-primary to-red-400 bg-clip-text text-transparent">
-              Technical Focus
-            </h3>
+              <h3 className="font-display text-2xl mb-6 bg-gradient-to-r from-primary to-red-400 bg-clip-text text-transparent">
+                Technical Focus
+              </h3>
 
-            <div className="space-y-3">
-              {[
-                { icon: Cpu, text: "Intelligent Systems & AI/ML" },
-                { icon: Network, text: "Scalable Platforms" },
-                { icon: Zap, text: "Automation Frameworks" },
-                { icon: Code, text: "Next-Gen Software Products" },
-              ].map((item) => (
-                <motion.div
-                  key={item.text}
-                  whileHover={{ x: 6, scale: 1.02 }}
-                  className="flex items-center gap-4 group cursor-pointer p-3 rounded-xl border border-white/10 bg-white/[0.03] hover:bg-primary/5 hover:border-primary/30 transition-all duration-300"
-                  onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 4px 24px rgba(255,49,46,0.15)"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "none"; }}
-                >
-                  <div className="w-11 h-11 rounded-xl bg-primary flex items-center justify-center shadow-[0_0_20px_rgba(255,49,46,0.3)] flex-shrink-0 transition-all duration-300 group-hover:shadow-[0_0_30px_rgba(255,49,46,0.5)] group-hover:bg-primary/90">
-                    <item.icon className="w-5 h-5 text-black" />
-                  </div>
-                  <span className="text-sm md:text-base text-muted-foreground group-hover:text-foreground transition-colors font-medium">
-                    {item.text}
-                  </span>
-                  <div className="ml-auto w-1.5 h-1.5 rounded-full bg-primary/0 group-hover:bg-primary transition-all duration-300" />
-                </motion.div>
-              ))}
-            </div>
+              <div className="space-y-3">
+                {[
+                  { icon: Cpu, text: "Intelligent Systems & AI/ML" },
+                  { icon: Network, text: "Scalable Platforms" },
+                  { icon: Zap, text: "Automation Frameworks" },
+                  { icon: Code, text: "Next-Gen Software Products" },
+                ].map((item) => (
+                  <motion.div
+                    key={item.text}
+                    whileHover={{ x: 6, scale: 1.02 }}
+                    className="flex items-center gap-4 group cursor-pointer p-3 rounded-xl border border-white/10 bg-white/[0.03] hover:bg-primary/5 hover:border-primary/30 transition-all duration-300"
+                    onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 4px 24px rgba(255,49,46,0.15)"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "none"; }}
+                  >
+                    <div className="w-11 h-11 rounded-xl bg-primary flex items-center justify-center shadow-[0_0_20px_rgba(255,49,46,0.3)] flex-shrink-0 transition-all duration-300 group-hover:shadow-[0_0_30px_rgba(255,49,46,0.5)] group-hover:bg-primary/90">
+                      <item.icon className="w-5 h-5 text-black" />
+                    </div>
+                    <span className="text-sm md:text-base text-muted-foreground group-hover:text-foreground transition-colors font-medium">
+                      {item.text}
+                    </span>
+                    <div className="ml-auto w-1.5 h-1.5 rounded-full bg-primary/0 group-hover:bg-primary transition-all duration-300" />
+                  </motion.div>
+                ))}
+              </div>
 
-            <div className="mt-8 pt-6 border-t border-white/10">
-              <p className="text-sm text-muted-foreground/70 leading-relaxed">
-                Organized by Articon in collaboration with RSET IEDC & IIC RSET
-              </p>
-            </div>
-          </HolographicCard>
+              <div className="mt-8 pt-6 border-t border-white/10">
+                <p className="text-sm text-muted-foreground/70 leading-relaxed">
+                  Organized by Articon in collaboration with RSET IEDC & IIC RSET
+                </p>
+              </div>
+            </HolographicCard>
           </div>
 
           {/* ==================== PROBLEM STATEMENTS (REPLACED BADGE SECTION) ==================== */}
@@ -1204,18 +1193,18 @@ const AstraX = () => {
               <div className="h-px flex-1 bg-gradient-to-l from-transparent via-amber-400/40 to-amber-400/60" />
             </div>
             <div className="flex items-center justify-center gap-8 md:gap-12 flex-wrap">
-            <img
-              src="/images/zappyhire_logo.png"
-              alt="ZappyHire"
-              className="h-14 md:h-16 w-auto object-contain opacity-90"
-            />
-            <div className="w-px h-10 bg-white/15" />
-            <img
-              src="/images/careMP_logo.png"
-              alt="careMP"
-              className="h-14 md:h-16 w-auto object-contain opacity-90"
-            />
-          </div>
+              <img
+                src="/images/zappyhire_logo.png"
+                alt="ZappyHire"
+                className="h-14 md:h-16 w-auto object-contain opacity-90"
+              />
+              <div className="w-px h-10 bg-white/15" />
+              <img
+                src="/images/careMP_logo.png"
+                alt="careMP"
+                className="h-14 md:h-16 w-auto object-contain opacity-90"
+              />
+            </div>
           </motion.div>
         </div>
       </section>
@@ -1300,10 +1289,30 @@ const AstraX = () => {
             <p className="text-sm text-muted-foreground/60">
               © ASTRAX 2026 • Articon × RSET IEDC × IIC RSET
             </p>
+            {/* Hidden reset button */}
+            <div
+              onClick={resetTimer}
+              className="absolute bottom-0 left-0 w-1 h-1 opacity-0 cursor-default"
+              title="Reset Timer"
+            />
           </motion.div>
         </div>
-      </footer >
-    </div >
+      </footer>
+
+      {/* Countdown Overlay */}
+      <CountdownOverlay
+        isActive={countdownActive}
+        trackTitle="ASTRAX"
+        fontClass="font-mokoto"
+        onComplete={handleCountdownComplete}
+      />
+
+      <AstraTerminal
+        isOpen={isTerminalOpen}
+        onComplete={handleTerminalComplete}
+        onClose={() => setIsTerminalOpen(false)}
+      />
+    </div>
   );
 };
 

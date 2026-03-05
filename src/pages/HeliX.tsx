@@ -1,12 +1,15 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Cpu, Activity, Ruler, Box, Terminal } from "lucide-react";
+import { ArrowLeft, Cpu, Activity, Ruler, Box, Terminal, Rocket } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BlueprintBackground from "@/components/BlueprintBackground";
 import DimensionLine from "@/components/DimensionLine";
+import CountdownOverlay from "@/components/CountdownOverlay";
 import Crosshair from "@/components/Crosshair";
+import TrackElapsedTimer from "@/components/TrackElapsedTimer";
+import { useTrackTimer } from "@/hooks/useTrackTimer";
 
 // ==================== KONFHUB REGISTRATION ====================
 function KonfHubRegistration() {
@@ -72,6 +75,32 @@ const HeliX = () => {
     const containerRef = useRef<HTMLDivElement>(null);
 
     const [isRegistrationActive, setIsRegistrationActive] = useState(false);
+    const [countdownActive, setCountdownActive] = useState(false);
+    const { elapsed, startTimer, resetTimer, isStarted } = useTrackTimer("helix");
+
+    const handleCountdownComplete = useCallback(() => {
+        setCountdownActive(false);
+        startTimer();
+    }, [startTimer]);
+
+    const handleLaunch = useCallback(() => {
+        if (!isStarted) setCountdownActive(true);
+    }, [isStarted]);
+
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            // Reset shortcut: Ctrl + Alt + R (PC) or Cmd + Option + R (Mac)
+            if ((e.ctrlKey || e.metaKey) && e.altKey && e.key.toLowerCase() === "r") {
+                resetTimer();
+            }
+            // Launch shortcut: Ctrl + Alt + L (PC) or Cmd + Option + L (Mac)
+            if (!isStarted && (e.ctrlKey || e.metaKey) && e.altKey && e.key.toLowerCase() === "l") {
+                handleLaunch();
+            }
+        };
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [resetTimer, handleLaunch, isStarted]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -158,6 +187,20 @@ const HeliX = () => {
                                 HELIX
                             </motion.h1>
 
+                            {/* Elapsed Timer */}
+                            {isStarted && (
+                                <TrackElapsedTimer
+                                    elapsed={elapsed}
+                                    fontClass="font-display"
+                                    labelClass="font-mono text-[10px] text-primary/60 tracking-[0.3em] uppercase"
+                                    boxClass="bg-card/30 backdrop-blur-xl border border-white/5 rounded-2xl"
+                                    numberClass="font-display text-3xl md:text-4xl text-primary"
+                                    glowColor="rgba(255,49,46,0.1)"
+                                    className="mt-8"
+                                />
+                            )}
+
+
                             <motion.div
                                 initial={{ width: 0 }}
                                 animate={{ width: "100%" }}
@@ -173,7 +216,6 @@ const HeliX = () => {
                                 Synthesizing <span className="text-white font-medium">Artificial Intelligence</span> with <span className="text-primary font-medium">Modern Civil Engineering</span> to build the infrastructure of tomorrow.
                             </motion.p>
 
-                            <KonfHubRegistration />
 
                             {/* Prize Pool */}
                             <motion.div
@@ -406,16 +448,6 @@ const HeliX = () => {
                                     ))}
                                 </div>
 
-                                <motion.a
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                    href="https://konfhub.com/hacksus-edition-5"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-block w-full mt-16 bg-primary text-primary-foreground px-8 py-6 font-display tracking-[0.2em] rounded-2xl transition-all text-center shadow-xl shadow-primary/20 uppercase font-bold text-lg"
-                                >
-                                    Deploy Team
-                                </motion.a>
 
                                 <div className="mt-8 flex justify-between font-mono text-[8px] text-white/20 uppercase tracking-tighter">
                                     <span>AUTH_ID: HX_ENG_26</span>
@@ -519,6 +551,14 @@ const HeliX = () => {
             <div className="relative z-50">
                 <Footer />
             </div>
+
+            {/* Countdown Overlay */}
+            <CountdownOverlay
+                isActive={countdownActive}
+                trackTitle="HELIX"
+                fontClass="font-display"
+                onComplete={handleCountdownComplete}
+            />
         </div>
     );
 };

@@ -163,16 +163,6 @@ const Kruizex = () => {
                                 </div>
                             </motion.div>
 
-                            {/* Mobile Register Button */}
-                            <motion.a
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: 0.8 }}
-                                href="https://konfhub.com/kruizex"
-                                className="block lg:hidden w-full py-4 bg-blue-600 hover:bg-blue-500 text-white text-center font-display text-xl tracking-[0.05em] uppercase rounded-2xl transition-all shadow-[0_0_30px_rgba(37,99,235,0.3)] mt-8"
-                            >
-                                Register Now
-                            </motion.a>
                         </div>
                     </div>
                 </div>
