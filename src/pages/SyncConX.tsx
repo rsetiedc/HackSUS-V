@@ -485,8 +485,8 @@ const SyncConX = () => {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                                     {[
                                         {
-                                            title: "Data Acquisition",
-                                            desc: "Data acquisition and instrumentation system",
+                                            title: "Software",
+                                            desc: "KiCAD, MPLAB and PROTEUS",
                                             icon: Gauge,
                                             id: "REQ_A",
                                         },

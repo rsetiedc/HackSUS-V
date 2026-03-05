@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Play, Pause, SkipBack, SkipForward, Info, Download, Music, Zap, Layers, Trophy, Users, Clock, Volume2, ChevronDown, ChevronUp, X } from "lucide-react";
+import { ArrowLeft, Play, Pause, SkipBack, SkipForward, Info, Download, Music, Zap, Layers, Trophy, Users, Clock, Volume2, ChevronDown, ChevronUp, X, ExternalLink } from "lucide-react";
 import { motion, useAnimation, AnimatePresence, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -198,14 +198,14 @@ const ProblemStatementRow = ({ ps, isActive, isDimmed, onClick }: { ps: any, isA
                             {ps.title}
                         </h3>
                         <div className="text-muted-foreground group-hover:text-primary transition-colors">
-                            <Music size={20} className={isActive ? 'text-primary animate-pulse' : ''} />
+                            <ExternalLink size={20} className={isActive ? 'text-primary animate-pulse' : ''} />
                         </div>
                     </div>
                     <p className="text-sm md:text-base text-muted-foreground leading-relaxed opacity-80 group-hover:opacity-100 transition-opacity">
                         {ps.oneLiner}
                     </p>
-                    <div className="mt-3 flex items-center gap-1.5 opacity-40">
-                        <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-primary">Click for more details</span>
+                    <div className="mt-3 flex items-center gap-1.5 opacity-100">
+                        <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-primary">Click for more details</span>
                     </div>
                 </div>
             </button>
@@ -804,9 +804,6 @@ const UnmuteX = () => {
                                 <div className="space-y-4 text-muted-foreground leading-relaxed">
                                     <p>
                                         Unmute X is designed for sonic architects to push the boundaries of modern music technology. We focus on bridging the gap between human intuition and machine intelligence.
-                                    </p>
-                                    <p>
-                                        Participants will have access to high-fidelity source material and cutting-edge audio APIs to build prototypes that can be integrated into existing professional DAW environments.
                                     </p>
                                 </div>
                             </div>

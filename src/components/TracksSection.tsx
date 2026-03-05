@@ -105,6 +105,10 @@ const TracksSection = () => {
             start: "top top",
             end: () => `+=${getScrollDistance()}`,
             invalidateOnRefresh: true,
+            onEnter: () => document.body.classList.add("is-tracks-scrolling"),
+            onLeave: () => document.body.classList.remove("is-tracks-scrolling"),
+            onEnterBack: () => document.body.classList.add("is-tracks-scrolling"),
+            onLeaveBack: () => document.body.classList.remove("is-tracks-scrolling"),
           },
         });
       });

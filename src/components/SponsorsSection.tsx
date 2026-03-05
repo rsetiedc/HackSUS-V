@@ -58,6 +58,11 @@ const sponsors = [
     name: "CDISC",
     logo: "/images/cdisc.webp",
     link: ""
+  },
+  {
+    name: "ZappyHire",
+    logo: "/images/zappyhire.webp",
+    link: ""
   }
 ];
 

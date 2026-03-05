@@ -157,9 +157,17 @@ const HeroSection = () => {
       </div>
 
       {/* Floating Dock */}
-      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50">
+      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-in-out dock-container">
         <FloatingDock items={dockItems} />
       </div>
+
+      <style>{`
+        body.is-tracks-scrolling .dock-container {
+          opacity: 0;
+          pointer-events: none;
+          transform: translate(-50%, 20px);
+        }
+      `}</style>
 
       {/* Scroll indicator
       <a
