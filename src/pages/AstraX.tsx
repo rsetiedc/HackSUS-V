@@ -525,7 +525,6 @@ const AstraX = () => {
   const [logoStep, setLogoStep] = useState(0);
   const [animationKey, setAnimationKey] = useState(0);
   const letters = ["A", "S", "T", "R", "A", "X"];
-  const [showYear, setShowYear] = useState(false);
 
   const particleColors = useMemo(() => ["#ffffff"], []);
   const particleTuning = useParticleTuning();
@@ -548,50 +547,62 @@ const AstraX = () => {
       pdfPath: "/docs/Astrax_Problem_Statements/Title1.pdf",
       gradient: "from-primary to-red-600",
       glowColor: "rgba(255,49,46,0.3)",
+      company: "ZappyHire",
     },
     {
       number: "02",
       title: "AI-Driven Real-Time Maritime Voyage Risk Intelligence for Marine Insurance",
       pdfPath: "/docs/Astrax_Problem_Statements/Title2.pdf",
-      gradient: "from-blue-500 to-cyan-500",
-      glowColor: "rgba(59,130,246,0.3)",
+      gradient: "from-primary to-red-600",
+      glowColor: "rgba(255,49,46,0.3)",
+      company: "YlogX",
     },
     {
       number: "03",
       title: "AI-Driven Mission-to-Procurement Automation Platform",
       pdfPath: "/docs/Astrax_Problem_Statements/Title3.pdf",
-      gradient: "from-orange-500 to-amber-500",
-      glowColor: "rgba(249,115,22,0.3)",
+      gradient: "from-primary to-red-600",
+      glowColor: "rgba(255,49,46,0.3)",
+      company: "YlogX",
     },
     {
       number: "04",
       title: "AI-Powered Swimming Pool Detection for Home Insurance Underwriting & Claims Intelligence",
       pdfPath: "/docs/Astrax_Problem_Statements/Title4.pdf",
-      gradient: "from-purple-500 to-pink-500",
-      glowColor: "rgba(168,85,247,0.3)",
+      gradient: "from-primary to-red-600",
+      glowColor: "rgba(255,49,46,0.3)",
+      company: "YlogX",
+    },
+    {
+      number: "05",
+      title: "AI-Powered Consumer App Sprint: Build the Next $100K Solo Product",
+      pdfPath: "/docs/Astrax_Problem_Statements/Title5.pdf",
+      gradient: "from-primary to-red-600",
+      glowColor: "rgba(255,49,46,0.3)",
+      company: "Zach AI",
+    },
+    {
+      number: "06",
+      title: "AI-Driven Intelligent Caregiver Workload Optimization Engine for Elderly Care",
+      pdfPath: "/docs/Astrax_Problem_Statements/Title6.pdf",
+      gradient: "from-primary to-red-600",
+      glowColor: "rgba(255,49,46,0.3)",
+      company: "careMP",
     },
   ], []);
 
-  useEffect(() => {
-    if (logoStep < letters.length) {
-      const timer = setTimeout(() => {
-        setLogoStep((prev) => prev + 1);
-      }, 150);
-      return () => clearTimeout(timer);
-    } else if (logoStep === letters.length) {
-      const timer = setTimeout(() => {
-        setShowYear(true);
-      }, 200);
-      return () => clearTimeout(timer);
-    } else if (showYear) {
-      const timer = setTimeout(() => {
-        setLogoStep(0);
-        setShowYear(false);
-        setAnimationKey(prev => prev + 1);
-      }, 10000);
-      return () => clearTimeout(timer);
-    }
-  }, [logoStep, letters.length, showYear, animationKey]);
+    useEffect(() => {
+      if (logoStep < letters.length) {
+        const timer = setTimeout(() => setLogoStep((prev) => prev + 1), 120);
+        return () => clearTimeout(timer);
+      } else {
+        const timer = setTimeout(() => {
+          setLogoStep(0);
+          setAnimationKey(prev => prev + 1);
+        }, 12000);
+        return () => clearTimeout(timer);
+      }
+    }, [logoStep, letters.length, animationKey]);
 
   const getNavOffset = useCallback(() => {
     const header = document.querySelector(".astrax-header");
@@ -682,71 +693,39 @@ const AstraX = () => {
             <div className="absolute inset-0 blur-3xl opacity-50 bg-[radial-gradient(circle,rgba(34,211,238,0.3)_0%,transparent_50%)]" />
             <span className="relative font-display text-2xl md:text-3xl tracking-[0.25em] text-cyan-400 font-bold drop-shadow-[0_0_20px_rgba(34,211,238,0.6)]">ARTICON</span>
             <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 shadow-[0_0_15px_rgba(34,211,238,0.8)]" />
-            <span className="relative font-display text-2xl md:text-3xl tracking-[0.25em] text-cyan-400 font-bold drop-shadow-[0_0_20px_rgba(34,211,238,0.6)]">IEDC</span>
+            <span className="relative font-display text-2xl md:text-3xl tracking-[0.25em] text-cyan-400 font-bold drop-shadow-[0_0_20px_rgba(34,211,238,0.6)]">RSET IEDC</span>
             <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-blue-500 to-emerald-400 shadow-[0_0_15px_rgba(59,130,246,0.8)]" />
-            <span className="relative font-display text-2xl md:text-3xl tracking-[0.25em] text-cyan-400 font-bold drop-shadow-[0_0_20px_rgba(34,211,238,0.6)]">IIC</span>
+            <span className="relative font-display text-2xl md:text-3xl tracking-[0.25em] text-cyan-400 font-bold drop-shadow-[0_0_20px_rgba(34,211,238,0.6)]">IIC RSET</span>
           </motion.div>
 
-          {/* Logo Animation */}
-          <div className="min-h-[160px] flex items-center justify-center relative py-4 mb-4" key={animationKey}>
-            <div
-              className="absolute inset-0 blur-[80px] -z-10 opacity-40"
-              style={{
-                background: "radial-gradient(circle, rgba(255,49,46,0.4) 0%, transparent 70%)",
-              }}
-            />
-
-            {logoStep < letters.length ? (
-              <div className="flex items-center">
-                {letters.slice(0, logoStep + 1).map((letter, index) => (
-                  <motion.div
-                    key={`${animationKey}-${index}`}
-                    initial={{ x: 200, opacity: 0, scale: 0.5 }}
-                    animate={{
-                      x: 0,
-                      opacity: 1,
-                      scale: [0.5, 1.15, 0.97, 1],
-                    }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 280,
-                      damping: 18,
-                      mass: 0.7,
-                      delay: index * 0.12,
-                    }}
-                    className="font-mokoto text-6xl md:text-9xl font-bold text-primary drop-shadow-[0_0_40px_rgba(255,49,46,0.6)]"
-                  >
-                    {letter}
-                  </motion.div>
-                ))}
-              </div>
-            ) : (
-              <motion.div
-                initial={{ scale: 0.85, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                className="relative flex items-baseline md:-mr-32"
-              >
-                <motion.h1
-                  className="font-mokoto text-6xl md:text-9xl text-primary"
-                  style={{ filter: "drop-shadow(0 0 60px rgba(255,49,46,0.5))" }}
-                >
-                  ASTRAX
-                </motion.h1>
-
-                {showYear && (
-                  <motion.span
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6, type: "spring", stiffness: 200 }}
-                    className="font-display text-4xl md:text-6xl text-primary/60 font-light ml-4"
-                  >
-                    2026
-                  </motion.span>
-                )}
-              </motion.div>
-            )}
-          </div>
+{/* Logo Animation */}
+<div className="min-h-[160px] flex items-center justify-center relative py-4 mb-4" key={animationKey}>
+  <div
+    className="absolute inset-0 blur-[80px] -z-10 opacity-40"
+    style={{ background: "radial-gradient(circle, rgba(255,49,46,0.4) 0%, transparent 70%)" }}
+  />
+  <div className="flex items-center justify-center">
+    {letters.map((letter, index) => (
+      <motion.span
+        key={`${animationKey}-${index}`}
+        initial={{ opacity: 0, y: 40, filter: "blur(12px)" }}
+        animate={
+          logoStep > index
+            ? { opacity: 1, y: 0, filter: "blur(0px)" }
+            : { opacity: 0, y: 40, filter: "blur(12px)" }
+        }
+        transition={{
+          duration: 0.55,
+          ease: [0.16, 1, 0.3, 1],
+        }}
+        className="font-mokoto text-6xl md:text-9xl font-bold text-primary"
+        style={{ filter: "drop-shadow(0 0 40px rgba(255,49,46,0.6))" }}
+      >
+        {letter}
+      </motion.span>
+    ))}
+  </div>
+</div>
 
           {/* ==================== COMMUNITY PARTNERS ==================== */}
           <motion.div
@@ -766,7 +745,7 @@ const AstraX = () => {
               <img
                 src="/images/AWS_logo.png"
                 alt="Amazon Web Services"
-                className="h-16 md:h-20 w-auto object-contain"
+                className="h-20 md:h-24 w-auto object-contain"
                 style={{ filter: "brightness(1.3) contrast(1.1)" }}
               />
               <div className="w-px h-10 bg-white/15" />
@@ -777,14 +756,54 @@ const AstraX = () => {
                 <img
                   src="/images/GDG_Cloud_Kochi_logo.png"
                   alt="GDG Cloud Kochi"
-                  className="h-10 md:h-14 w-auto max-w-[150px] md:max-w-[190px] object-contain"
+                  className="h-20 md:h-14 w-auto max-w-[150px] md:max-w-[190px] object-contain"
                 />
               </div>
             </div>
           </motion.div>
 
-
           <KonfHubRegistration />
+
+          {/* ==================== SPONSORS SECTION ==================== */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
+            className="flex flex-col items-center gap-3 mb-8"
+          >
+            <div className="flex items-center gap-4 w-full max-w-lg">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-400/40 to-amber-400/60" />
+              <span className="font-mono text-[12px] md:text-[13px] tracking-[0.5em] text-primary/90 uppercase whitespace-nowrap">
+                Sponsors
+              </span>
+              <div className="h-px flex-1 bg-gradient-to-l from-transparent via-amber-400/40 to-amber-400/60" />
+            </div>
+            <div className="flex items-center justify-center gap-8 md:gap-12 flex-wrap">
+              <img
+                src="/images/zachAI.webp"
+                alt="Zach AI"
+                style={{ height: "160px", width: "160px", objectFit: "contain" }}
+              />
+              <div className="w-px h-10 bg-white/15 hidden sm:block" />
+              <img
+                src="/images/ylogxLogo.png"
+                alt="YlogX"
+                className="h-20 md:h-24 w-auto object-contain opacity-90"
+              />          
+              <div className="w-px h-10 bg-white/15 hidden sm:block" />
+              <img
+                src="/images/zendt.PNG"
+                alt="Zendt"
+                className="h-20 md:h-24 w-auto object-contain opacity-90"
+              />
+              <div className="w-px h-10 bg-white/15 hidden sm:block" />
+              <img
+                src="/images/Moozhayil_logo.png"
+                alt="Moozhayil"
+                className="h-24 md:h-28 w-auto object-contain opacity-90"
+              />
+            </div>
+          </motion.div>
 
           {/* ==================== HERO LOWER: TWO COLUMN LAYOUT ==================== */}
           <motion.div
@@ -908,7 +927,7 @@ const AstraX = () => {
                 What is <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-500 to-orange-500">AstraX – Software</span>?
               </>
             }
-            description="A hackathon by Articon × IEDC, focused on building intelligent systems that learn, optimize, and redefine efficiency."
+            description="A hackathon by Articon × RSET IEDC, focused on building intelligent systems that learn, optimize, and redefine efficiency."
           />
 
           <div className="grid md:grid-cols-2 gap-8 md:gap-10">
@@ -926,8 +945,8 @@ const AstraX = () => {
                   <h3 className="font-display text-3xl mb-3 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
                     Intelligence First
                   </h3>
-                  <p className="text-base text-muted-foreground leading-relaxed">
-                    A collaboration between Articon, IEDC & IIC
+                  <p className="text-base text-muted-foreground leading-relaxed whitespace-nowrap">
+                    A collaboration between Articon, RSET IEDC & IIC RSET
                   </p>
                 </div>
               </div>
@@ -959,11 +978,11 @@ const AstraX = () => {
                   </div>
                   <span className="text-muted-foreground">×</span>
                   <div className="px-3 py-1.5 rounded-lg bg-cyan-400/10 border border-cyan-400/20">
-                    <span className="text-sm font-mono text-cyan-400 tracking-wider">IEDC</span>
+                    <span className="text-sm font-mono text-cyan-400 tracking-wider">RSET IEDC</span>
                   </div>
                   <span className="text-muted-foreground">×</span>
                   <div className="px-3 py-1.5 rounded-lg bg-primary/10 border border-primary/20">
-                    <span className="text-sm font-mono text-primary tracking-wider">IIC</span>
+                    <span className="text-sm font-mono text-primary tracking-wider">IIC RSET</span>
                   </div>
                 </div>
               </div>
@@ -971,41 +990,41 @@ const AstraX = () => {
 
             {/* Focus areas */}
             <HolographicCard delay={0.1} colorTheme="blue">
-              <h3 className="font-display text-2xl mb-6 text-foreground">Technical Focus</h3>
+            <h3 className="font-display text-2xl mb-6 bg-gradient-to-r from-primary to-red-400 bg-clip-text text-transparent">
+              Technical Focus
+            </h3>
 
-              <div className="space-y-4">
-                {[
-                  { icon: Cpu, text: "Intelligent Systems & AI/ML", color: "from-primary to-red-500" },
-                  { icon: Network, text: "Scalable Platforms", color: "from-blue-500 to-cyan-500" },
-                  { icon: Zap, text: "Automation Frameworks", color: "from-orange-500 to-yellow-500" },
-                  { icon: Code, text: "Next-Gen Software Products", color: "from-purple-500 to-pink-500" },
-                ].map((item, index) => (
-                  <motion.div
-                    key={item.text}
-                    initial={{ opacity: 1, x: 0 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    whileHover={{ x: 8 }}
-                    className="flex items-center gap-4 group cursor-pointer"
-                  >
-                    <div className={cn(
-                      "w-12 h-12 rounded-xl bg-gradient-to-br flex items-center justify-center transition-transform duration-300 group-hover:scale-110",
-                      item.color
-                    )}>
-                      <item.icon className="w-6 h-6 text-white" />
-                    </div>
-                    <span className="text-base text-muted-foreground group-hover:text-foreground transition-colors">
-                      {item.text}
-                    </span>
-                  </motion.div>
-                ))}
-              </div>
+            <div className="space-y-3">
+              {[
+                { icon: Cpu, text: "Intelligent Systems & AI/ML" },
+                { icon: Network, text: "Scalable Platforms" },
+                { icon: Zap, text: "Automation Frameworks" },
+                { icon: Code, text: "Next-Gen Software Products" },
+              ].map((item) => (
+                <motion.div
+                  key={item.text}
+                  whileHover={{ x: 6, scale: 1.02 }}
+                  className="flex items-center gap-4 group cursor-pointer p-3 rounded-xl border border-white/10 bg-white/[0.03] hover:bg-primary/5 hover:border-primary/30 transition-all duration-300"
+                  onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 4px 24px rgba(255,49,46,0.15)"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "none"; }}
+                >
+                  <div className="w-11 h-11 rounded-xl bg-primary flex items-center justify-center shadow-[0_0_20px_rgba(255,49,46,0.3)] flex-shrink-0 transition-all duration-300 group-hover:shadow-[0_0_30px_rgba(255,49,46,0.5)] group-hover:bg-primary/90">
+                    <item.icon className="w-5 h-5 text-black" />
+                  </div>
+                  <span className="text-sm md:text-base text-muted-foreground group-hover:text-foreground transition-colors font-medium">
+                    {item.text}
+                  </span>
+                  <div className="ml-auto w-1.5 h-1.5 rounded-full bg-primary/0 group-hover:bg-primary transition-all duration-300" />
+                </motion.div>
+              ))}
+            </div>
 
-              <div className="mt-8 pt-6 border-t border-white/10">
-                <p className="text-sm text-muted-foreground/80">
-                  Organized by Articon in collaboration with IEDC & IIC
-                </p>
-              </div>
-            </HolographicCard>
+            <div className="mt-8 pt-6 border-t border-white/10">
+              <p className="text-sm text-muted-foreground/70 leading-relaxed">
+                Organized by Articon in collaboration with RSET IEDC & IIC RSET
+              </p>
+            </div>
+          </HolographicCard>
           </div>
 
           {/* ==================== PROBLEM STATEMENTS (REPLACED BADGE SECTION) ==================== */}
@@ -1060,9 +1079,14 @@ const AstraX = () => {
                     </div>
 
                     {/* Title */}
-                    <p className="flex-1 text-sm md:text-base text-muted-foreground group-hover:text-foreground transition-colors duration-300 leading-relaxed">
-                      {ps.title}
-                    </p>
+                    <div className="flex-1 flex flex-col gap-1.5">
+                      <p className="text-sm md:text-base text-muted-foreground group-hover:text-foreground transition-colors duration-300 leading-relaxed">
+                        {ps.title}
+                      </p>
+                      <p className="text-xs font-mono text-primary/60 group-hover:text-primary/90 transition-colors duration-300 self-end">
+                        by {ps.company}
+                      </p>
+                    </div>
 
                     {/* Arrow icon */}
                     <div className="flex-shrink-0 flex items-center gap-1.5 text-muted-foreground/50 group-hover:text-primary transition-colors duration-300">
@@ -1077,7 +1101,7 @@ const AstraX = () => {
               <div className="mt-6 pt-5 border-t border-white/10 flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
                 <p className="text-xs font-mono text-muted-foreground/60 tracking-wider">
-                  4 PROBLEM STATEMENTS AVAILABLE · CLICK TO OPEN PDF
+                  6 PROBLEM STATEMENTS AVAILABLE · CLICK TO OPEN PDF
                 </p>
               </div>
             </HolographicCard>
@@ -1163,6 +1187,39 @@ const AstraX = () => {
         </div>
       </section >
 
+      {/* ==================== COLLABORATORS ==================== */}
+      <section className="relative py-16 md:py-20 border-t border-white/5">
+        <div className="container max-w-[1200px] px-6 mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+            className="flex flex-col items-center gap-3"
+          >
+            <div className="flex items-center gap-4 w-full max-w-lg">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-400/40 to-amber-400/60" />
+              <span className="font-mono text-[12px] md:text-[13px] tracking-[0.5em] text-primary/90 uppercase whitespace-nowrap">
+                Collaborators
+              </span>
+              <div className="h-px flex-1 bg-gradient-to-l from-transparent via-amber-400/40 to-amber-400/60" />
+            </div>
+            <div className="flex items-center justify-center gap-8 md:gap-12 flex-wrap">
+            <img
+              src="/images/zappyhire_logo.png"
+              alt="ZappyHire"
+              className="h-14 md:h-16 w-auto object-contain opacity-90"
+            />
+            <div className="w-px h-10 bg-white/15" />
+            <img
+              src="/images/careMP_logo.png"
+              alt="careMP"
+              className="h-14 md:h-16 w-auto object-contain opacity-90"
+            />
+          </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* ==================== PARTNERS ==================== */}
       < section className="relative py-28 border-t border-white/5" >
         <div className="container max-w-[1200px] px-6 mx-auto">
@@ -1238,10 +1295,10 @@ const AstraX = () => {
             animate={{ opacity: 1 }}
           >
             <p className="text-base text-muted-foreground mb-6">
-              Organized by Articon × IEDC
+              Organized by Articon × RSET IEDC
             </p>
             <p className="text-sm text-muted-foreground/60">
-              © ASTRAX 2026 • Articon × IEDC × IIC
+              © ASTRAX 2026 • Articon × RSET IEDC × IIC RSET
             </p>
           </motion.div>
         </div>
