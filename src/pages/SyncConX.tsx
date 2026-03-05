@@ -10,6 +10,7 @@ import DecryptedText from "@/components/DecryptedText";
 import ShinyText from "@/components/ShinyText";
 import SpotlightCard from "@/components/SpotlightCard";
 import Crosshair from "@/components/Crosshair";
+import TrackIntroOverlay from "@/components/TrackIntroOverlay";
 
 /* ── Oscilloscope Waveform ── */
 const OscilloscopeWave = ({ className = "" }: { className?: string }) => {
@@ -197,6 +198,13 @@ const SyncConX = () => {
             ref={containerRef}
             className="min-h-screen relative selection:bg-primary/30 overflow-x-hidden text-foreground"
         >
+            <TrackIntroOverlay
+                trackTitleNode={
+                    <span className="font-display text-7xl md:text-[10rem] text-white font-bold leading-none tracking-normal">
+                        SYNCCONX
+                    </span>
+                }
+            />
             {/* Crosshair cursor */}
             <Crosshair containerRef={containerRef} color="#ff312e" />
 
@@ -529,6 +537,73 @@ const SyncConX = () => {
 
                             {/* DimensionLine separator */}
                             <DimensionLine label="Ω: 4.7kΩ" orientation="horizontal" className="opacity-30" />
+
+                            {/* Problem Statements */}
+                            <motion.section
+                                whileInView={{ opacity: 1, y: 0 }}
+                                initial={{ opacity: 0, y: 40 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 0.2 }}
+                                className="bg-card/30 backdrop-blur-xl border border-white/5 p-12 rounded-[2rem] relative group hover:border-primary/20 transition-all duration-500"
+                            >
+                                <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-primary/30" />
+                                <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-primary/30" />
+                                <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-primary/30" />
+                                <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-primary/30" />
+
+                                <div className="flex items-center gap-6 mb-12">
+                                    <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
+                                        <Activity size={28} />
+                                    </div>
+                                    <h2 className="font-display text-4xl text-white tracking-tight uppercase">
+                                        Problem Statements // 03
+                                    </h2>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    {[
+                                        {
+                                            id: "PS_01",
+                                            title: "Problem Statement 1",
+                                            desc: "Autonomous PCB Layout",
+                                            link: "/docs/Syncconx_PS/syncconx_PS1.pdf"
+                                        },
+                                        {
+                                            id: "PS_02",
+                                            title: "Problem Statement 2",
+                                            desc: "AI-Powered Embedded Code Generator",
+                                            link: "/docs/Syncconx_PS/syncconx_PS2.pdf"
+                                        }
+                                    ].map((ps, i) => (
+                                        <motion.a
+                                            key={i}
+                                            href={ps.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            whileHover={{ y: -5 }}
+                                            className="bg-black/40 border border-white/10 hover:border-primary/50 p-6 rounded-xl transition-all group/card flex flex-col gap-4"
+                                        >
+                                            <div className="flex justify-between items-start">
+                                                <span className="font-mono text-xs text-primary/60 tracking-widest">{ps.id}</span>
+                                                <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover/card:bg-primary/20 group-hover/card:text-primary transition-colors">
+                                                    <ArrowLeft size={14} className="rotate-[135deg]" />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <h3 className="font-display text-xl text-white mb-2 uppercase">{ps.title}</h3>
+                                                <p className="text-sm text-muted-foreground font-light leading-relaxed">{ps.desc}</p>
+                                            </div>
+                                            <div className="mt-auto pt-4 border-t border-white/5 flex items-center gap-2">
+                                                <span className="w-2 h-2 rounded-full bg-primary/40 group-hover/card:bg-primary group-hover/card:animate-pulse" />
+                                                <span className="font-mono text-[10px] text-white/40 uppercase tracking-widest">Download PDF</span>
+                                            </div>
+                                        </motion.a>
+                                    ))}
+                                </div>
+                            </motion.section>
+
+                            {/* DimensionLine separator */}
+                            <DimensionLine label="VREF: 3.3V" orientation="horizontal" className="opacity-30" />
 
                             {/* Judging Criteria */}
                             {/* <motion.section

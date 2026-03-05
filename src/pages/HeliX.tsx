@@ -319,6 +319,7 @@ const HeliX = () => {
                                     ))}
                                 </div>
                             </motion.section>
+
                             {/* Problem Statements */}
                             <motion.section
                                 whileInView={{ opacity: 1, y: 0 }}
