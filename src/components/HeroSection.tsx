@@ -129,7 +129,7 @@ const HeroSection = () => {
                   WebkitTextFillColor: "transparent"
                 }}
               >
-                ₹2 LAKHS+
+                ₹2.5 LAKHS+
               </div>
             </div>
           </div>

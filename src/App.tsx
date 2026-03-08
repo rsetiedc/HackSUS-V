@@ -15,6 +15,7 @@ const HeliX = lazy(() => import("./pages/HeliX"));
 const ScreenX = lazy(() => import("./pages/ScreenX"));
 const UnmuteX = lazy(() => import("./pages/UnmuteX"));
 const Kruisex = lazy(() => import("./pages/Kruizex"));
+const MuLearn = lazy(() => import("./pages/MuLearn"));
 
 const queryClient = new QueryClient();
 
@@ -67,6 +68,7 @@ const AppShell = () => {
             <Route path="/screenx" element={<ScreenX />} />
             <Route path="/unmutex" element={<UnmuteX />} />
             <Route path="/kruizex" element={<Kruisex />} />
+            <Route path="/mulearn" element={<MuLearn />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
