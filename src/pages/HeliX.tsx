@@ -381,14 +381,14 @@ const HeliX = () => {
                                         {
                                             id: "PS_01",
                                             title: "GreenBuild AI",
-                                            desc: "AI-Powered Foundation Count, Load Analysis & Positioning Engine",
-                                            link: "/docs/Helix_PS/civil_PS1.pdf"
+                                            desc: "Intelligent Sustainable Construction Planner",
+                                            link: "/docs/Helix_PS/civil_PS2.pdf"
                                         },
                                         {
                                             id: "PS_02",
                                             title: "PEN Foundation AI Planner",
-                                            desc: "Intelligent Sustainable Construction Planner",
-                                            link: "/docs/Helix_PS/civil_PS2.pdf"
+                                            desc: "",
+                                            link: ""
                                         }
                                     ].map((ps, i) => (
                                         <motion.a
